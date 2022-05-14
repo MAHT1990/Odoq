@@ -1,0 +1,106 @@
+body {
+  margin : 0;
+  padding: 0;
+  font-size: 0;
+  font-family:나눔바른고딕;
+}
+
+nav {
+    width : 100%;
+    height : 50px;
+    background-color : black;
+}
+
+div.main_container{
+    padding : 20px;
+}
+
+div.plan_box {
+    font-size : 20px;
+    color : white;
+    position : relative;
+}
+
+header{
+    padding : 10px;
+}
+div.header_container {
+    font-size: 15px;
+}
+
+div.header_box {
+    font-size: 60px;
+    padding : 15px 0;
+}
+
+div.verticalLine1 {
+    width : 100%;
+    height : 8px;
+    background-color : black;
+  }
+
+div.question_container {
+      margin : 0;
+  }
+
+div.question_container_header{
+    padding : 0 10px;  
+    font-size: 20px;
+  }
+div.question_box {
+    margin : 0 auto;
+    /* background-color : olive; */
+  }
+
+div.question_box img {
+      display : block;
+      padding : 10px;
+      width : 100%;
+      max-width : 800px;
+      margin :auto;
+  }
+  
+div.verticalLine2 {
+    width : 100%;
+    height : 2px;
+    background-color : grey;
+}
+
+div.answer_container {
+    /* background-color: bisque; */
+    padding : 15px 0;
+}
+
+div.answer_header {
+    font-size : 20px;
+}
+
+div.verticalLine3 {
+    width : 100%;
+    height : 2px;
+    background-color :black;
+}
+
+div.aboutUs_container {
+    padding : 25px 0;
+}
+
+div.aboutUs_header {
+    font-size : 15px;
+}
+
+div.aboutUs_content {
+    font-size : 15px;
+}
+
+div.caution_container {
+    padding : 25px 0;
+}
+
+div.caution_header {
+    font-size : 15px;
+}
+
+div.caution_content {
+    font-size : 15px;
+}
