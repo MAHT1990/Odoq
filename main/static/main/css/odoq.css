@@ -11,14 +11,19 @@ nav {
     background-color : black;
 }
 
-div.main_container{
-    padding : 20px;
-}
-
 div.plan_box {
+    width : 50px;
+    height : 100%;
     font-size : 20px;
     color : white;
-    position : relative;
+    text-align : center;
+
+    float : right;
+}
+
+
+div.main_container{
+    padding : 20px;
 }
 
 header{
@@ -69,10 +74,31 @@ div.verticalLine2 {
 div.answer_container {
     /* background-color: bisque; */
     padding : 15px 0;
+    height : 40px;
 }
 
 div.answer_header {
+    padding : 0 10px 0 0;
+    text-align : center;
+    
     font-size : 20px;
+    height : 40px;
+    float : left;
+}
+
+div.answer_box {
+    text-align : center;
+    font-size : 20px;
+    color : gray;
+    
+    height : 40px;
+    float : left;
+}
+
+div.answer_button_box {
+    float : right;
+    height : 40px;
+    background-color : red;
 }
 
 div.verticalLine3 {
