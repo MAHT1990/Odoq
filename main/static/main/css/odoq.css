@@ -36,6 +36,7 @@ div.header_container {
 div.header_box {
     font-size: 60px;
     padding : 15px 0;
+    font-family: Abril Fatface;
 }
 
 div.verticalLine1 {
@@ -61,7 +62,7 @@ div.question_box img {
       display : block;
       padding : 10px;
       width : 100%;
-      max-width : 800px;
+      max-width : 400px;
       margin :auto;
   }
   
