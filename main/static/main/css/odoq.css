@@ -41,6 +41,7 @@ header{
     font-size: 75px;
     font-family: 'Abril Fatface', cursive;
     padding : 15px 0;
+    font-family: Abril Fatface;
 }
 
 .verticalLine1 {
@@ -66,7 +67,7 @@ header{
       display : block;
       padding : 10px;
       width : 100%;
-      max-width : 800px;
+      max-width : 400px;
       margin :auto;
   }
   
