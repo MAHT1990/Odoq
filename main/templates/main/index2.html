@@ -45,10 +45,10 @@
             </div>
             <div class="answer_input_button_box">
                     <div class="answer_box">
-                        <input id="answer_input" type="search" placeholder="정답입력란">
+                        <input id="answer_input" type="text" name="answer_input" placeholder="정답입력란"></input>
                     </div>
                     <div class="answer_button_box">
-                        <button id="answer_button" onClick="answer_post()">
+                        <button id="answer_button" onclick="answer_post()">
                             enter.
                         </button>
                     </div>
@@ -83,8 +83,8 @@
         </footer>
     </div>
     <script>
-        // 정답입력란이 Enter에 반응하도록.
-        document.getElementById('answer_input').addEventListener('search', answer_post);
+        // answer_input 값을 받아서 Debugging 해보기
+        document.getElementById('answer_input').addEventListener('search', debugging);
 
         function debugging(){
             console.log('connected');
@@ -99,11 +99,9 @@
                     const jsonResponse = JSON.parse(req.responseText);
                     const debugging = jsonResponse['debugging'];
                     console.log(debugging);
-                    document.getElementById('answer_input').value = jsonResponse['answer_response'];
                 }
             }
 
-            // POST 관련 보안을 위한 Cookie 처리
             function getCookie(name) {
                 var cookieValue = null;
                 if (document.cookie && document.cookie !== '') {
@@ -121,11 +119,10 @@
             }
 
             var csrftoken = getCookie('csrftoken');
+            // POST 요청시 csrf_token 처리 함수
 
             req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8")
             req.setRequestHeader("X-CSRFToken", csrftoken)
-
-            // 보낼 data 양식 맞춰서, send로 보내기.
 
             var data = "";
             data += 'answer_input='+document.getElementById('answer_input').value;
