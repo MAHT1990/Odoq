@@ -18,12 +18,12 @@ def current_question():
     # upload_date와 오늘 현재 시각을 비교하여 data를 확정한다.
     for q in question_queryset:
         #Debugging
-        print("upload_date is", q.upload_date)
-        print("type is", type(q.upload_date))
-        print(q.upload_date.tzinfo)
+        print("upload_datetime is", q.upload_datetime)
+        print("type is", type(q.upload_datetime))
+        print(q.upload_datetime.tzinfo)
         # question_current = question_queryset.first()
 
-        if q.upload_date.year == now.year and q.upload_date.month == now.month and q.upload_date.day==now.day:
+        if q.upload_datetime.year == now.year and q.upload_datetime.month == now.month and q.upload_datetime.day==now.day:
             question_current = q
 
             #Debugging

@@ -5,9 +5,9 @@ from .models import *
 
 @admin.register(Question)
 class QuestionAdmin(admin.ModelAdmin):
-    list_display=["code", "season", "img", "aswr", "upload_date"]
-    list_display_links=["code", "season", "img", "upload_date"]
+    list_display=["code", "season", "img", "aswr", "upload_datetime"]
+    list_display_links=["code", "season", "img", "upload_datetime"]
 
     class Meta:
-        ordering = ["-upload_date"]
+        ordering = ["-upload_datetime"]
     

@@ -7,7 +7,7 @@ class Question(models.Model):
     season = models.IntegerField()
     img = models.ImageField()
     aswr = models.CharField(max_length=255)
-    upload_date = models.DateTimeField(null=True) #업로드 예정일시
+    upload_datetime = models.DateTimeField(null=True) #업로드 예정일시
     created_at = models.DateTimeField(auto_now_add=True, null=True)
     updated_at = models.DateTimeField(auto_now = True, null=True)
     
