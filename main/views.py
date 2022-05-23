@@ -10,24 +10,27 @@ def current_question():
     
     # Question들의 QuertSet을 불러온다.
     question_queryset = Question.objects.all()
-    now = datetime.now()
+    rightnow = datetime.now()
 
     #Debugging
-    print("today is", now)
+    print("today is", rightnow)
 
     # upload_date와 오늘 현재 시각을 비교하여 data를 확정한다.
     for q in question_queryset:
         #Debugging
         print("upload_datetime is", q.upload_datetime)
         print("type is", type(q.upload_datetime))
-        print(q.upload_datetime.tzinfo)
+        # print(q.upload_datetime.tzinfo)
         # question_current = question_queryset.first()
 
-        if q.upload_datetime.year == now.year and q.upload_datetime.month == now.month and q.upload_datetime.day==now.day:
+        if q.upload_datetime.year == rightnow.year and q.upload_datetime.month == rightnow.month and q.upload_datetime.day==rightnow.day:
             question_current = q
 
             #Debugging
             print("today's question is",question_current)
+        else:
+            #수정
+            question_current = q
 
     content = {
         'code' : question_current.code,
