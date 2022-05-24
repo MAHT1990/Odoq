@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Abril+Fatface&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Fjalla+One&family=Nanum+Brush+Script&display=swap');
 
 body {
   margin : 0;
@@ -18,6 +18,7 @@ nav {
     line-height : 50px;
     height : 100%;
     font-size : 20px;
+    font-family: 'Fjalla One', sans-serif;
     color : white;
     text-align : center;
 
@@ -54,22 +55,35 @@ header{
       margin : 0;
   }
 
-.question_container_header{
-    padding : 0 10px;  
-    font-size: 25px;
-  }
-.question_box {
-    margin : 0 auto;
-    /* background-color : olive; */
-  }
+    .question_container_header{
+        padding : 0 10px;  
+        font-size: 25px;
+        font-family: 'Fjalla One', sans-serif;
+        display : flex;
+    }
 
-.question_box img {
-      display : block;
-      padding : 10px;
-      width : 100%;
-      max-width : 400px;
-      margin :auto;
-  }
+        .season_box {
+            flex : 1;
+            display : inline-block;
+        }
+        .countdown_box {
+            flex : 1;
+            display : inline_block;
+            text-align : right;
+        }
+
+    .question_box {
+        margin : 0 auto;
+        /* background-color : olive; */
+    }
+
+        .question_box img {
+            display : block;
+            padding : 10px;
+            width : 100%;
+            max-width : 400px;
+            margin :auto;
+        }
   
 .verticalLine2 {
     width : 100%;
@@ -83,54 +97,55 @@ header{
     display : flex;
 }
 
-.answer_header {
-    display : inline-block;
-    flex : 1;
-    padding : 0.3em 10px 0.3em 0;
-    text-align : center;
-    font-size : 20px;
-}
+    .answer_header {
+        display : inline-block;
+        flex : 1;
+        padding : 0.3em 10px 0.3em 0;
+        font-size : 20px;
+        font-family: 'Fjalla One', sans-serif;
+    }
 
-.answer_container .answer_input_button_box {
-    display : inline-block;
-    flex : 4;
-}
+    .answer_container .answer_input_button_box {
+        display : inline-block;
+        flex : 4;
+    }
 
     /* .answer_header span {
         line-height: 40px;
     } */
 
-.answer_box {
-    display : inline-block;
-    padding : 0.3em 10px 0.3em 0;
-    text-align : center;
-    font-size : 20px;
-}
+        .answer_box {
+            display : inline-block;
+            padding : 0.3em 10px 0.3em 0;
+            text-align : center;
+            font-size : 20px;
+        }
 
-.answer_box input {
-    padding : 0;
-    border : 0;
-    font-size : 20px;
-}
+        .answer_box input {
+            padding : 0;
+            border : 0;
+            font-size : 20px;
+        }
 
-.answer_button_box {
-    float : right;
-    width : 80px;
-    height : 35.46px; /*answer_header의 높이 + padding*/
-}
+        .answer_button_box {
+            float : right;
+            width : 80px;
+            height : 35.46px; /*answer_header의 높이 + padding*/
+        }
 
-#answer_button {
-    width : 100%;
-    height : 100%; 
-    border : 0;
-    padding : 0;
-    background-color : black;
+            #answer_button {
+                width : 100%;
+                height : 100%; 
+                border : 0;
+                padding : 0;
+                background-color : black;
 
-    font-size : 20px;
-    line-height: 35.46px; /*부모 .answer_button_box의 height*/
-    color : white;
-    font-weight: normal;
-}
+                font-size : 20px;
+                font-family: 'Fjalla One', sans-serif;
+                line-height: 35.46px; /*부모 .answer_button_box의 height*/
+                color : white;
+                font-weight: normal;
+            }
 
 .verticalLine3 {
     width : 100%;

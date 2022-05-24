@@ -21,8 +21,8 @@ def current_question():
     question_next_countdown = None
 
     #Debugging
-    print("today is", rightnow)
-    print("")
+    # print("today is", rightnow)
+    # print("")
     # print("today's tzinfo is ", rightnow.tzinfo)
 
     # upload_date와 오늘 현재 시각을 비교하여 data를 확정한다.
@@ -32,11 +32,11 @@ def current_question():
         delta_datetime = rightnow - q.upload_datetime
 
         #Debugging
-        print("0. question code is ", q)
-        print("1. upload_datetime is", q.upload_datetime)
-        print("2. upload_datetime's tzinfo is", q.upload_datetime.tzinfo)
-        print("3. delta_time is ", delta_datetime)
-        print("")
+        # print("0. question code is ", q)
+        # print("1. upload_datetime is", q.upload_datetime)
+        # print("2. upload_datetime's tzinfo is", q.upload_datetime.tzinfo)
+        # print("3. delta_time is ", delta_datetime)
+        # print("")
 
         #delta_datetime이 0이상이면, 지나간 문제다.
         #절댓값이 가장 낮은 값이 현재 업로드되어야하는 문제이다.
@@ -44,12 +44,12 @@ def current_question():
         if q.upload_datetime >= rightnow:
             if question_next == None:
                 question_next = q
-                question_next_countdown = delta_datetime.total_seconds()
+                question_next_countdown = round(delta_datetime.total_seconds())
 
             else:
                 if q.upload_datetime < question_next.upload_datetime:
                     question_next = q
-                    question_next_countdown = delta_datetime.total_seconds()
+                    question_next_countdown = round(delta_datetime.total_seconds())
                 else:
                     None
 
@@ -63,17 +63,23 @@ def current_question():
                 else:
                     None
 
+    if question_next_countdown == None:
+        question_next_countdown = 10000000 
+        #다음문제 없을 때의 처리.
+            #
+
     #Debugging            
-    print("today's question is",question_current)
-    print("next question is ", question_next)
-    print("next question countdowns in seconds is ", -question_next_countdown, "seconds")
-    print(type(question_next_countdown))
+    # print("today's question is",question_current)
+    # print("next question is ", question_next)
+    # print("next question countdowns in seconds is ", -question_next_countdown, "seconds")
+    # print(type(question_next_countdown))
 
     content = {
         'code' : question_current.code,
         'season' : question_current.season,
         'img' : question_current.img,
-        'aswr' : question_current.aswr
+        'aswr' : question_current.aswr,
+        'countdown' : -question_next_countdown
     }
 
     return content
@@ -89,6 +95,7 @@ def index(request):
     # print(content)
 
     return render(request, 'main/index.html', content)
+    # return render(request, 'main/timer_practice.html')
 
 
 
@@ -98,11 +105,15 @@ def answer_post(request):
     answer_input = request.POST.get("answer_input")
     # answer_question_code = request.POST.get("question_code")
 
-    if answer_input==current_question()['aswr']:
-        answer_response = 'Correct'
+    if request.method =='POST':
+        if answer_input==current_question()['aswr']:
+            answer_response = 'Correct'
 
-    else:
-        answer_response = 'Wrong'
+        else:
+            answer_response = 'Wrong'
+    
+    if request.method =='GET':
+        answer_response = 'Error'
 
     response_data = {
         'status' : 200,

@@ -6,6 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="{% static 'main/css/odoq.css'%}">
+    <script src="{% static 'main/js/answer_post.js'%}"></script>
+    <script src="{% static 'main/js/timer.js'%}"></script>
     <title>Odoq</title>
 </head>
 <body>
@@ -30,7 +32,8 @@
     
         <div class="question_container">
             <div class="question_container_header">
-                <p>Season {{season}} #{{code}}</p>
+                <p class="season_box">Season {{season}} #{{code}}</p>
+                <p class="countdown_box"></p>
             </div>
             <div class="question_box">
                 <img src="{{img.url}}" alt="load Error">
@@ -83,6 +86,24 @@
         </footer>
     </div>
     <script>
+        
+        window.onload = function(){
+            let duration = "{{countdown}}";
+
+            let initial_hour = parseInt(duration/3600);
+            let initial_min = parseInt((duration%3600)/60);
+            let initial_sec = parseInt(duration%60);
+
+            element = document.getElementsByClassName("countdown_box")[0];
+            element.textContent = `${paddedFormat(initial_hour)}:${paddedFormat(initial_min)}:${paddedFormat(initial_sec)}`;
+
+            startCountDown(duration, element);
+            
+            //Debugging
+            // console.log('window.onload called');
+            // console.log("duration valer is ", duration);
+            // console.log("element is ", element);
+        }
         // 정답입력란이 Enter에 반응하도록.
         document.getElementById('answer_input').addEventListener('search', answer_post);
 
@@ -90,47 +111,7 @@
             console.log('connected');
         }
 
-        function answer_post(){
-            let url = 'answer_post/';
-            let req = new XMLHttpRequest();
-            req.open('POST', url);
-            req.onreadystatechange = function(){
-                if(this.readyState == 4 && this.status == 200) {
-                    const jsonResponse = JSON.parse(req.responseText);
-                    const debugging = jsonResponse['debugging'];
-                    console.log(debugging);
-                    document.getElementById('answer_input').value = jsonResponse['answer_response'];
-                }
-            }
-
-            // POST 관련 보안을 위한 Cookie 처리
-            function getCookie(name) {
-                var cookieValue = null;
-                if (document.cookie && document.cookie !== '') {
-                    var cookies = document.cookie.split(';');
-                    for (var i = 0; i < cookies.length; i++) {
-                        var cookie = cookies[i].trim();
-                        // Does this cookie string begin with the name we want?
-                        if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                        break;
-                        }
-                    }
-                }   
-                return cookieValue;
-            }
-
-            var csrftoken = getCookie('csrftoken');
-
-            req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8")
-            req.setRequestHeader("X-CSRFToken", csrftoken)
-
-            // 보낼 data 양식 맞춰서, send로 보내기.
-
-            var data = "";
-            data += 'answer_input='+document.getElementById('answer_input').value;
-            req.send(data);
-        }
+        
     </script>
 </body>
 </html>
