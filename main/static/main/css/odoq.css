@@ -38,6 +38,8 @@ nav {
 
 .main_container{
     padding : 20px;
+    width : 550px;
+    margin : auto;
 }
 
 header{
@@ -126,16 +128,18 @@ header{
 
         .answer_box {
             display : inline-block;
+            width : 200px;
             padding : 0.3em 10px 0.3em 0;
             text-align : center;
             font-size : 20px;
         }
 
-        .answer_box input {
-            padding : 0;
-            border : 0;
-            font-size : 20px;
-        }
+            .answer_box input {
+                padding : 0;
+                width : 100%;
+                border : 0;
+                font-size : 20px;
+            }
 
         .answer_button_box {
             float : right;

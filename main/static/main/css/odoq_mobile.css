@@ -6,7 +6,7 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Abel&family=Abril+Fatface&family=Fjalla+One&family=Nanum+Gothic&display=swap');
 
-@media screen and (max-width : 450px) {
+@media screen and (max-width : 420px) {
 
     body {
     margin : 0;
