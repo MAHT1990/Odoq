@@ -3,6 +3,7 @@ from django.urls import reverse
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from .models import *
 from datetime import *
+from django.views.decorators.csrf import csrf_exempt
 
 ######## QUESTION MODEL FILTERING METHODS ########
 
@@ -100,7 +101,7 @@ def index(request):
 
 
 #### 답안 입력 POST 처리 VIEW ####
-
+@csrf_exempt
 def answer_post(request):
     answer_input = request.POST.get("answer_input")
     # answer_question_code = request.POST.get("question_code")
