@@ -1,0 +1,225 @@
+/****************************************************************/
+/****************************************************************/
+/******************** responsive Web CSS  ***********************/
+/****************************************************************/
+/****************************************************************/
+
+@import url('https://fonts.googleapis.com/css2?family=Abel&family=Abril+Fatface&family=Fjalla+One&family=Nanum+Gothic&display=swap');
+
+@media screen and (max-width : 450px) {
+
+    body {
+    margin : 0;
+    padding: 0;
+    font-size: 0;
+    font-family:나눔바른고딕;
+    }
+    nav {
+        width : 100%;
+        height : 40px;
+        background-color : black;
+    }
+
+    .plan_box {
+        width : 70px;
+        line-height : 40px;
+        height : 100%;
+        font-size : 20px;
+        font-family: 'Fjalla One', sans-serif;
+        color : white;
+        text-align : center;
+
+        float : right;
+    }
+
+    .plan_box:hover {
+        width : 70px;
+        line-height : 50px;
+        height : 100%;
+        font-size : 20px;
+        font-family: 'Fjalla One', sans-serif;
+        color : rgb(223, 223, 223);
+        text-align : center;
+
+        float : right;
+    }
+
+    .main_container{
+        padding : 10px;
+    }
+
+    header{
+        padding : 5px;
+    }
+    .header_container {
+        font-size: 20px;
+        font-family: 'Abril Fatface', cursive;
+    }
+
+    .header_box {
+        font-size: 50px;
+        font-family: 'Abril Fatface', cursive;
+        padding : 10px 0;
+        font-family: Abril Fatface;
+    }
+
+    .verticalLine1 {
+        width : 100%;
+        height : 4px;
+        background-color : black;
+    }
+
+    .question_container {
+        margin : 0;
+    }
+
+        .question_container_header{
+            padding : 0 5px;  
+            font-size: 15px;
+            font-family: 'Fjalla One', sans-serif;
+            display : flex;
+        }
+
+            .season_box {
+                flex : 1;
+                display : inline-block;
+            }
+            .countdown_box {
+                flex : 1;
+                display : inline_block;
+                text-align : right;
+            }
+
+        .question_box {
+            margin : 0 auto;
+            /* background-color : olive; */
+        }
+
+            .question_box img {
+                display : block;
+                padding : 0px;
+                width : 100%;
+                max-width : 550px;
+                margin :auto;
+            }
+    
+    .verticalLine2 {
+        width : 100%;
+        height : 2px;
+        background-color : grey;
+    }
+
+    .answer_container {
+        /* background-color: bisque; */
+        padding : 12px 0 ;
+        display : flex;
+    }
+
+        .answer_header {
+            display : inline-block;
+            flex : 1;
+            padding : 0.3em 10px 0.3em 0;
+            font-size : 20px;
+            font-family: 'Fjalla One', sans-serif;
+        }
+
+        .answer_container .answer_input_button_box {
+            flex : 4;
+        }
+
+        /* .answer_header span {
+            line-height: 40px;
+        } */
+
+            .answer_box {
+                display : inline-block;
+                flex : 1;
+                padding : 0.3em 0px 0.3em 0;
+                font-size : 20px; /*글자는 없지만 상하 정렬을 위해서 font size를 줌.*/
+                text-align : center;
+            }
+
+                .answer_box input {
+                    padding : 0;
+                    border : 0;
+                    width : 180px;
+                    font-size : 20px;
+                     font-family: 'Nanum Gothic', sans-serif;
+                }
+
+            .answer_button_box {
+                float : right;
+                width : 80px;
+                height : 35.46px; /*answer_header의 높이 + padding*/
+            }
+
+                #answer_button {
+                    width : 100%;
+                    height : 100%; 
+                    border : 0;
+                    padding : 0;
+                    background-color : black;
+
+                    font-size : 20px;
+                    font-family: 'Fjalla One', sans-serif;
+                    line-height: 35.46px; /*부모 .answer_button_box의 height*/
+                    color : white;
+                    font-weight: normal;
+                }
+
+                #answer_button:hover {
+                    width : 100%;
+                    height : 100%; 
+                    border : 0;
+                    padding : 0;
+                    background-color : rgb(223, 223, 223);
+
+                    font-size : 20px;
+                    font-family: 'Fjalla One', sans-serif;
+                    line-height: 35.46px; /*부모 .answer_button_box의 height*/
+                    color : black;
+                    font-weight: normal;
+                }
+
+    .verticalLine3 {
+        width : 100%;
+        height : 2px;
+        background-color :black;
+    }
+
+    .aboutUs_container {
+        padding : 20px 0;
+    }
+
+    .aboutUs_header {
+        font-size : 18px;
+        line-height : 2;
+        font-family: 'Abel', sans-serif;
+        font-weight: 200;
+    }
+
+    .aboutUs_content {
+        font-size : 17px;
+        font-family: 'Nanum Gothic', sans-serif;
+        line-height : 1.7;
+    }
+
+    .caution_container {
+        padding : 20px 0;
+    }
+
+    .caution_header {
+        font-size : 18px;
+        line-height : 2;
+
+        font-family: 'Abel', sans-serif;
+        font-weight: 200;
+    }
+
+    .caution_content {
+        font-size : 17px;
+        font-family: 'Nanum Gothic', sans-serif;
+        line-height : 1.7;
+    }
+
+}
