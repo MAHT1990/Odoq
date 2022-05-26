@@ -46,6 +46,9 @@
 
     .main_container{
         padding : 10px;
+        box-sizing : border-box;
+        width : 100%;
+        max-width : 550px;
     }
 
     header{
@@ -98,7 +101,6 @@
             .question_box img {
                 display : block;
                 padding : 0px;
-                width : 100%;
                 max-width : 550px;
                 margin :auto;
             }
