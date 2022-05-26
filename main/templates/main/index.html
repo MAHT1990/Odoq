@@ -24,7 +24,7 @@
             <div class="header_container">
                 One day One question.
                 <div class="header_box">
-                    Odoq.com
+                    Odoq2.com
                 </div>
             </div>
         </header>
@@ -90,16 +90,23 @@
         
         window.onload = function(){
             let duration = "{{countdown}}";
-
-            let initial_hour = parseInt(duration/3600);
-            let initial_min = parseInt((duration%3600)/60);
-            let initial_sec = parseInt(duration%60);
-
             element = document.getElementsByClassName("countdown_box")[0];
-            element.textContent = `${paddedFormat(initial_hour)}:${paddedFormat(initial_min)}:${paddedFormat(initial_sec)}`;
 
-            startCountDown(duration, element);
+            // 넘어온 duration 값이 0보다 크면, 카운트다운.
+            if(duration > 0){
+                let initial_hour = parseInt(duration/3600);
+                let initial_min = parseInt((duration%3600)/60);
+                let initial_sec = parseInt(duration%60);
+
+                element.textContent = `${paddedFormat(initial_hour)}:${paddedFormat(initial_min)}:${paddedFormat(initial_sec)}`;
+                startCountDown(duration, element);
+            }
             
+            // 넘어온 duration 값이 0보다 작거나 같으면, 
+            else{
+                console.log("duration is 0 ");
+                element.textContent = "THIS IS LAST";
+            }
             //Debugging
             // console.log('window.onload called');
             // console.log("duration valer is ", duration);

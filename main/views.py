@@ -45,12 +45,12 @@ def current_question():
         if q.upload_datetime >= rightnow:
             if question_next == None:
                 question_next = q
-                question_next_countdown = round(delta_datetime.total_seconds())
+                question_next_countdown = -round(delta_datetime.total_seconds())
 
             else:
                 if q.upload_datetime < question_next.upload_datetime:
                     question_next = q
-                    question_next_countdown = round(delta_datetime.total_seconds())
+                    question_next_countdown = -round(delta_datetime.total_seconds())
                 else:
                     None
 
@@ -64,10 +64,9 @@ def current_question():
                 else:
                     None
 
-    if question_next_countdown == None:
-        question_next_countdown = 10000000 
+    if question_next == None:
+        question_next_countdown = 0
         #다음문제 없을 때의 처리.
-            #
 
     #Debugging            
     # print("today's question is",question_current)
@@ -80,7 +79,7 @@ def current_question():
         'season' : question_current.season,
         'img' : question_current.img,
         'aswr' : question_current.aswr,
-        'countdown' : -question_next_countdown
+        'countdown' : question_next_countdown
     }
 
     return content

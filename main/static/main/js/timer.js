@@ -16,7 +16,10 @@ function startCountDown(duration, element) {
         element.textContent = `${paddedFormat(hour)}:${paddedFormat(min)}:${paddedFormat(sec)}`;
 
         secondsRemaining = secondsRemaining - 1;
-        if (secondsRemaining < 0) { clearInterval(countInterval) };
+        if (secondsRemaining < 0) { 
+            clearInterval(countInterval);
+            location.reload(); 
+        };
 
     }, 1000);
 }
