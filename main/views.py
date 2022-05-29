@@ -90,17 +90,23 @@ def current_notice():
     notice_queryset = Notice.objects.all()
     current_notice = notice_queryset.first()
 
-    content = {
-        'notice' : current_notice.img
-    }
+    if current_notice == None:
+        return None
+    
+    else:
+        content = {
+            'notice' : current_notice.img
+        }
 
-    return content
+        return content
 
 ######## 요청 응답처리 VIEWS ########
 
 def index(request):
     content = current_question()
-    content.update(current_notice())
+
+    if current_notice() != None:
+        content.update(current_notice())
 
     #Debug Log
     # print("content is ",content)
