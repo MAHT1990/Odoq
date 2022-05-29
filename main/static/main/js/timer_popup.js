@@ -1,3 +1,5 @@
+// TIMER 관련 함수의 정의//
+
 function paddedFormat(num) {
     return num < 10 ? "0" + num : num; 
 }
@@ -22,4 +24,18 @@ function startCountDown(duration, element) {
         };
 
     }, 1000);
+}
+
+//Popup 관련 함수의 정의//
+
+function plan_popup(){
+    let popup = document.getElementsByClassName("plan_popup")[0];
+
+    popup.style.display = "block";
+}
+
+function close_plan_popup(){
+    let popup = document.getElementsByClassName("plan_popup")[0];
+
+    popup.style.display = "none";
 }

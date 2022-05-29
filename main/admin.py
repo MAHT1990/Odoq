@@ -10,4 +10,12 @@ class QuestionAdmin(admin.ModelAdmin):
 
     class Meta:
         ordering = ["-upload_datetime"]
-    
+
+
+@admin.register(Notice)
+class NoticeAdmin(admin.ModelAdmin):
+    list_display = ["season", "img"]
+    list_display_links=["season", "img"]
+
+    class Meta:
+        ordering = ["season"]

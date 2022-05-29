@@ -8,14 +8,23 @@
     <link rel="stylesheet" type="text/css" href="{% static 'main/css/odoq.css'%}">
     <link rel="stylesheet" type="text/css" href="{% static 'main/css/odoq_mobile.css'%}">
     <script src="{% static 'main/js/answer_post.js'%}"></script>
-    <script src="{% static 'main/js/timer.js'%}"></script>
+    <script src="{% static 'main/js/timer_popup.js'%}"></script>
     <title>Odoq</title>
 </head>
 <body>
      <nav class="navbar">
         <div class="help_box"></div>
         <div class="middle_box"></div>
-        <div class="plan_box"><a onclick="debugging()">plan</a></div>
+        <div class="plan_box">
+            <a onclick="plan_popup()">plan</a>
+        </div>
+        <div class="plan_popup" onclick="close_plan_popup()">
+            <div class="plan_popup_contents">
+                <div class="plan_popup_contents_header">Plan</div>
+                <div class="plan_popup_contents_verticalline"></div>
+                <img class="plan_popup_contents_img" src="{{notice.url}}">
+            </div>
+        </div>
      </nav>
 
      

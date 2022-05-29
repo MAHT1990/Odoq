@@ -84,15 +84,26 @@ def current_question():
 
     return content
 
+######## NOTICE MODEL FILTERING METHODS ########
 
+def current_notice():
+    notice_queryset = Notice.objects.all()
+    current_notice = notice_queryset.first()
+
+    content = {
+        'notice' : current_notice.img
+    }
+
+    return content
 
 ######## 요청 응답처리 VIEWS ########
 
 def index(request):
     content = current_question()
+    content.update(current_notice())
 
     #Debug Log
-    # print(content)
+    # print("content is ",content)
 
     return render(request, 'main/index.html', content)
     # return render(request, 'main/timer_practice.html')
