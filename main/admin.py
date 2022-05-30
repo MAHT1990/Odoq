@@ -14,8 +14,8 @@ class QuestionAdmin(admin.ModelAdmin):
 
 @admin.register(Notice)
 class NoticeAdmin(admin.ModelAdmin):
-    list_display = ["season", "img"]
+    list_display = ["season", "img", "created_at", "updated_at"]
     list_display_links=["season", "img"]
 
     class Meta:
-        ordering = ["season"]
+        ordering = ["created_at"]
