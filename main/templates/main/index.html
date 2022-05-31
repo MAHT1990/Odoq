@@ -142,11 +142,16 @@
             //Debugging
             console.log(self.value);
             if(self.value == ''){
-                console.log("EMPTY");
+                //Debugging
+                // console.log("EMPTY");
+                //
+                
+                //값이 비면 icon을 다시 생성해줄 것이다.
                 self.style.backgroundImage = "url(https://cdn3.iconfinder.com/data/icons/web-and-mobile-ui-smooth-line-3/48/131-512.png)";
             }
 
             else{
+                //값이 입력되면 icon을 숨겨줄 것이다.
                 self.style.backgroundImage = 'none';
             }
         }
