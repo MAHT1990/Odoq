@@ -88,7 +88,12 @@ def current_question():
 
 def current_notice():
     notice_queryset = Notice.objects.all()
+    notice_queryset.order_by('created_at')
     current_notice = notice_queryset.first()
+
+    #Debugging
+    print('notice_queryset is', notice_queryset)
+    print('Current notice is ', current_notice)
 
     if current_notice == None:
         return None
