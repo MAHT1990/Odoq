@@ -20,13 +20,17 @@
         </div>
         <div class="plan_popup" onclick="close_plan_popup()">
             <div class="plan_popup_contents">
-                <div class="plan_popup_contents_header">Plan</div>
-                <div class="plan_popup_contents_verticalline"></div>
-                {% if notice %}
-                <img class="plan_popup_contents_img" src="{{notice.url}}">
-                {% else %}
-                <img class="plan_popup_contents_img" src="{% static 'BAM.png' %}" alt="no image">
-                {% endif %}
+                <div class="plan_popup_contents_header_verticalline">
+                    <div class="plan_popup_contents_header">Plan</div>
+                    <div class="plan_popup_contents_verticalline"></div>
+                </div>
+                <div class="plan_popup_contents_img_box">
+                    {% if notice %}
+                    <img class="plan_popup_contents_img" src="{{notice.url}}">
+                    {% else %}
+                    <img class="plan_popup_contents_img" src="{% static 'BAM.png' %}" alt="no image">
+                    {% endif %}
+                </div>
             </div>
         </div>
      </nav>
