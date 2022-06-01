@@ -18,8 +18,15 @@ class Question(models.Model):
 class Notice(models.Model):
     season = models.IntegerField()
     img = models.ImageField(null=True)
+    text = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True, null=True)
     updated_at = models.DateTimeField(auto_now=True, null=True)
+
+    def __str__(self):
+        return self.text
+    
+    class Meta:
+        ordering = ["-created_at"]
 
 
 class Comment(models.Model):
