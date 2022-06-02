@@ -51,6 +51,18 @@
         <div class="verticalLine1"></div>
         
         {% if weekday == 5 or weekday == 6 %}
+        <div class="weekend_timer_container">
+    
+            <div class="weekend_timer_container_header">
+                weekend timer goes here.
+            </div>
+        
+            <div class="weekend_timer_box">
+                
+            </div>
+        </div>
+
+        {% else %}
         <div class="question_container">
             <div class="question_container_header">
                 <p class="season_box">Season {{season}} #{{code}}</p>
@@ -62,18 +74,6 @@
                 {% else %}
                 <img src="{% static 'BAM.png' %}" alt="load Error">
                 {% endif %}
-            </div>
-        </div>
-        
-        {% else %}
-        <div class="weekend_timer_container">
-    
-            <div class="weekend_timer_container_header">
-                weekend timer goes here.
-            </div>
-        
-            <div class="weekend_timer_box">
-                
             </div>
         </div>
         
