@@ -7,8 +7,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="{% static 'main/css/odoq.css'%}">
     <link rel="stylesheet" type="text/css" href="{% static 'main/css/odoq_mobile.css'%}">
+    <link rel="stylesheet" type="text/css" href="{% static 'main/css/weekend_timer.css'%}">
     <script src="{% static 'main/js/answer_post.js'%}"></script>
     <script src="{% static 'main/js/timer_popup.js'%}"></script>
+    <script src="{% static 'main/js/weekend_timer.js'%}"></script>
     <title>Odoq</title>
 </head>
 <body>
@@ -16,7 +18,7 @@
         <div class="help_box"></div>
         <div class="middle_box"></div>
         <div class="plan_box" onclick="plan_popup()">
-            <span>plan</span>
+            <img src="{% static 'main/images/plan_icon.png' %}" alt="Plan">
         </div>
         <div class="plan_popup" onclick="close_plan_popup()">
             <div class="plan_popup_contents">
@@ -47,7 +49,8 @@
         </header>
         
         <div class="verticalLine1"></div>
-    
+        
+        {% if weekday == 5 or weekday == 6 %}
         <div class="question_container">
             <div class="question_container_header">
                 <p class="season_box">Season {{season}} #{{code}}</p>
@@ -61,7 +64,20 @@
                 {% endif %}
             </div>
         </div>
+        
+        {% else %}
+        <div class="weekend_timer_container">
     
+            <div class="weekend_timer_container_header">
+                weekend timer goes here.
+            </div>
+        
+            <div class="weekend_timer_box">
+                
+            </div>
+        </div>
+        
+        {% endif %}
         <div class="verticalLine2"></div>
     
         <div class="answer_container">
@@ -108,7 +124,8 @@
         </footer>
     </div>
     <script>
-        
+        // Window가 load되면 자동으로 실행된다.
+        //template TAG 때문에 .js 파일로 옮기면 안됨.
         window.onload = function(){
             let duration = "{{countdown}}";
             element = document.getElementsByClassName("countdown_box")[0];
@@ -133,22 +150,22 @@
             // console.log("duration valer is ", duration);
             // console.log("element is ", element);
         }
-        // 정답입력란이 Enter에 반응하도록.
-        // document.getElementById('answer_input').addEventListener('search', answer_post);
+
+
+        // 정답입력란 onkeydown, Enter에 반응하도록.
         function enter(event){
             var x = event.key;
             if(x == "Enter"){
                 answer_post();    
             }
         }   
-        // 정답입력란의 내용이 변경될 때, 아이콘이 없어지도록.
+        // 정답입력란 oninput, 아이콘이 없어지거나, 다시 생성되거나.
         function hideIcon(self){
             //Debugging
             console.log(self.value);
             if(self.value == ''){
                 //Debugging
                 // console.log("EMPTY");
-                //
                 
                 //값이 비면 icon을 다시 생성해줄 것이다.
                 self.style.backgroundImage = "url(https://cdn3.iconfinder.com/data/icons/web-and-mobile-ui-smooth-line-3/48/131-512.png)";
