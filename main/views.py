@@ -8,13 +8,21 @@ from django.views.decorators.csrf import csrf_exempt
 ######## QUESTION MODEL FILTERING METHODS ########
 
 def current_question():
+    #요일 처리(금요일이면, content['friday'] = Boolean)
+    seoul_timezone = timezone(timedelta(hours=9))
+    rightnow_kor = datetime.now(tz=seoul_timezone)
+    rightnow_weekday_kor = rightnow_kor.weekday()
+
+    #Debugging
+    # print("Seoul now is", rightnow_kor)
+    # print("Seoul now weekday is", rightnow_weekday_kor)
     
     # Question들의 QuerySet을 불러온다.
     question_queryset = Question.objects.all()
     
     #현재 시각을 UTC 기준으로 선언한다.
     #DB에 있는 문제들의 업로드 날짜들은, UTC시각기준이다.
-    rightnow = datetime.now(tz=timezone.utc)
+    rightnow_utc = datetime.now(tz=timezone.utc)
 
     # 현재 문제와 다음 문제를 확정하기위한 Delta값
     question_current = None
@@ -22,15 +30,15 @@ def current_question():
     question_next_countdown = None
 
     #Debugging
-    # print("today is", rightnow)
+    # print("today is", rightnow_utc)
     # print("")
-    # print("today's tzinfo is ", rightnow.tzinfo)
+    # print("today's tzinfo is ", rightnow_utc.tzinfo)
 
     # upload_date와 오늘 현재 시각을 비교하여 data를 확정한다.
     for q in question_queryset:
         
         #now와의 시간차 계산
-        delta_datetime = rightnow - q.upload_datetime
+        delta_datetime = rightnow_utc - q.upload_datetime
 
         #Debugging
         # print("0. question code is ", q)
@@ -42,7 +50,7 @@ def current_question():
         #delta_datetime이 0이상이면, 지나간 문제다.
         #절댓값이 가장 낮은 값이 현재 업로드되어야하는 문제이다.
 
-        if q.upload_datetime >= rightnow:
+        if q.upload_datetime >= rightnow_utc:
             if question_next == None:
                 question_next = q
                 question_next_countdown = -round(delta_datetime.total_seconds())
@@ -75,6 +83,7 @@ def current_question():
     # print(type(question_next_countdown))
 
     content = {
+        'weekday' : rightnow_weekday_kor,
         'code' : question_current.code,
         'season' : question_current.season,
         'img' : question_current.img,
