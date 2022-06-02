@@ -49,6 +49,22 @@
         /* padding : 15px; */
         font-family: 'Abril Fatface', cursive;
     }
+
+    .plan_popup_contents {
+        position : absolute;
+        left : 50%; top : 50%;
+        transform: translate(-50%, -50%);
+        width:75%;
+        height:75%;
+        background-color : white;
+        padding : 15px;
+
+        display : flex;
+        flex-direction : column;
+        justify-content : center;
+        
+        border-radius: 10px;
+    }
         
 
     .main_container{
