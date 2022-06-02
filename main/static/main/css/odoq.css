@@ -22,7 +22,13 @@ nav {
     text-align : center;
     cursor : pointer;
     float : right;
+    box-sizing: border-box;
+    padding : 7.5px;
 }
+
+    .plan_box img {
+        height : 100%;
+    }
 
 .plan_box:hover {
     width : 70px;
@@ -49,7 +55,8 @@ nav {
         position : absolute;
         left : 50%; top : 50%;
         transform: translate(-50%, -50%);
-        width:80%;
+        max-width:420px;
+        width : 80%;
         height:80%;
         background-color : white;
         padding : 15px;
@@ -78,6 +85,7 @@ nav {
 
     .plan_popup_contents_img_box{
         overflow : auto;
+        width : 100%;
         flex : 6;
     }
 
