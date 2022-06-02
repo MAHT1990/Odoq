@@ -1,9 +1,12 @@
 // TIMER 관련 함수의 정의//
 
+
+//10보다 작으면 앞에 0붙여주는 함수
 function paddedFormat(num) {
     return num < 10 ? "0" + num : num; 
 }
 
+//실제 COUNTDOWN
 function startCountDown(duration, element) {
 
     let secondsRemaining = duration;
