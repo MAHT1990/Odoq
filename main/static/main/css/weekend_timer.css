@@ -1,3 +1,38 @@
+@import url('https://fonts.googleapis.com/css2?family=Abel&family=Abril+Fatface&family=Fjalla+One&family=Kdam+Thmor+Pro&family=Nanum+Gothic&display=swap');
+
 .weekend_timer_container{
-    font-size: 100px;
+    font-size: 40px;
+}
+
+.weekend_timer_container_header{
+    /* padding : 15px; */
+    font-family: 'Abril Fatface', cursive;
+}
+
+.weekend_timer_box{
+    font-size : 3.1em;
+    /* padding : 30px 30px 30px 30px; */
+    text-align : center;
+    margin : 0;
+    font-family: 'Kdam Thmor Pro', sans-serif;
+}
+
+@media screen and (max-width : 575px) {
+    .weekend_timer_box{
+        font-size : 2.5em;
+        /* padding : 30px 30px 30px 30px; */
+        text-align : center;
+        margin : 0;
+        font-family: 'Kdam Thmor Pro', sans-serif;
+    }
+}
+
+@media screen and (max-width : 420px) {
+    .weekend_timer_box{
+        font-size : 1.6em;
+        /* padding : 30px 30px 30px 30px; */
+        text-align : center;
+        margin : 15px 0;
+        font-family: 'Kdam Thmor Pro', sans-serif;
+    }
 }
