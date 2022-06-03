@@ -10,7 +10,6 @@
     <link rel="stylesheet" type="text/css" href="{% static 'main/css/weekend_timer.css'%}">
     <script src="{% static 'main/js/answer_post.js'%}"></script>
     <script src="{% static 'main/js/timer_popup.js'%}"></script>
-    <script src="{% static 'main/js/weekend_timer.js'%}"></script>
     <title>Odoq</title>
 </head>
 <body>
@@ -54,7 +53,6 @@
         <div class="weekend_timer_container">
     
             <div class="weekend_timer_container_header">
-                weekend timer goes here.
             </div>
         
             <div class="weekend_timer_box">
@@ -76,8 +74,7 @@
                 {% endif %}
             </div>
         </div>
-        
-        {% endif %}
+
         <div class="verticalLine2"></div>
     
         <div class="answer_container">
@@ -95,6 +92,8 @@
                     </div>
             </div>
         </div>
+        
+        {% endif %}
     
         <div class="verticalLine3"></div>
        
@@ -127,8 +126,14 @@
         // Window가 load되면 자동으로 실행된다.
         //template TAG 때문에 .js 파일로 옮기면 안됨.
         window.onload = function(){
+            let weekday = "{{weekday}}";
             let duration = "{{countdown}}";
-            element = document.getElementsByClassName("countdown_box")[0];
+            
+            if(weekday == 5 || weekday == 6){
+                element = document.getElementsByClassName("weekend_timer_box")[0];
+            } else {
+                element = document.getElementsByClassName("countdown_box")[0];
+            }
 
             // 넘어온 duration 값이 0보다 크면, 카운트다운.
             if(duration > 0){
@@ -137,6 +142,7 @@
                 let initial_sec = parseInt(duration%60);
 
                 element.textContent = `${paddedFormat(initial_hour)}:${paddedFormat(initial_min)}:${paddedFormat(initial_sec)}`;
+
                 startCountDown(duration, element);
             }
             
@@ -145,10 +151,6 @@
                 console.log("duration is 0 ");
                 element.textContent = "THIS IS LAST";
             }
-            //Debugging
-            // console.log('window.onload called');
-            // console.log("duration valer is ", duration);
-            // console.log("element is ", element);
         }
 
 
