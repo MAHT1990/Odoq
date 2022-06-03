@@ -8,44 +8,28 @@ from django.views.decorators.csrf import csrf_exempt
 ######## QUESTION MODEL FILTERING METHODS ########
 
 def current_question():
-    #요일 처리(금요일이면, content['friday'] = Boolean)
+    #요일 처리
     seoul_timezone = timezone(timedelta(hours=9))
     rightnow_kor = datetime.now(tz=seoul_timezone)
     rightnow_weekday_kor = rightnow_kor.weekday()
 
-    #Debugging
-    # print("Seoul now is", rightnow_kor)
-    # print("Seoul now weekday is", rightnow_weekday_kor)
+    #현재 시각을 UTC 기준으로 선언한다. (DB는 UTC 기준)
+    rightnow_utc = datetime.now(tz=timezone.utc)
     
     # Question들의 QuerySet을 불러온다.
     question_queryset = Question.objects.all()
-    
-    #현재 시각을 UTC 기준으로 선언한다.
-    #DB에 있는 문제들의 업로드 날짜들은, UTC시각기준이다.
-    rightnow_utc = datetime.now(tz=timezone.utc)
 
     # 현재 문제와 다음 문제를 확정하기위한 Delta값
     question_current = None
     question_next = None
     question_next_countdown = None
 
-    #Debugging
-    # print("today is", rightnow_utc)
-    # print("")
-    # print("today's tzinfo is ", rightnow_utc.tzinfo)
-
+    
     # upload_date와 오늘 현재 시각을 비교하여 data를 확정한다.
     for q in question_queryset:
         
         #now와의 시간차 계산
         delta_datetime = rightnow_utc - q.upload_datetime
-
-        #Debugging
-        # print("0. question code is ", q)
-        # print("1. upload_datetime is", q.upload_datetime)
-        # print("2. upload_datetime's tzinfo is", q.upload_datetime.tzinfo)
-        # print("3. delta_time is ", delta_datetime)
-        # print("")
 
         #delta_datetime이 0이상이면, 지나간 문제다.
         #절댓값이 가장 낮은 값이 현재 업로드되어야하는 문제이다.
@@ -62,7 +46,6 @@ def current_question():
                 else:
                     None
 
-            #Debugging
         else:
             if question_current == None:
                 question_current = q
@@ -72,10 +55,36 @@ def current_question():
                 else:
                     None
 
+    #다음문제 없을 때의 처리.
     if question_next == None:
         question_next_countdown = 0
-        #다음문제 없을 때의 처리.
 
+    #금요일, 토요일, 일요일 일 때의 countdown값을 달리준다.
+    #금요일일 때는 하루 in 초 - 현재 시각 in 초 till 토
+    #토요일일 때는 이틀 in 초 - 현재 시각 in 초 till 월
+    #일요일일 때는 하루 in 초 - 현재 시각 in 초 till 월
+
+    if rightnow_weekday_kor == 4 or rightnow_weekday_kor == 5 or rightnow_weekday_kor == 6: #금요일일 때,
+        t_hour = rightnow_kor.hour
+        t_min = rightnow_kor.minute
+        t_sec = rightnow_kor.second
+
+        t_day_in_seconds = 86400
+        t_now_in_seconds = 3600 * t_hour + 60 * t_min + t_sec
+
+        if rightnow_weekday_kor == 4: #금요일
+            #24시간을 초로 환산해서 현재시각을 초로 환산한 값을 빼준다.
+            delta_datetime = t_day_in_seconds - t_now_in_seconds 
+    
+        elif rightnow_weekday_kor == 5: #토요일
+            delta_datetime = t_day_in_seconds * 2 - t_now_in_seconds
+        
+        elif rightnow_weekday_kor == 6: #일요일
+            delta_datetime = t_day_in_seconds - t_now_in_seconds 
+
+        question_next_countdown = delta_datetime
+
+    
     #Debugging            
     # print("today's question is",question_current)
     # print("next question is ", question_next)
@@ -105,12 +114,8 @@ def current_notice():
 
     if current_notice == None:
         return None
-    
     else:
-        content = {
-            'notice' : current_notice.img
-        }
-
+        content = {'notice' : current_notice.img}
         return content
 
 ######## 요청 응답처리 VIEWS ########
