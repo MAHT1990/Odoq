@@ -21,7 +21,11 @@
 
     .plan_box {
         width : 40px;
+<<<<<<< HEAD
         /* line-height : 40px; */
+=======
+        line-height : 40px;
+>>>>>>> c5bb0baae8de44196243308e82620bb753ae8abd
         height : 100%;
         font-size : 20px;
         font-family: 'Fjalla One', sans-serif;
@@ -32,8 +36,13 @@
     }
 
     /* .plan_box:hover {
+<<<<<<< HEAD
         /* width : 40px; */
         /* line-height : 50px; */
+=======
+        width : 70px;
+        line-height : 50px;
+>>>>>>> c5bb0baae8de44196243308e82620bb753ae8abd
         height : 100%;
         font-size : 20px;
         font-family: 'Fjalla One', sans-serif;
