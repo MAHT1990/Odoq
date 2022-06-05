@@ -29,7 +29,7 @@
 
 @media screen and (max-width : 420px) {
     .weekend_timer_box{
-        font-size : 1.6em;
+        font-size : 22vw;
         /* padding : 30px 30px 30px 30px; */
         text-align : center;
         margin : 15px 0;
