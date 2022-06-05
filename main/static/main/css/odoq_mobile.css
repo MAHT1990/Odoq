@@ -19,39 +19,6 @@
         background-color : black;
     }
 
-    .plan_box {
-        width : 40px;
-<<<<<<< HEAD
-        /* line-height : 40px; */
-=======
-        line-height : 40px;
->>>>>>> c5bb0baae8de44196243308e82620bb753ae8abd
-        height : 100%;
-        font-size : 20px;
-        font-family: 'Fjalla One', sans-serif;
-        color : white;
-        text-align : center;
-
-        float : right;
-    }
-
-    /* .plan_box:hover {
-<<<<<<< HEAD
-        /* width : 40px; */
-        /* line-height : 50px; */
-=======
-        width : 70px;
-        line-height : 50px;
->>>>>>> c5bb0baae8de44196243308e82620bb753ae8abd
-        height : 100%;
-        font-size : 20px;
-        font-family: 'Fjalla One', sans-serif;
-        color : rgb(223, 223, 223);
-        text-align : center;
-
-        float : right;
-    } */
-
     .plan_popup_contents_header {
         font-size : 30px;
         /* padding : 15px; */
