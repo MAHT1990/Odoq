@@ -1,5 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Abel&family=Abril+Fatface&family=Fjalla+One&family=Nanum+Gothic&display=swap');
-
+input, textarea, button {
+    appearance: none;
+    border_radius : 0;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    -webkit-border-radius : 0;
+    -moz-border-radius : 0;
+    }
+    
 body {
   margin : 0;
   padding: 0;
