@@ -13,7 +13,7 @@ body {
 
 input, button {
     appearance: none;
-    border_radius : 0;
+    border-radius : 0;
     -moz-appearance: none;
     -webkit-appearance: none;
     -webkit-border-radius : 0;
@@ -209,7 +209,7 @@ header{
 
             .answer_box input {
                 /* border-radius : 4px; */
-                background-image: url(https://cdn3.iconfinder.com/data/icons/web-and-mobile-ui-smooth-line-3/48/131-512.png);
+                background-image: url(https://cdn2.iconfinder.com/data/icons/dottie-design-part-2/24/design_081-pencil-pen-draw-write-256.png);
                 background-size: contain;
                 background-position: 15px center;
                 background-repeat: no-repeat;
@@ -234,6 +234,8 @@ header{
             float : right;
             width : 80px;
             height : 35.46px; /*answer_header의 높이 + padding*/
+            box-sizing : border-box;
+            /* padding : 2px 0 2px 0; */
         }
 
             #answer_button {
