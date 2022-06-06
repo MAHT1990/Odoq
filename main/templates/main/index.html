@@ -16,12 +16,10 @@
     <title>Odoq2</title>
 </head>
 <body>
+    <img class="thumb_nail" src="{%static 'main/images/ODOQ_LOGO.png'%}" alt="Odoq2.com">
      <nav class="navbar">
         <div class="help_box"></div>
         <div class="middle_box"></div>
-        <div class="plan_box" onclick="plan_popup()">
-            <img src="{% static 'main/images/info_asset.png' %}" alt="Plan">
-        </div>
         <div class="plan_popup" onclick="close_plan_popup()">
             <div class="plan_popup_contents">
                 <div class="plan_popup_contents_header_verticalline">
@@ -37,10 +35,15 @@
                 </div>
             </div>
         </div>
-     </nav>
-
-     
-     <div class="main_container">
+    </nav>
+    
+    
+    <div class="main_container">
+        <div class="plan_container">
+            <div class="plan_box" onclick="plan_popup()">
+                <img src="{% static 'main/images/info_asset.png' %}" alt="Plan">
+            </div>
+        </div>
         <header>
             <div class="header_container">
                 <!-- One day One question. -->
