@@ -5,7 +5,7 @@ from django.db import models
 
 class Question(models.Model):
     code = models.CharField(max_length=255)
-    season = models.IntegerField()
+    season = models.CharField(max_length=255)
     img = models.ImageField()
     aswr = models.CharField(max_length=255)
     upload_datetime = models.DateTimeField(null=True) #업로드 예정일시
