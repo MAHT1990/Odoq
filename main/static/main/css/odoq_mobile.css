@@ -13,10 +13,11 @@
     padding: 0;
     font-size: 0;
     font-family:나눔바른고딕;
-    }oy
+    }
+
     nav {
         height : 40px;
-        background-color : black;
+        background-color : rgba(0,81,200,255);
     }
 
 
@@ -53,6 +54,12 @@
     header{
         padding : 5px;
     }
+
+    .plan_container {
+        height : 40px;
+        margin-top: -55px;
+    }
+
     .header_container {
         font-size: 20px;
         font-family: 'Abril Fatface', cursive;
@@ -63,6 +70,8 @@
         font-family: 'Abril Fatface', cursive;
         padding : 10px 0;
         font-family: Abril Fatface;
+        margin-bottom: -10px;
+
     }
 
 
