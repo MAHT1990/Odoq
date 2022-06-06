@@ -152,6 +152,8 @@
                 float : right;
                 width : 80px;
                 height : 35.46px; /*answer_header의 높이 + padding*/
+                box-sizing : border-box;
+                padding : 3px 0 3px 0;
             }
 
                 #answer_button {
@@ -159,11 +161,11 @@
                     height : 100%; 
                     border : 0;
                     padding : 0;
-                    background-color : black;
+                    background-color : rgba(0,81,200,255);;
 
                     font-size : 20px;
                     font-family: 'Fjalla One', sans-serif;
-                    line-height: 35.46px; /*부모 .answer_button_box의 height*/
+                    line-height: 29.46px; /*부모 .answer_button_box의 height*/
                     color : white;
                     font-weight: normal;
                 }
@@ -173,11 +175,11 @@
                     height : 100%; 
                     border : 0;
                     padding : 0;
-                    background-color : rgb(223, 223, 223);
+                    background-color : rgba(0,41,100,255);
 
                     font-size : 20px;
                     font-family: 'Fjalla One', sans-serif;
-                    line-height: 35.46px; /*부모 .answer_button_box의 height*/
+                    line-height: 29.46px; /*부모 .answer_button_box의 height*/
                     color : black;
                     font-weight: normal;
                 }
@@ -200,7 +202,7 @@
     }
 
     .aboutUs_content {
-        font-size : 17px;
+        font-size : 14px;
         font-family: 'Nanum Gothic', sans-serif;
         line-height : 1.7;
     }
@@ -218,7 +220,7 @@
     }
 
     .caution_content {
-        font-size : 17px;
+        font-size : 14px;
         font-family: 'Nanum Gothic', sans-serif;
         line-height : 1.7;
     }
