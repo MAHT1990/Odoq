@@ -125,9 +125,13 @@ header{
 .header_box {
     font-size: 70px;
     font-family: 'Abril Fatface', cursive;
-    padding : 15px 0;
     font-family: Abril Fatface;
+    margin-bottom: -10px;
 }
+
+    .header_box img{
+        width : 75%;
+    }
 
 .verticalLine1 {
     width : 100%;
@@ -289,6 +293,14 @@ header{
     line-height : 1.7;
 }
 
+    .aboutUs_content a:link {
+        text-decoration: none;
+    }
+
+    .aboutUs_content a:visited {
+        text-decoration: none;
+    }
+
 
 .caution_container {
     padding : 25px 0;
@@ -307,3 +319,11 @@ header{
     font-family: 'Nanum Gothic', sans-serif;
     line-height : 1.7;
 }
+
+    .caution_content a:link {
+        text-decoration: none;
+    }
+
+    .caution_content a:visited {
+        text-decoration: none;
+    }
