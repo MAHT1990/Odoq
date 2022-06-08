@@ -18,8 +18,15 @@
 <body>
     <a><img class="thumb_nail" src="{%static 'main/images/ODOQ_LOGO.png'%}" alt="Odoq2.com"></a>
      <nav class="navbar">
-        <div class="help_box"></div>
-        <div class="middle_box"></div>
+        <div class="plan_logo_menu_container">
+            <div class="plan_box" onclick="plan_popup()">
+                <img src="{% static 'main/images/info_asset.png' %}" alt="Plan">
+                <p>notice</p>
+            </div>
+            <div class="logo_box">
+                <a href="http://odoq2.com" rel="noopener noreferrer">Odoq2</a>
+            </div>
+        </div>
         <div class="plan_popup" onclick="close_plan_popup()">
             <div class="plan_popup_contents">
                 <div class="plan_popup_contents_header_verticalline">
@@ -39,12 +46,9 @@
     
     
     <div class="main_container">
-        <div class="plan_container">
-            <div class="plan_box" onclick="plan_popup()">
-                <img src="{% static 'main/images/info_asset.png' %}" alt="Plan">
-            </div>
-        </div>
         <header>
+            <div class = "header_pseudo_box">
+            </div>
             <div class="header_container">
                 <!-- One day One question. -->
                 <div class="header_box">
@@ -89,13 +93,13 @@
                 Answer.
             </div>
             <div class="answer_input_button_box">
-                    <div class="answer_box">
-                        <input id="answer_input" type="search" onkeydown="enter(event)" oninput="hideIcon(this)">
-                    </div>
                     <div class="answer_button_box">
                         <button id="answer_button" onClick="answer_post()">
                             enter.
                         </button>
+                    </div>
+                    <div class="answer_box">
+                        <input id="answer_input" type="search" onkeydown="enter(event)" oninput="hideIcon(this)">
                     </div>
             </div>
         </div>
