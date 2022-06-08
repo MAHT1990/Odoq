@@ -8,20 +8,8 @@
 
 @media screen and (max-width : 420px) {
 
-    body {
-    margin : 0;
-    padding: 0;
-    font-size: 0;
-    font-family:나눔바른고딕;
-    }
-
-    nav {
-        height : 40px;
-        background-color : rgba(0,81,200,255);
-    }
-
     .plan_box {
-        padding : 7.5px 0px 7.5px 7.5px;
+        padding : 7.5px 7.5px 7.5px 7.5px;
         margin-right: -5px;
     }
 
@@ -32,19 +20,8 @@
     }
 
     .plan_popup_contents {
-        position : absolute;
-        left : 50%; top : 50%;
-        transform: translate(-50%, -50%);
         width:75%;
         height:75%;
-        background-color : white;
-        padding : 15px;
-
-        display : flex;
-        flex-direction : column;
-        justify-content : center;
-        
-        border-radius: 10px;
     }
         
 
@@ -59,114 +36,49 @@
         padding : 15px 5px 5px 5px;
     }
 
-    .plan_container {
-        height : 40px;
-        margin-top: -40px;
-    }
-
     .header_container {
         font-size: 20px;
-        font-family: 'Abril Fatface', cursive;
     }
 
     .header_box {
         font-size: 50px;
-        font-family: 'Abril Fatface', cursive;
         padding : 10px 0;
-        font-family: Abril Fatface;
-        margin-bottom: -10px;
-
     }
-
 
     .verticalLine1 {
-        width : 100%;
         height : 4px;
-        background-color : black;
-    }
-
-    .question_container {
-        margin : 0;
     }
 
         .question_container_header{
             padding : 0 5px;  
             font-size: 15px;
-            font-family: 'Fjalla One', sans-serif;
-            display : flex;
-        }
-
-            .season_box {
-                flex : 1;
-                display : inline-block;
-            }
-            .countdown_box {
-                flex : 1;
-                display : inline_block;
-                text-align : right;
-            }
-
-        .question_box {
-            margin : 0 auto;
-            /* background-color : olive; */
         }
 
             .question_box img {
-                display : block;
-                padding : 15px 0 15px 0;
-                max-width : 550px;
-                margin :auto;
+                padding : 0 0 15px 0;
             }
-    
-    .verticalLine2 {
-        width : 100%;
-        height : 2px;
-        background-color : grey;
-    }
 
     .answer_container {
         /* background-color: bisque; */
-        padding : 12px 0 ;
-        display : flex;
+        padding : 12px 5px ;
     }
-
-        .answer_header {
-            display : inline-block;
-            flex : 1;
-            padding : 0.3em 10px 0.3em 0;
-            font-size : 20px;
-            font-family: 'Fjalla One', sans-serif;
-        }
 
         .answer_container .answer_input_button_box {
             flex : 4;
         }
 
-        /* .answer_header span {
-            line-height: 40px;
-        } */
-
             .answer_box {
                 display : inline-block;
                 flex : 1;
                 padding : 0.3em 0px 0.3em 0;
-                font-size : 20px; /*글자는 없지만 상하 정렬을 위해서 font size를 줌.*/
-                text-align : center;
             }
 
                 .answer_box input {
                     padding : 0;
                     border : 0;
-                    width : 100%;
-                    font-size : 20px;
-                     font-family: 'Nanum Gothic', sans-serif;
                 }
 
             .answer_button_box {
-                float : right;
-                width : 80px;
-                height : 35.46px; /*answer_header의 높이 + padding*/
-                box-sizing : border-box;
                 padding : 3px 0 3px 0;
             }
 
@@ -198,27 +110,16 @@
                     font-weight: normal;
                 }
 
-    .verticalLine3 {
-        width : 100%;
-        height : 2px;
-        background-color :black;
-    }
-
     .aboutUs_container {
         padding : 20px 0;
     }
 
     .aboutUs_header {
         font-size : 18px;
-        line-height : 2;
-        font-family: 'Abel', sans-serif;
-        font-weight: 200;
     }
 
     .aboutUs_content {
         font-size : 14px;
-        font-family: 'Nanum Gothic', sans-serif;
-        line-height : 1.7;
     }
 
     .caution_container {
@@ -228,15 +129,9 @@
     .caution_header {
         font-size : 18px;
         line-height : 2;
-
-        font-family: 'Abel', sans-serif;
-        font-weight: 200;
     }
 
     .caution_content {
         font-size : 14px;
-        font-family: 'Nanum Gothic', sans-serif;
-        line-height : 1.7;
     }
-
 }
