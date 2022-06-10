@@ -64,7 +64,7 @@ def current_question():
     #토요일일 때는 이틀 in 초 - 현재 시각 in 초 till 월
     #일요일일 때는 하루 in 초 - 현재 시각 in 초 till 월
 
-    if rightnow_weekday_kor == 4 or rightnow_weekday_kor == 5 or rightnow_weekday_kor == 6: #금요일일 때,
+    if rightnow_weekday_kor == 4 or rightnow_weekday_kor == 5 or rightnow_weekday_kor == 6: #금,토,일요일일 때,
         t_hour = rightnow_kor.hour
         t_min = rightnow_kor.minute
         t_sec = rightnow_kor.second
