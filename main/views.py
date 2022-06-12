@@ -182,9 +182,9 @@ def sms_new(request):
 
         else:
             #Debugging
-            print(phone_number_input)
-            print(type(phone_number_input))
-            print(phone_number_input[0:3])
+            # print(phone_number_input)
+            # print(type(phone_number_input))
+            # print(phone_number_input[0:3])
             answer_response = '잘못된 형식입니다.'
 
     response_data = {
@@ -217,9 +217,9 @@ def sms_delete(request):
 
         else:
             #Debugging
-            print(phone_number_input)
-            print(type(phone_number_input))
-            print(phone_number_input[0:3])
+            # print(phone_number_input)
+            # print(type(phone_number_input))
+            # print(phone_number_input[0:3])
             answer_response = '잘못된 형식입니다.'
 
     response_data = {
