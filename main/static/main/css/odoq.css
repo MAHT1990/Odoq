@@ -66,7 +66,8 @@ nav {
 
             .plan_box p {
                 height : 35%;
-                font-size: 2px;
+                font-size: 10px;
+                margin : 3px 0;
                 text-align: center;
             }
 
@@ -192,7 +193,7 @@ header{
     }
 
     .sms_box p {
-        font-size: 2px;
+        font-size: 10px;
         margin : 1px;
         text-align: center;
     }
