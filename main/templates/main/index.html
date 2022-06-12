@@ -11,7 +11,7 @@
     <link rel="stylesheet" type="text/css" href="{% static 'main/css/odoq.css'%}">
     <link rel="stylesheet" type="text/css" href="{% static 'main/css/odoq_mobile.css'%}">
     <link rel="stylesheet" type="text/css" href="{% static 'main/css/weekend_timer.css'%}">
-    <script src="{% static 'main/js/answer_post.js'%}"></script>
+    <script src="{% static 'main/js/post.js'%}"></script>
     <script src="{% static 'main/js/timer_popup.js'%}"></script>
     <title>Odoq2</title>
 </head>
@@ -21,7 +21,7 @@
         <div class="plan_logo_menu_container">
             <div class="plan_box" onclick="plan_popup()">
                 <img src="{% static 'main/images/info_asset.png' %}" alt="Plan">
-                <p>notice</p>
+                <p>공지</p>
             </div>
             <div class="logo_box">
                 <a href="http://odoq2.com" rel="noopener noreferrer"><img src="{%static 'main/images/ODOQ_NAV_LOGO.png'%}" alt=""></a>
@@ -45,20 +45,48 @@
     </nav>
     
     
-    <div class="main_container">
-        <header>
-            <div class = "header_pseudo_box">
+    <header>
+        <div class = "header_pseudo_box">
+        </div>
+        <div class="header_container">
+            <!-- One day One question. -->
+            <div class="header_box">
+                <!-- Odoq2.com -->
+                <img src="{%static 'main/images/ODOQ_LOGO.png'%}" alt="Odoq2.com">
             </div>
-            <div class="header_container">
-                <!-- One day One question. -->
-                <div class="header_box">
-                    <!-- Odoq2.com -->
-                    <img src="{%static 'main/images/ODOQ_LOGO.png'%}" alt="Odoq2.com">
+            <div class="sms_pseudo_container">
+                <div class="sms_box" onclick="sms_popup()">
+                    <img src="{%static 'main/images/sms.png'%}" alt="sms알림">
+                    <p>SMS</p>
+                    <p>알 림</p>
                 </div>
             </div>
-        </header>
-        
-        <div class="verticalLine1"></div>
+            <div class="sms_popup">
+                <div class="sms_popup_background" onclick="close_sms_popup()">
+                </div>
+                <div class="sms_popup_contents">
+                    <div class="sms_popup_contents_header_box">
+                        <div class="sms_popup_contents_header_img">
+                            <img src="{%static 'main/images/sms.png'%}" alt="sms알림등록">
+                        </div>
+                        <div class="sms_popup_contents_header_text1">SMS 알림등록</div>
+                        <div class="sms_popup_contents_header_text2">문제업로드 / 시즌 시작&종료 / 기타</div>
+                    </div>
+                    <div class="sms_popup_contents_input_box">
+                            <input id="phone_number_input" type="tel" name="phone_number" pattern="010[0-9]{8}">
+                            <button onclick="phone_number_post()">등록</button>
+                            <button onclick="phone_number_delete()">삭제</button>    
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <div class="verticalLine1"></div>
+
+    <div class="main_container">
         
         {% if weekday == 5 or weekday == 6 %}
         <div class="weekend_timer_container">

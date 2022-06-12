@@ -42,3 +42,15 @@ function close_plan_popup(){
 
     popup.style.display = "none";
 }
+
+function sms_popup(){
+    let popup = document.getElementsByClassName("sms_popup")[0];
+
+    popup.style.display = "block";
+}
+
+function close_sms_popup(){
+    let popup = document.getElementsByClassName("sms_popup")[0];
+
+    popup.style.display = "none";
+}

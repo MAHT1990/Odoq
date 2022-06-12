@@ -158,3 +158,74 @@ def answer_post(request):
 
     # return HttpResponseRedirect(reverse('main:index'))
     return JsonResponse(response_data)
+
+@csrf_exempt
+def sms_new(request):
+    if request.method == 'POST':
+        phone_number_input = request.POST.get("phone_number_input")
+
+        phoneNumber_queryset = PhoneNumber.objects.all()
+        
+        #Debugging
+        # print(phoneNumber_queryset)
+        # print(type(phoneNumber_queryset))
+        if len(phone_number_input)==11 and phone_number_input[0:3] == '010':
+            if phoneNumber_queryset.filter(phone_number=phone_number_input):
+                answer_response = '이미 등록된 번호입니다.'
+
+            else:
+                new_phone_number = PhoneNumber(phone_number = phone_number_input)
+                new_phone_number.save()
+                
+                answer_response = '등록완료'
+
+
+        else:
+            #Debugging
+            print(phone_number_input)
+            print(type(phone_number_input))
+            print(phone_number_input[0:3])
+            answer_response = '잘못된 형식입니다.'
+
+    response_data = {
+    'status' : 200,
+    'debugging' : 'Success',
+    'answer_response' : answer_response
+    }
+    
+    return JsonResponse(response_data)
+
+@csrf_exempt
+def sms_delete(request):
+    if request.method == 'POST':
+        phone_number_input = request.POST.get("phone_number_input")
+
+        phoneNumber_queryset = PhoneNumber.objects.all()
+        
+        #Debugging
+        # print(phoneNumber_queryset)
+        # print(type(phoneNumber_queryset))
+        if len(phone_number_input)==11 and phone_number_input[0:3] == '010':
+            if phoneNumber_queryset.filter(phone_number=phone_number_input):
+                trgt_phone_number = phoneNumber_queryset.filter(phone_number=phone_number_input)
+                trgt_phone_number.delete()
+                answer_response = '삭제되었습니다.'
+
+            else:                
+                answer_response = '등록되지않은 번호입니다.'
+
+
+        else:
+            #Debugging
+            print(phone_number_input)
+            print(type(phone_number_input))
+            print(phone_number_input[0:3])
+            answer_response = '잘못된 형식입니다.'
+
+    response_data = {
+    'status' : 200,
+    'debugging' : 'Success',
+    'answer_response' : answer_response
+    }
+    
+    return JsonResponse(response_data)

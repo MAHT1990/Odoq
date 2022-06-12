@@ -32,3 +32,6 @@ class Notice(models.Model):
 class Comment(models.Model):
     # Question과 Comment는 1 : n 의 관계이다.
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
+
+class PhoneNumber(models.Model):
+    phone_number = models.CharField(max_length=13)
