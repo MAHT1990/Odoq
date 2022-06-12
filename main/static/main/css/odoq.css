@@ -46,13 +46,12 @@ nav {
             width : 50px;
             height : 50px;
             font-size : 12px;
-            font-family: 'Fjalla One', sans-serif;
             color : white;
             text-align : center;
             cursor : pointer;
             float : right;
             box-sizing: border-box;
-            padding : 5px 0px 5px 5px;
+            padding : 10px 0px 10px 10px;
         }
 
         .plan_box:hover {
@@ -67,7 +66,8 @@ nav {
 
             .plan_box p {
                 height : 35%;
-                margin : 0;
+                font-size: 2px;
+                text-align: center;
             }
 
         .logo_box {
@@ -81,7 +81,7 @@ nav {
             text-align : center;
             
             box-sizing : border-box;
-            padding : 6px 0 6px 30px;
+            padding : 10px 0 10px 30px;
         }
 
         .logo_box a:visited, .logo_box a:link, .logo_box a:hover, .logo_box a:active {
@@ -144,53 +144,137 @@ nav {
                 width : 100%;
             }
 
-.main_container{
-    padding : 20px;
+            
+header{
     max-width : 550px;
     margin : 0 auto;
 }
 
-header{
-    box-sizing : border-box;
-    padding : 20px 10px 10px 10px;
-    cursor : default;
-}
-
 .header_pseudo_box {
-    height : 50px;
+    height : 70px;
     width : 100%;
 }         
-    
-    
-
 
 .header_container {
     font-size: 25px;
-    font-family: 'Abril Fatface', cursive;
+    padding : 0 0 0 20px;
 }
 
 .header_box {
     font-size: 70px;
     font-family: 'Abril Fatface', cursive;
-    margin-bottom: -10px;
+    margin-bottom : -10px;
 }
 
     .header_box img{
-        width : 75%;
+        width : 50%;
     }
+
+.sms_box{
+    box-sizing : border-box;
+    padding : 10px 0 0 10px;
+    width : 50px;
+    height : 70px;
+    float : right;
+    margin-top : -70px;
+    cursor : pointer;
+    color : rgba(0,81,200,255);
+}
+
+.sms_box:hover {
+    color : rgba(0,141,200,255);
+}
+
+    .sms_box img{
+        display : block;
+        height : 40%;
+        margin : auto;
+    }
+
+    .sms_box p {
+        font-size: 2px;
+        margin : 1px;
+        text-align: center;
+    }
+    
+    .sms_popup {
+        position : fixed;
+        z-index: 1;
+        left:0px; top : 0px; 
+        width:100%; height:100%;
+        background-color : rgba(196, 196, 196, 0.5);
+        display : none;
+    }
+
+    .sms_popup_contents {
+        position : absolute;
+        left : 50%; top : 50%;
+        transform: translate(-50%, -50%);
+        max-width:420px;
+        width : 60%;
+        height:20%;
+        background-color : white;
+        padding : 15px;
+
+        display : flex;
+        flex-direction : column;
+        justify-content : center;
+        
+        border-radius: 10px;
+    }
+
+    .sms_popup_background {
+        width : 100%;
+        height : 100%;
+    }
+
+        .sms_popup_contents_header_img {
+            width : 50px;
+            height : 50px;
+            float : left;
+        }
+
+        .sms_popup_contents_header_img img {
+            height : 100%;
+            /* margin : auto; */
+        }
+
+        .sms_popup_contents_header_text1 {
+            float : left;
+            height : 25px;
+            width : 60%;
+            font-size: 22px;
+            line-height : 25px;
+            color : rgba(0,81,200,255);
+        }
+        
+        .sms_popup_contents_header_text2 {
+            float : left;
+            height : 25px;
+            width : 60%;
+            font-size: 10px;
+            line-height : 25px;
+            color : grey;
+        }
 
 .verticalLine1 {
     width : 100%;
-    height : 6px;
+    height : 1.5px;
     background-color : black;
-  }
+}
+
+.main_container{
+    padding : 0 20px 20px 20px;
+    max-width : 550px;
+    margin : 0 auto;
+}
 
 .question_container {
-      margin : 0;
-  }
+    margin : 0;
+}
 
-    .question_container_header{
-        padding : 0 10px;  
+.question_container_header{
+    padding : 0 10px;  
         font-size: 20px;
         font-family: 'Fjalla One', sans-serif;
         display : flex;
@@ -224,7 +308,6 @@ header{
 .verticalLine2 {
     width : 100%;
     height : 2px;
-    background-color : grey;
 }
 
 .answer_container {
@@ -321,6 +404,13 @@ header{
     width : 100%;
     height : 2px;
     background-color :black;
+}
+
+footer {
+    display : block;
+    background-color : rgba(223, 223, 223, 0.5);
+    padding : 10px;
+    margin : 10px 0;         
 }
 
 .aboutUs_container {

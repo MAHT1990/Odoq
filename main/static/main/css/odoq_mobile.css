@@ -23,6 +23,11 @@
         width:75%;
         height:75%;
     }
+
+    .sms_popup_contents {
+        width : 75%;
+        height: 20%;
+    }
         
 
     .main_container{
@@ -32,21 +37,16 @@
         max-width : 550px;
     }
 
-    header{
-        padding : 15px 5px 5px 5px;
-    }
-
     .header_container {
-        font-size: 20px;
+        padding : 0 10px 0 20px;
     }
 
     .header_box {
         font-size: 50px;
-        padding : 10px 0;
     }
 
     .verticalLine1 {
-        height : 4px;
+        height : 1.5px;
     }
 
         .question_container_header{

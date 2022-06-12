@@ -19,3 +19,7 @@ class NoticeAdmin(admin.ModelAdmin):
 
     class Meta:
         ordering = ["created_at"]
+
+@admin.register(PhoneNumber)
+class PhoneNumberAdmin(admin.ModelAdmin):
+    list_display = ["phone_number"]
