@@ -26,7 +26,11 @@
 
     .sms_popup_contents {
         width : 75%;
-        height: 20%;
+        height: 15%;
+    }
+
+    .sms_popup_contents_header_box {
+        padding : 10px 7.5px 10px 7.5px;
     }
         
 
