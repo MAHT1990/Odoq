@@ -75,7 +75,7 @@
                     <div class="sms_popup_contents_input_box">
                         <button onclick="phone_number_delete()">삭제</button>    
                         <button onclick="phone_number_post()">등록</button>
-                        <input id="phone_number_input" type="tel" name="phone_number" pattern="010[0-9]{8}">
+                        <input id="phone_number_input" type="tel" name="phone_number" pattern="010[0-9]{8}" oninput="hideIcon(this)">
                     </div>
                 </div>
             </div>
@@ -201,17 +201,16 @@
         }   
         // 정답입력란 oninput, 아이콘이 없어지거나, 다시 생성되거나.
         function hideIcon(self){
-            //Debugging
-            console.log(self.value);
+            var id = self.getAttribute("id");
             if(self.value == ''){
-                //Debugging
-                // console.log("EMPTY");
-                
                 //값이 비면 icon을 다시 생성해줄 것이다.
-                self.style.backgroundImage = "url(https://cdn2.iconfinder.com/data/icons/dottie-design-part-2/24/design_081-pencil-pen-draw-write-256.png)";
-            }
+                if(id == "answer_input"){
+                    self.style.backgroundImage = "url(https://cdn2.iconfinder.com/data/icons/dottie-design-part-2/24/design_081-pencil-pen-draw-write-256.png)";
+                } else if (id == "phone_number_input"){
+                    self.style.backgroundImage = "url(https://cdn4.iconfinder.com/data/icons/ui-office/512/User_Interface-75-256.png)";
+                }
 
-            else{
+            } else {
                 //값이 입력되면 icon을 숨겨줄 것이다.
                 self.style.backgroundImage = 'none';
             }
