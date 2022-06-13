@@ -278,7 +278,7 @@ header{
             height : 100%; 
             border : 0;
             padding : 0;
-            background-color : rgba(0,21,200,255);
+            background-color : rgb(175, 175, 175);
 
             font-size : 12px;
             height : 2.0em;
@@ -392,7 +392,7 @@ header{
 
 .answer_container {
     /* background-color: bisque; */
-    padding : 20px 10px ;
+    padding : 20px 10px 15px 10px;
     display : flex;
 }
 
@@ -494,7 +494,7 @@ footer {
 }
 
 .aboutUs_container {
-    padding : 25px 0;
+    padding : 15px 0;
 }
 
 .aboutUs_header {
@@ -520,7 +520,7 @@ footer {
 
 
 .caution_container {
-    padding : 25px 0;
+    padding : 15px 0;
 }
 
 .caution_header {
