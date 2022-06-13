@@ -207,6 +207,10 @@ header{
         display : none;
     }
 
+    .sms_popup_background {
+        width : 100%;
+        height : 100%;
+    }
     .sms_popup_contents {
         position : absolute;
         left : 50%; top : 50%;
@@ -215,7 +219,7 @@ header{
         width : 40%;
         /* height:20%; */
         background-color : white;
-        padding : 15px;
+        padding : 15px 20px 15px 20px;
 
         display : flex;
         flex-direction : column;
@@ -224,10 +228,12 @@ header{
         border-radius: 10px;
     }
 
-    .sms_popup_background {
-        width : 100%;
-        height : 100%;
+    @media screen and (max-width : 650px) {
+        .sms_popup_contents {
+            width : 80%;
+        }
     }
+
         .sms_popup_contents_header_box {
             /* height : 75%; */
             padding : 0.3em;
@@ -302,18 +308,30 @@ header{
         }
 
         .sms_popup_contents_input_box > input {
+            display : block;
+            background-image: url(https://cdn4.iconfinder.com/data/icons/ui-office/512/User_Interface-75-256.png);
+            background-size: contain;
+            background-position: 3px center;
+            background-repeat: no-repeat;
+            text-indent: 5px;
+            
             box-sizing: border-box;
             font-size : 12px;
             border : 0;
             border-bottom : 1px solid rgba(0,81,200,255);
             padding : 0;
-            /* height : 2em; */
-            width : 50%;
+            height : 2em;
+            width : 55%;
         }
 
-        .sms_popup_contents_input_box > input:focus-visible {
-            outline : 0;
+        .sms_popup_contents_input_box > input:focus {
+            background-image: none;
+            border:0px;
         }
+
+        /* .sms_popup_contents_input_box > input:focus-visible {
+            outline : 0;
+        } */
 
 
 .verticalLine1 {
