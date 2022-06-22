@@ -1,7 +1,24 @@
 from enum import auto
 from django.db import models
 
-# Create your models here.
+class OnOff(models.Model):
+    title = models.CharField(max_length=255)
+    on_off = models.BooleanField()
+
+
+class Notice(models.Model):
+    season = models.CharField(max_length=255)
+    img = models.ImageField(null=True)
+    text = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True, null=True)
+    updated_at = models.DateTimeField(auto_now=True, null=True)
+
+    def __str__(self):
+        return self.text
+    
+    class Meta:
+        ordering = ["-created_at"]
+
 
 class Question(models.Model):
     code = models.CharField(max_length=255)
@@ -14,19 +31,6 @@ class Question(models.Model):
     
     def __str__(self):
         return self.code
-
-class Notice(models.Model):
-    season = models.IntegerField()
-    img = models.ImageField(null=True)
-    text = models.TextField()
-    created_at = models.DateTimeField(auto_now_add=True, null=True)
-    updated_at = models.DateTimeField(auto_now=True, null=True)
-
-    def __str__(self):
-        return self.text
-    
-    class Meta:
-        ordering = ["-created_at"]
 
 
 class Comment(models.Model):
