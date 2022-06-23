@@ -118,14 +118,42 @@ def current_notice():
         content = {'notice' : current_notice.img}
         return content
 
+######## OnOff MODEL FILTERING METHODS ########
+
+def current_OnOff():
+    content = {
+        'onoff_season' : None,
+        'season_off_img' : None,
+        'onoff_comment' : None,
+    }
+
+    current_onoff_season = OnOff.objects.all().get(title__icontains="Season")
+    current_onoff_comment = OnOff.objects.all().get(title__icontains="comment")
+
+    if current_onoff_season:
+        content['onoff_season'] = current_onoff_season.on_off
+        if current_onoff_season.off_img:
+            content['season_off_img'] = current_onoff_season.off_img
+    
+    if current_onoff_comment:
+        content['onoff_comment'] = current_onoff_comment.on_off
+    
+    return content
+
 ######## 요청 응답처리 VIEWS ########
 
 def index(request):
+
+    #1. current_question()으로 <Dict : current_question()>을 받는다.
+    #2. current_OnOff()으로 <Dict : current_OnOff()>을 추가한다.
+    #3. current_notice()으로 <Dict : current_notice()>을 추가한다.
+
     content = current_question()
+    content.update(current_OnOff())
 
     if current_notice() != None:
         content.update(current_notice())
-
+    
     #Debug Log
     # print("content is ",content)
 
