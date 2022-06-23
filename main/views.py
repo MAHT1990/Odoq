@@ -1,3 +1,4 @@
+from ast import Try
 from django.shortcuts import render
 from django.urls import reverse
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
@@ -127,8 +128,12 @@ def current_OnOff():
         'onoff_comment' : None,
     }
 
-    current_onoff_season = OnOff.objects.all().get(title__icontains="Season")
-    current_onoff_comment = OnOff.objects.all().get(title__icontains="comment")
+    #실제로 Query를 날리기 때문에 예외처리를 해준다.
+    try:
+        current_onoff_season = OnOff.objects.all().get(title__icontains="Season")
+        current_onoff_comment = OnOff.objects.all().get(title__icontains="comment")
+    except:
+        return content
 
     if current_onoff_season:
         content['onoff_season'] = current_onoff_season.on_off
