@@ -10,7 +10,7 @@ class OnOffAdmin(admin.ModelAdmin):
 
     def off_img_tag(self, o):
         if o.off_img:
-            return mark_safe(f'<img src="{o.off_img.url}" style="width:200px"/>')
+            return mark_safe(f'<a href="{o.off_img.url}" target="_blank" rel="noopener noreferrer"><img src="{o.off_img.url}" style="width:200px"/></a>')
 
 @admin.register(Notice)
 class NoticeAdmin(admin.ModelAdmin):
@@ -19,7 +19,7 @@ class NoticeAdmin(admin.ModelAdmin):
 
     def img_tag(self, notice):
         if notice.img:
-            return mark_safe(f'<img src="{notice.img.url}" style="width:200px"/>')
+            return mark_safe(f'<a href="{notice.img.url}" target="_blank" rel="noopener noreferrer"><img src="{notice.img.url}" style="width:200px"/></a>')
 
     class Meta:
         ordering = ["created_at"]
@@ -33,7 +33,7 @@ class QuestionAdmin(admin.ModelAdmin):
 
     def img_tag(self, question):
         if question.img:
-            return mark_safe(f'<img src="{question.img.url}" style="width:200px"/>')
+            return mark_safe(f'<a href="{question.img.url}" target="_blank" rel="noopener noreferrer"><img src="{question.img.url}" style="width:200px"/></a>')
     class Meta:
         ordering = ["-upload_datetime"]
 
