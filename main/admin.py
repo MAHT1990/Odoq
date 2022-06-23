@@ -1,16 +1,25 @@
 from django.contrib import admin
 from .models import *
-# Register your models here.
+from django.utils.safestring import mark_safe
+
 
 @admin.register(OnOff)
 class OnOffAdmin(admin.ModelAdmin):
-    list_display = ["title", "on_off"]
+    list_display = ["title", "on_off", "off_img_tag"]
     list_editable = ["on_off"]
+
+    def off_img_tag(self, o):
+        if o.off_img:
+            return mark_safe(f'<img src="{o.off_img.url}" style="width:200px"/>')
 
 @admin.register(Notice)
 class NoticeAdmin(admin.ModelAdmin):
-    list_display = ["season", "img", "created_at", "updated_at"]
-    list_display_links=["season", "img"]
+    list_display = ["season", "img_tag", "created_at", "updated_at"]
+    list_display_links=["season", "img_tag"]
+
+    def img_tag(self, notice):
+        if notice.img:
+            return mark_safe(f'<img src="{notice.img.url}" style="width:200px"/>')
 
     class Meta:
         ordering = ["created_at"]
@@ -18,9 +27,13 @@ class NoticeAdmin(admin.ModelAdmin):
 
 @admin.register(Question)
 class QuestionAdmin(admin.ModelAdmin):
-    list_display=["code", "season", "img", "aswr", "upload_datetime"]
-    list_display_links=["code", "season", "img", "upload_datetime"]
+    list_display=["code", "season", "img", "img_tag", "aswr", "upload_datetime"]
+    list_display_links=["code", "season", "upload_datetime"]
+    list_editable = ["img"]
 
+    def img_tag(self, question):
+        if question.img:
+            return mark_safe(f'<img src="{question.img.url}" style="width:200px"/>')
     class Meta:
         ordering = ["-upload_datetime"]
 
