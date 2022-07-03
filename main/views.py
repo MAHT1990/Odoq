@@ -4,7 +4,7 @@ from django.urls import reverse
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from .models import *
 from datetime import *
-from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.csrf import csrf_exempt, ensure_csrf_cookie
 
 ######## QUESTION MODEL FILTERING METHODS ########
 
@@ -169,6 +169,7 @@ def index(request):
 
 #### 답안 입력 POST 처리 VIEW ####
 # @csrf_exempt
+@ensure_csrf_cookie
 def answer_post(request):
     answer_input = request.POST.get("answer_input")
     # answer_question_code = request.POST.get("question_code")
@@ -193,6 +194,7 @@ def answer_post(request):
     return JsonResponse(response_data)
 
 # @csrf_exempt
+@ensure_csrf_cookie
 def sms_new(request):
     if request.method == 'POST':
         phone_number_input = request.POST.get("phone_number_input")
@@ -229,6 +231,7 @@ def sms_new(request):
     return JsonResponse(response_data)
 
 # @csrf_exempt
+@ensure_csrf_cookie
 def sms_delete(request):
     if request.method == 'POST':
         phone_number_input = request.POST.get("phone_number_input")
