@@ -1,10 +1,27 @@
+function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = cookies[i].trim();
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }   
+    return cookieValue;
+}
+
 // 답안제출 POST AJAX//
+
 function answer_post(){
     var answer_box_element = document.getElementById('answer_input');
     if(answer_box_element.value != ''){
         let url = 'answer_post/';
         let req = new XMLHttpRequest();
-        req.open('POST', url);
+        req.open('POST', url, true);
         req.onreadystatechange = function(){
             if(this.readyState == 4 && this.status == 200) {
                 const jsonResponse = JSON.parse(req.responseText);
@@ -15,21 +32,7 @@ function answer_post(){
         }
 
     // POST 관련 보안을 위한 Cookie 처리
-        function getCookie(name) {
-            var cookieValue = null;
-            if (document.cookie && document.cookie !== '') {
-                var cookies = document.cookie.split(';');
-                for (var i = 0; i < cookies.length; i++) {
-                    var cookie = cookies[i].trim();
-                    // Does this cookie string begin with the name we want?
-                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                    break;
-                    }
-                }
-            }   
-            return cookieValue;
-        }
+        
 
         var csrftoken = getCookie('csrftoken');
 
@@ -60,22 +63,6 @@ function phone_number_post(){
                 console.log(debugging);
                 phone_number_input_box_element.value = jsonResponse['answer_response'];
             }
-        }
-    
-        function getCookie(name) {
-            var cookieValue = null;
-            if (document.cookie && document.cookie !== '') {
-                var cookies = document.cookie.split(';');
-                for (var i = 0; i < cookies.length; i++) {
-                    var cookie = cookies[i].trim();
-                    // Does this cookie string begin with the name we want?
-                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                    break;
-                    }
-                }
-            }   
-            return cookieValue;
         }
 
         var csrftoken = getCookie('csrftoken');
@@ -108,22 +95,6 @@ function phone_number_delete(){
                 console.log(debugging);
                 phone_number_input_box_element.value = jsonResponse['answer_response'];
             }
-        }
-    
-        function getCookie(name) {
-            var cookieValue = null;
-            if (document.cookie && document.cookie !== '') {
-                var cookies = document.cookie.split(';');
-                for (var i = 0; i < cookies.length; i++) {
-                    var cookie = cookies[i].trim();
-                    // Does this cookie string begin with the name we want?
-                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                    break;
-                    }
-                }
-            }   
-            return cookieValue;
         }
 
         var csrftoken = getCookie('csrftoken');
