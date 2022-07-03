@@ -146,7 +146,7 @@ def current_OnOff():
     return content
 
 ######## 요청 응답처리 VIEWS ########
-
+@ensure_csrf_cookie
 def index(request):
 
     #1. current_question()으로 <Dict : current_question()>을 받는다.
@@ -169,7 +169,6 @@ def index(request):
 
 #### 답안 입력 POST 처리 VIEW ####
 # @csrf_exempt
-@ensure_csrf_cookie
 def answer_post(request):
     answer_input = request.POST.get("answer_input")
     # answer_question_code = request.POST.get("question_code")
@@ -194,7 +193,6 @@ def answer_post(request):
     return JsonResponse(response_data)
 
 # @csrf_exempt
-@ensure_csrf_cookie
 def sms_new(request):
     if request.method == 'POST':
         phone_number_input = request.POST.get("phone_number_input")
@@ -231,7 +229,6 @@ def sms_new(request):
     return JsonResponse(response_data)
 
 # @csrf_exempt
-@ensure_csrf_cookie
 def sms_delete(request):
     if request.method == 'POST':
         phone_number_input = request.POST.get("phone_number_input")
