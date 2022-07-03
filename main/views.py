@@ -168,7 +168,7 @@ def index(request):
 
 
 #### 답안 입력 POST 처리 VIEW ####
-@csrf_exempt
+# @csrf_exempt
 def answer_post(request):
     answer_input = request.POST.get("answer_input")
     # answer_question_code = request.POST.get("question_code")
@@ -192,7 +192,7 @@ def answer_post(request):
     # return HttpResponseRedirect(reverse('main:index'))
     return JsonResponse(response_data)
 
-@csrf_exempt
+# @csrf_exempt
 def sms_new(request):
     if request.method == 'POST':
         phone_number_input = request.POST.get("phone_number_input")
@@ -228,7 +228,7 @@ def sms_new(request):
     
     return JsonResponse(response_data)
 
-@csrf_exempt
+# @csrf_exempt
 def sms_delete(request):
     if request.method == 'POST':
         phone_number_input = request.POST.get("phone_number_input")
