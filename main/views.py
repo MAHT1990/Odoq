@@ -160,7 +160,7 @@ def index(request):
         content.update(current_notice())
     
     #Debug Log
-    # print("content is ",content)
+    print("content is ",content)
 
     return render(request, 'main/index.html', content)
     # return render(request, 'main/timer_practice.html')
