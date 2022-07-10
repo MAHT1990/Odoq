@@ -1,5 +1,6 @@
 from enum import auto
 from django.db import models
+from django.core.validators import MinLengthValidator
 
 class OnOff(models.Model):
     title = models.CharField(max_length=255)
@@ -39,7 +40,7 @@ class Comment(models.Model):
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
     author = models.CharField(max_length=10)
     content = models.TextField()
-    password = models.CharField(max_length=10)
+    password = models.CharField(max_length=10, validators=[MinLengthValidator(1)])
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now = True)
 
