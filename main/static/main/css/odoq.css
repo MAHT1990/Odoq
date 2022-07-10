@@ -480,6 +480,10 @@ header{
                 font-weight: normal;
             }
 
+.comment_list_box {
+    font-size : 20px;
+}
+
 .verticalLine3 {
     width : 100%;
     height : 2px;
