@@ -1,8 +1,10 @@
 from ast import Try
 from django.shortcuts import render
 from django.urls import reverse
+from django.shortcuts import redirect
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from .models import *
+from .forms import CommentModelForm
 from datetime import *
 from django.views.decorators.csrf import csrf_exempt, ensure_csrf_cookie
 
@@ -94,11 +96,13 @@ def current_question():
 
     content = {
         'weekday' : rightnow_weekday_kor,
+        'pk' : question_current.pk,
         'code' : question_current.code,
         'season' : question_current.season,
         'img' : question_current.img,
         'aswr' : question_current.aswr,
-        'countdown' : question_next_countdown
+        'countdown' : question_next_countdown,
+        'comments' : question_current.comment_set.all(),
     }
 
     return content
@@ -145,6 +149,14 @@ def current_OnOff():
     
     return content
 
+def get_comment_form():
+    form = CommentModelForm()
+
+    content = {
+        'form' : form
+    }
+    return content
+
 ######## 요청 응답처리 VIEWS ########
 @ensure_csrf_cookie
 def index(request):
@@ -155,6 +167,7 @@ def index(request):
 
     content = current_question()
     content.update(current_OnOff())
+    content.update(get_comment_form())
 
     if current_notice() != None:
         content.update(current_notice())
@@ -168,7 +181,6 @@ def index(request):
 
 
 #### 답안 입력 POST 처리 VIEW ####
-# @csrf_exempt
 def answer_post(request):
     answer_input = request.POST.get("answer_input")
     # answer_question_code = request.POST.get("question_code")
@@ -192,7 +204,7 @@ def answer_post(request):
     # return HttpResponseRedirect(reverse('main:index'))
     return JsonResponse(response_data)
 
-# @csrf_exempt
+#### SMS 알림 처리 번호 등록 VIEW ####
 def sms_new(request):
     if request.method == 'POST':
         phone_number_input = request.POST.get("phone_number_input")
@@ -228,7 +240,7 @@ def sms_new(request):
     
     return JsonResponse(response_data)
 
-# @csrf_exempt
+#### SMS 알림 처리 번호 삭제 VIEW ####
 def sms_delete(request):
     if request.method == 'POST':
         phone_number_input = request.POST.get("phone_number_input")
@@ -262,3 +274,22 @@ def sms_delete(request):
     }
     
     return JsonResponse(response_data)
+
+#### comment 처리관련 VIEWS ####
+
+def comment_new(request):
+    print(f"request.POST is {request.POST}")
+    if request.method == 'POST':
+        form = CommentModelForm(request.POST, request.FILES)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            print(f"pk value is {request.POST['question']}")
+            print(f"pk value\'s type is {type(request.POST['question'])}")
+            print(f"cleand_data is {form.cleaned_data}")
+            current_question_pk = request.POST['question']
+            print(f"current_question_pk is {current_question_pk}")
+            comment.question = Question.objects.all().get(pk = current_question_pk)
+            comment.save()
+            return redirect("main:index")
+    else:
+        return redirect("main:index")
