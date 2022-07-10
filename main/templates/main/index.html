@@ -98,7 +98,27 @@
             </div>
         </div>
     {%endif%}
-    
+    {%if onoff_comment is True%}
+    <div class="comment_container">
+        <div class="comment_list_box">
+            {%for comment in comments%}
+                <div class = "comment_line">
+                    {{comment.author}}
+                    {{comment.content}}
+                    {{comment.updated_at}}
+                </div>
+            {%endfor%}
+        </div>
+        <div class="comment_input_box">
+            <form action="{%url 'main:comment_new'%}" method="post" enctype = "multipart/form-data">
+                {%csrf_token%}
+                <input type="hidden" name="question" value={{pk}}>
+                {{form}}
+                <input type="submit" value="WRITE">
+            </form>
+        </div>
+    </div>
+    {%endif%}
         <div class="verticalLine3"></div>
        
         <footer>
