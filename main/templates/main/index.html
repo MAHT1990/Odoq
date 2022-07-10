@@ -39,7 +39,6 @@
     </header>
     
     <div class="verticalLine1"></div>
-
     <div class="main_container">
     {%if onoff_season is True%}
         {% if weekday == 5 or weekday == 6 %}
@@ -90,6 +89,9 @@
     {%else%}
         <div class="question_container">
             <div class="question_box">
+
+
+
                 {% if season_off_img %}
                 <img src="{{season_off_img.url}}" alt="load Error">
                 {% else %}
