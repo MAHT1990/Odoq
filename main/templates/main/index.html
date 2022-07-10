@@ -103,9 +103,9 @@
         <div class="comment_list_box">
             {%for comment in comments%}
                 <div class = "comment_line">
-                    {{comment.author}}
-                    {{comment.content}}
-                    {{comment.updated_at}}
+                    <div class = "comment_line_author">{{comment.author}}</div>
+                    <div class = "comment_line_content">{{comment.content}}</div>
+                    <div class = "comment_line_updated_at">{{comment.updated_at}}</div>
                 </div>
             {%endfor%}
         </div>

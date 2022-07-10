@@ -293,3 +293,6 @@ def comment_new(request):
             return redirect("main:index")
     else:
         return redirect("main:index")
+
+def comment_delete(request):
+    pass
