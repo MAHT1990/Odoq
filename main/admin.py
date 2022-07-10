@@ -42,3 +42,7 @@ class QuestionAdmin(admin.ModelAdmin):
 @admin.register(PhoneNumber)
 class PhoneNumberAdmin(admin.ModelAdmin):
     list_display = ["phone_number"]
+
+@admin.register(Comment)
+class CommentAdmin(admin.ModelAdmin):
+    list_display = ["author", "content", "password", "created_at", "updated_at"]
