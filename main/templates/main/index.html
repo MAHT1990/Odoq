@@ -11,6 +11,18 @@
                 <img src="{%static 'main/images/ODOQ_LOGO.png'%}" alt="Odoq2.com">
             </div>
             <div class="sms_pseudo_container">
+                <div class="login_box">
+                    {% if not user.is_authenticated %}
+                    <form action="{%url 'accounts:login' %}" method="post">
+                        {% csrf_token %}
+                        {{login_form}}
+                        <input type="submit" value="Log in">
+                    </form>
+                    {% else %}
+                        {{user}}님 반갑습니다.
+                        <a href="{% url 'accounts:logout' %}?next={{request.get_full_path}}">Log out</a>
+                    {% endif %}
+                </div>
                 <div class="sms_box" onclick="sms_popup()">
                     <img src="{%static 'main/images/sms.png'%}" alt="sms알림">
                     <p>SMS</p>
