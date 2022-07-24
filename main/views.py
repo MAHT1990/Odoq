@@ -3,10 +3,13 @@ from django.shortcuts import render
 from django.urls import reverse
 from django.shortcuts import redirect
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
-from .models import *
-from .forms import CommentModelForm
 from datetime import *
 from django.views.decorators.csrf import csrf_exempt, ensure_csrf_cookie
+
+from .models import *
+from .forms import CommentModelForm
+
+from accounts.views import get_login_form
 
 ######## QUESTION MODEL FILTERING METHODS ########
 
@@ -168,6 +171,7 @@ def index(request):
     content = current_question()
     content.update(current_OnOff())
     content.update(get_comment_form())
+    content.update(get_login_form())
 
     if current_notice() != None:
         content.update(current_notice())
