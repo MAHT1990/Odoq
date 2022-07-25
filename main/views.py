@@ -9,11 +9,10 @@ from django.views.decorators.csrf import csrf_exempt, ensure_csrf_cookie
 from .models import *
 from .forms import CommentModelForm
 
-from accounts.views import get_login_form
-
+from accounts.forms import CreationForm, LoginForm
 ######## QUESTION MODEL FILTERING METHODS ########
 
-def current_question():
+def get_current_question():
     #요일 처리
     seoul_timezone = timezone(timedelta(hours=9))
     rightnow_kor = datetime.now(tz=seoul_timezone)
@@ -105,14 +104,13 @@ def current_question():
         'img' : question_current.img,
         'aswr' : question_current.aswr,
         'countdown' : question_next_countdown,
-        'comments' : question_current.comment_set.all(),
     }
 
     return content
 
 ######## NOTICE MODEL FILTERING METHODS ########
 
-def current_notice():
+def get_current_notice():
     notice_queryset = Notice.objects.all()
     current_notice = notice_queryset.first()
 
@@ -152,36 +150,64 @@ def current_OnOff():
     
     return content
 
+####### Authentication 관련 #######
+def get_creation_form():
+    content = {
+        'creation_form' : CreationForm()
+    }
+
+    return content
+
+def get_login_form():
+    content = {
+        'login_form' : LoginForm()
+    }
+
+    return content
+
 def get_comment_form():
     form = CommentModelForm()
 
     content = {
-        'form' : form
+        'comment_form' : form
     }
+    return content
+
+
+######## 요청 응답처리 get_content #######
+def get_content():
+    
+    #1. get_current_question()으로 <Dict : get_current_question()>을 받는다.
+    #2. current_OnOff()으로 <Dict : current_OnOff()>을 추가한다.
+    #3. current_notice()으로 <Dict : current_notice()>을 추가한다.
+
+    content = get_current_question()
+    content.update(current_OnOff())
+    # content.update(get_comment_form())
+    # content.update(get_login_form())
+
+    if get_current_notice() != None:
+        content.update(get_current_notice())
+    
+    #Debug Log
+    debug_title = 'main.views.get_content'
+    len_debug_title = len(debug_title)
+    print('=' * len_debug_title,'\n',debug_title,'\n','=' * len_debug_title)
+    print("content is ",content)
+    for key, value in content.items():
+        print(key, '----', value ,'\n')
+
     return content
 
 ######## 요청 응답처리 VIEWS ########
 @ensure_csrf_cookie
 def index(request):
-
-    #1. current_question()으로 <Dict : current_question()>을 받는다.
-    #2. current_OnOff()으로 <Dict : current_OnOff()>을 추가한다.
-    #3. current_notice()으로 <Dict : current_notice()>을 추가한다.
-
-    content = current_question()
-    content.update(current_OnOff())
-    content.update(get_comment_form())
-    content.update(get_login_form())
-
-    if current_notice() != None:
-        content.update(current_notice())
-    
-    #Debug Log
-    print("content is ",content)
-
+    content = get_content()
     return render(request, 'main/index.html', content)
     # return render(request, 'main/timer_practice.html')
 
+
+#######
 
 
 #### 답안 입력 POST 처리 VIEW ####
@@ -190,7 +216,7 @@ def answer_post(request):
     # answer_question_code = request.POST.get("question_code")
 
     if request.method =='POST':
-        if answer_input==current_question()['aswr']:
+        if answer_input==get_current_question()['aswr']:
             answer_response = 'Correct'
 
         else:
