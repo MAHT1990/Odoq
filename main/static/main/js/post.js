@@ -19,7 +19,7 @@ function getCookie(name) {
 function answer_post(){
     var answer_box_element = document.getElementById('answer_input');
     if(answer_box_element.value != ''){
-        let url = 'answer_post/';
+        let url = '/answer_post/';
         let req = new XMLHttpRequest();
         req.open('POST', url, true);
         req.onreadystatechange = function(){
@@ -53,7 +53,7 @@ function phone_number_post(){
     var phone_number_input_box_element = document.getElementById("phone_number_input");
 
     if(phone_number_input_box_element.value !=''){
-        let url = 'sms_new/';
+        let url = '/sms_new/';
         let req = new XMLHttpRequest();
         req.open('POST', url);
         req.onreadystatechange = function(){
@@ -85,7 +85,7 @@ function phone_number_delete(){
     var phone_number_input_box_element = document.getElementById("phone_number_input");
 
     if(phone_number_input_box_element.value !=''){
-        let url = 'sms_delete/';
+        let url = '/sms_delete/';
         let req = new XMLHttpRequest();
         req.open('POST', url);
         req.onreadystatechange = function(){
