@@ -15,9 +15,8 @@ from .forms import LoginForm, CreationForm
 
 from main.views import IndexView
 
-User = get_user_model()
 
-# Create your views here.
+User = get_user_model()
 
 
 ## LoginView Customizing
@@ -70,7 +69,8 @@ class OdoqLoginView(LoginView):
         return self.render_to_response(context)
 
 login = OdoqLoginView.as_view(
-        template_name='main/index.html'
+        form_class = LoginForm,
+        template_name='main/index.html',
         )
 
 
@@ -83,6 +83,6 @@ logout = login_required(LogoutView.as_view())
 signin = CreateView.as_view(
     model = User,
     form_class = CreationForm,
-    template_name = 'main/index.html',
+    template_name = 'accounts/user_form.html',
     success_url = settings.LOGIN_URL,
 )
