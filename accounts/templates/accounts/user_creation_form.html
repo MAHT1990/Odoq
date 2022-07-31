@@ -1,0 +1,12 @@
+{% extends 'layout.html' %}
+{% load static %}
+
+{% block user_creation %}
+<div class="user_creation_form_container">
+<form action="" method="post" class = "user_creation_form">
+    {% csrf_token %}
+    {{form.as_p}}
+    <input type="submit" value="회원가입">
+</form>
+</div>
+{% endblock user_creation %}
