@@ -1,7 +1,8 @@
+from django.http import HttpResponseRedirect
 from django.shortcuts import render
 
 from django.conf import settings
-
+from django.http import HttpResponseRedirect
 from django.views.generic.edit import CreateView
 
 from django.contrib.auth import get_user_model
@@ -11,9 +12,11 @@ from django.contrib.auth.forms import (
     AuthenticationForm, PasswordChangeForm, PasswordResetForm, SetPasswordForm,
 )
 
-from .forms import LoginForm, CreationForm
+from .forms import LoginForm, OdoqCreationForm
+from .models import UserProfile
 
 from main.views import IndexView
+
 
 
 User = get_user_model()
@@ -80,9 +83,21 @@ logout = login_required(LogoutView.as_view())
 
 
 ## CreateView
-signin = CreateView.as_view(
+
+class OdoqCreateView(CreateView):
+    def form_valid(self, form):
+        nickname = form.cleaned_data['nickname']
+        self.object = form.save()
+        UserProfile.objects.create(user=self.object, nickname = nickname)
+
+        return HttpResponseRedirect(self.get_success_url())
+        
+
+signin = OdoqCreateView.as_view(
     model = User,
-    form_class = CreationForm,
-    template_name = 'accounts/user_form.html',
-    success_url = settings.LOGIN_URL,
+    form_class = OdoqCreationForm,
+    template_name = 'accounts/user_creation_form.html',
+    success_url = settings.LOGIN_REDIRECT_URL,
 )
+
+
