@@ -9,7 +9,7 @@ from django.views.decorators.csrf import csrf_exempt, ensure_csrf_cookie
 from .models import *
 from .forms import CommentModelForm
 
-from accounts.forms import CreationForm, LoginForm
+from accounts.forms import OdoqCreationForm, LoginForm
 
 class IndexView:
 
@@ -165,7 +165,7 @@ class IndexView:
     ####### Authentication 관련 #######
     def get_creation_form(self):
         content = {
-            'creation_form' : CreationForm()
+            'creation_form' : OdoqCreationForm()
         }
 
         return content

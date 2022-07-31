@@ -548,3 +548,11 @@ footer {
     .caution_content a:visited {
         text-decoration: none;
     }
+
+
+/* user_creation_form.html */
+
+.user_creation_form_container{
+    padding-top : 100px;
+    font-size: 20px;
+}
