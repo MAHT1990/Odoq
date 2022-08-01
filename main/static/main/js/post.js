@@ -112,3 +112,51 @@ function phone_number_delete(){
         console.log('empty value');
     }
 }
+
+function comment_delete(id){
+    let url = '/comment/delete/';
+    let req = new XMLHttpRequest();
+    req.open('POST', url);
+    req.onreadystatechange = function(){
+        if(this.readyState == 4 && this.status == 200) {
+            const jsonResponse = JSON.parse(req.responseText);
+            const debugging = jsonResponse['debugging'];
+            console.log(debugging);
+            var tgrt_comment_line = document.getElementById('comment_id_'+id);
+            tgrt_comment_line.remove();
+        }
+    }
+
+    var csrftoken = getCookie('csrftoken');
+
+        req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8")
+        req.setRequestHeader("X-CSRFToken", csrftoken)
+
+        // 보낼 data 양식 맞춰서, send로 보내기.
+
+        var data = "";
+        data += "comment_id="+id;
+        req.send(data);
+}
+
+function open_cocomment(self, id){
+    var tgrt_comment_line = document.getElementById('comment_id_'+id);
+    var cocomment_list = document.createElement('div');
+    
+    cocomment_list.setAttribute("id", "cocomment_list_"+id);
+
+    var test_text = document.createTextNode('TestTextTestText');
+    cocomment_list.appendChild(test_text);
+    tgrt_comment_line.appendChild(cocomment_list);
+
+    self.setAttribute("onclick", "close_cocomment(this, "+id+")");
+    console.log('BOOYAH')
+}
+
+function close_cocomment(self,id){
+    var tgrt_cocoment_list = document.getElementById('cocomment_list_'+id);
+    tgrt_cocoment_list.remove();
+
+    self.setAttribute("onclick", "open_cocomment(this, "+id+")");
+
+}
