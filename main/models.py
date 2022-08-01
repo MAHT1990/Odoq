@@ -41,10 +41,13 @@ class Question(models.Model):
 
 class Comment(models.Model):
     # Question과 Comment는 1 : n 의 관계이다.
-    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     content = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now = True)
+
+    class Meta:
+        ordering = ['-created_at']
 
 class PhoneNumber(models.Model):
     phone_number = models.CharField(max_length=13)
