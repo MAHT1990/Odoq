@@ -17,6 +17,7 @@ class IndexView:
     get_current_notice_bool = True
     get_login_form_bool = True
     get_comment_form_bool = True
+    get_comments_bool = True
 
     ####### CONSTRUCTOR #######
     def __init__(self, **initkwargs):
@@ -178,9 +179,15 @@ class IndexView:
         return content
 
     ####### Comment 관련 #######
+    def get_comments(self):
+        comments = Comment.objects.all()
+        content = {
+            'comments' : comments,
+        }
+        return content
+
     def get_comment_form(self):
         form = CommentModelForm()
-
         content = {
             'comment_form' : form
         }
@@ -205,6 +212,9 @@ class IndexView:
 
         if self. get_login_form_bool:
             content.update(self.get_login_form())
+
+        if self.get_comments_bool:
+            content.update(self.get_comments())
 
         if self.get_comment_form_bool:
             content.update(self.get_comment_form())
@@ -337,16 +347,27 @@ def comment_new(request):
         form = CommentModelForm(request.POST, request.FILES)
         if form.is_valid():
             comment = form.save(commit=False)
-            print(f"pk value is {request.POST['question']}")
-            print(f"pk value\'s type is {type(request.POST['question'])}")
-            print(f"cleand_data is {form.cleaned_data}")
-            current_question_pk = request.POST['question']
-            print(f"current_question_pk is {current_question_pk}")
-            comment.question = Question.objects.all().get(pk = current_question_pk)
+            comment.user = User.objects.get(username = request.POST['user'])
             comment.save()
             return redirect("main:index")
     else:
         return redirect("main:index")
 
 def comment_delete(request):
-    pass
+    if request.method == 'POST':
+        comment_id = request.POST.get("comment_id")
+        
+        trgt_comment = Comment.objects.get(id = comment_id)
+
+        if trgt_comment:
+            trgt_comment.delete()
+            answer_response = '삭제되었습니다.'
+    
+    response_data = {
+    'status' : 200,
+    'debugging' : 'Success',
+    'answer_response' : answer_response
+    }
+
+    return JsonResponse(response_data)
+        
