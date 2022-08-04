@@ -5,6 +5,8 @@ from django import forms
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.utils.translation import gettext, gettext_lazy as _
 
+from .models import UserProfile
+
 User = get_user_model()
 
 class LoginForm(AuthenticationForm):
@@ -43,3 +45,16 @@ class OdoqCreationForm(UserCreationForm):
     )
 
     nickname = forms.CharField(label='닉네임', min_length=2, max_length=10)
+
+## Profile Form
+class UserProfileForm(forms.ModelForm):
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['nickname'].label = "닉네임"
+        
+    class Meta:
+        model = UserProfile
+        fields = [
+            'nickname'
+        ]
