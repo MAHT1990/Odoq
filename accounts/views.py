@@ -1,18 +1,20 @@
 from django.http import HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 from django.conf import settings
 from django.http import HttpResponseRedirect
 from django.views.generic.edit import CreateView
 
-from django.contrib.auth import get_user_model
+from django.contrib.auth import get_user_model, authenticate
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import (
     AuthenticationForm, PasswordChangeForm, PasswordResetForm, SetPasswordForm,
 )
 
-from .forms import LoginForm, OdoqCreationForm
+from .forms import (
+    LoginForm, OdoqCreationForm, UserProfileForm
+)
 from .models import UserProfile
 
 from main.views import IndexView
@@ -100,4 +102,34 @@ signin = OdoqCreateView.as_view(
     success_url = settings.LOGIN_REDIRECT_URL,
 )
 
+## Profile View
 
+@login_required
+def userprofile(request):
+    try:
+        userprofile = request.user.userprofile
+    except UserProfile.DoesNotExist:
+        userprofile = None
+
+    if request.method == "POST":
+        form = UserProfileForm(request.POST, request.FILES, instance=userprofile)
+        if form.is_valid():
+            userprofile = form.save(commit = False)
+            userprofile.user = request.user
+            username = request.POST['username']
+            password = request.POST['password']
+            if authenticate(request=request, username = username, password = password) == userprofile.user:
+                userprofile.save()
+                return redirect('main:index')
+            else:
+                form = UserProfileForm(instance = userprofile)
+                return render(request, 'accounts/user_profile_form.html', {
+                    'form':form,
+                    'error_message':'비밀번호가 일치하지 않습니다.'
+                })          
+
+    else:
+        form = UserProfileForm(instance = userprofile)
+        return render(request, 'accounts/user_profile_form.html', {
+            'form':form,
+        })
