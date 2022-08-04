@@ -7,7 +7,7 @@ from datetime import *
 from django.views.decorators.csrf import csrf_exempt, ensure_csrf_cookie
 
 from .models import *
-from .forms import CommentModelForm
+from .forms import CommentModelForm, CocommentModelForm
 
 from accounts.forms import OdoqCreationForm, LoginForm
 
@@ -18,6 +18,7 @@ class IndexView:
     get_login_form_bool = True
     get_comment_form_bool = True
     get_comments_bool = True
+    get_cocomment_form_bool = True
 
     ####### CONSTRUCTOR #######
     def __init__(self, **initkwargs):
@@ -192,6 +193,13 @@ class IndexView:
             'comment_form' : form
         }
         return content
+    
+    def get_cocomment_form(self):
+        form = CocommentModelForm()
+        content = {
+            'cocomment_form' : form
+        }
+        return content
 
     ###### content : Response에 넣어줄 <Dictionary : content> ######
     def get_content(self):
@@ -218,6 +226,9 @@ class IndexView:
 
         if self.get_comment_form_bool:
             content.update(self.get_comment_form())
+        
+        if self.get_cocomment_form_bool:
+            content.update(self.get_cocomment_form())
         
         #Debug Log
         debug_title = 'get_content'
@@ -370,4 +381,18 @@ def comment_delete(request):
     }
 
     return JsonResponse(response_data)
-        
+
+def cocomment_new(request):
+    if request.method == 'POST':
+        form = CocommentModelForm(request.POST, request.FILES)
+        if form.is_valid():
+            cocomment = form.save(commit=False)
+            cocomment.user = User.objects.get(username = request.POST['user'])
+            cocomment.comment = Comment.objects.get(id = request.POST['comment_id'])
+            cocomment.save()
+            return redirect("main:index")
+    else:
+        return redirect("main:index")
+
+def cocomment_delete(request):
+    pass

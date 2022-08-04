@@ -51,3 +51,11 @@ class Comment(models.Model):
 
 class PhoneNumber(models.Model):
     phone_number = models.CharField(max_length=13)
+
+class Cocomment(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    comment = models.ForeignKey(Comment, on_delete=models.CASCADE)
+    content = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now = True)
+    

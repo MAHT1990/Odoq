@@ -7,5 +7,7 @@ urlpatterns = [
     path('sms_new/', views.sms_new, name='sms_new'),
     path('sms_delete/', views.sms_delete, name='sms_delete'),
     path('comment/new/', views.comment_new, name = 'comment_new'),
-    path('comment/delete/', views.comment_delete, name = 'commnet_delete'),
+    path('comment/delete/', views.comment_delete, name = 'comment_delete'),
+    path('cocomment/new/', views.cocomment_new, name = 'cocomment_new'),
+    path('cocomment/delete/', views.cocomment_delete, name = 'cocomment_delete'),
     ]
