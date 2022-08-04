@@ -46,3 +46,7 @@ class PhoneNumberAdmin(admin.ModelAdmin):
 @admin.register(Comment)
 class CommentAdmin(admin.ModelAdmin):
     list_display = ["user", "content", "created_at", "updated_at"]
+
+@admin.register(Cocomment)
+class CocommentAdmin(admin.ModelAdmin):
+    list_display = ["user", "content", "created_at", "updated_at"]
