@@ -10,5 +10,5 @@ class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     nickname = models.CharField(null=False, max_length=20)
 
-    like_comments = models.ManyToManyField(Comment, blank=True, related_name='like_users', default=None)
-    like_cocomments = models.ManyToManyField(Cocomment, blank=True, related_name='like_users', default=None)
+    like_comments = models.ManyToManyField(Comment, blank=True, default=None)
+    like_cocomments = models.ManyToManyField(Cocomment, blank=True, default=None)
