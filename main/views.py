@@ -19,6 +19,7 @@ class IndexView:
     get_comment_form_bool = True
     get_comments_bool = True
     get_cocomment_form_bool = True
+    request = None
 
     ####### CONSTRUCTOR #######
     def __init__(self, **initkwargs):
@@ -246,6 +247,7 @@ class IndexView:
 
         def view(request, *args, **kwargs):
             self = cls(**initkwargs)
+            self.request = request
             return render(request, 'main/index.html', self.get_content())
 
         return view
@@ -381,7 +383,9 @@ def comment_delete(request):
     }
 
     return JsonResponse(response_data)
+    
 
+## 대댓글 관련 view
 def cocomment_new(request):
     if request.method == 'POST':
         form = CocommentModelForm(request.POST, request.FILES)
@@ -395,4 +399,72 @@ def cocomment_new(request):
         return redirect("main:index")
 
 def cocomment_delete(request):
-    pass
+    if request.method == 'POST':
+        cocomment_id = request.POST.get("cocomment_id")
+        print(cocomment_id)
+        
+        trgt_cocomment = Cocomment.objects.get(id = cocomment_id)
+
+        if trgt_cocomment:
+            trgt_cocomment.delete()
+            answer_response = '삭제되었습니다.'
+    
+    response_data = {
+    'status' : 200,
+    'debugging' : 'Success',
+    'answer_response' : answer_response
+    }
+
+    return JsonResponse(response_data)
+
+
+## 댓글 및 대댓글 좋아요
+def like(request, zero_xor_one, comment_id=None, cocomment_id=None):
+    userprofile = request.user.userprofile
+
+    response_data = {
+        'status' : 200,
+        'msg' : 'success',
+        'comment_like_count' : None,
+        'cocomment_like_count' : None,
+    }
+
+    if comment_id:
+        liked_comment = Comment.objects.get(id=int(comment_id))
+        
+        if zero_xor_one == 0:
+            liked_comment.like_count += 1
+            liked_comment.save()
+
+            userprofile.like_comments.add(liked_comment)
+            userprofile.save()
+        
+        elif zero_xor_one == 1:
+            liked_comment.like_count -=1
+            liked_comment.save()
+
+            userprofile.like_comments.remove(liked_comment)
+            userprofile.save()
+        
+        response_data['comment_like_count'] = liked_comment.like_count
+    
+    if cocomment_id:
+        liked_cocomment = Cocomment.objects.get(id=int(cocomment_id))
+
+        if zero_xor_one == 0:
+            liked_cocomment.like_count +=1
+            liked_cocomment.save()
+
+            userprofile.like_cocomments.add(liked_cocomment)
+            userprofile.save()
+
+        elif zero_xor_one == 1:
+            liked_cocomment.like_count -=1
+            liked_cocomment.save()
+
+            userprofile.like_cocomments.remove(liked_cocomment)
+            userprofile.save()
+
+        response_data['cocomment_like_count'] = liked_cocomment.like_count
+
+    return JsonResponse(response_data)
