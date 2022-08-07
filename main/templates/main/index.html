@@ -145,23 +145,54 @@
                     <div class = "comment_line_content">{{comment.content}}</div>
                     <div class = "comment_line_cocomment_and_like">
                         <button onclick="open_cocomment(this, '{{comment.id}}')">답글</button>
-                        <button>좋아요</button>
+                        {% if comment in user.userprofile.like_comments.all %}
+                        <button onclick = "like(this, '{{comment.id}}', 1)" class="comment_like">
+                            좋아요 취소 {{comment.like_count}}
+                        </button>
+                        {% else %}
+                        <button onclick = "like(this, '{{comment.id}}', 0)" class="comment_like">
+                            좋아요 {{comment.like_count}}
+                        </button>
+                        {% endif %}
+
                     </div>
                     {%if comment.user == user or user.is_superuser%}
                     <div class = "comment_line_edit_box">
-                        <button>수정</button>
-                        <button onclick="comment_delete('{{comment.id}}')">삭제</button>
+                        <button>
+                            수정
+                        </button>
+                        <button onclick="comment_delete(this, '{{comment.id}}')", class="cocomment_delete">
+                            삭제
+                        </button>
                     </div>
                     {%endif%}
                     <div class = "comment_line_cocomment_container" id = "comment_id_{{comment.id}}_cocomment">
                         {%for cocomment in comment.cocomment_set.all%}
-                        <div class = "cocomment_line_user_and_updated_at">
-                            <div class = "cocomment_line_user">{{cocomment.user.userprofile.nickname}}</div>
-                            <div class = "comment_line_updated_at">{{cocomment.updated_at}}</div>
-                        </div>
-                        <div class = "cocomment_line_content">{{cocomment.content}}</div>
-                        <div class = "cocomment_line_like">
-                            <button>좋아요</button>
+                        <div class = "cocomment_line" id = "cocomment_id_{{cocomment.id}}">
+                            <div class = "cocomment_line_user_and_updated_at">
+                                <div class = "cocomment_line_user">{{cocomment.user.userprofile.nickname}}</div>
+                                <div class = "comment_line_updated_at">{{cocomment.updated_at}}</div>
+                            </div>
+                            <div class = "cocomment_line_content">{{cocomment.content}}</div>
+                            <div class = "cocomment_line_like">
+                                {%if cocomment in user.userprofile.like_cocomments.all%}
+                                <button onclick = "like(this, '{{cocomment.id}}', 1)", class="cocomment_like">
+                                    좋아요 취소 {{cocomment.like_count}}
+                                </button>
+                                {%else%}
+                                <button onclick = "like(this, '{{cocomment.id}}', 0)", class="cocomment_like">
+                                    좋아요 {{cocomment.like_count}}
+                                </button>
+                                {%endif%}
+                            </div>
+                            {%if comment.user == user or user.is_superuser%}
+                            <div class = "cocomment_line_edit_box">
+                                <button>수정</button>
+                                <button onclick="comment_delete(this, '{{cocomment.id}}')", class="cocomment_delete">
+                                    삭제
+                                </button>
+                            </div>
+                            {%endif%}
                         </div>
                         {%endfor%}
                     <div class="cocomment_input_box">
