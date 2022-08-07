@@ -182,6 +182,7 @@ class IndexView:
 
     ####### Comment 관련 #######
     def get_comments(self):
+        # Comment를 다 받아온다.
         comments = Comment.objects.all()
         content = {
             'comments' : comments,
@@ -189,6 +190,7 @@ class IndexView:
         return content
 
     def get_comment_form(self):
+        # Comment 입력 form을 받아온다.
         form = CommentModelForm()
         content = {
             'comment_form' : form
@@ -355,7 +357,6 @@ def sms_delete(request):
 #### comment 처리관련 VIEWS ####
 
 def comment_new(request):
-    print(f"request.POST is {request.POST}")
     if request.method == 'POST':
         form = CommentModelForm(request.POST, request.FILES)
         if form.is_valid():
@@ -401,8 +402,6 @@ def cocomment_new(request):
 def cocomment_delete(request):
     if request.method == 'POST':
         cocomment_id = request.POST.get("cocomment_id")
-        print(cocomment_id)
-        
         trgt_cocomment = Cocomment.objects.get(id = cocomment_id)
 
         if trgt_cocomment:
