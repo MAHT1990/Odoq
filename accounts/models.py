@@ -2,7 +2,7 @@ from django.db import models
 
 from django.contrib.auth import get_user_model
 
-from main.models import Comment, Cocomment
+from main.models import Comment, Cocomment, Question
 
 User = get_user_model()
 
@@ -12,3 +12,5 @@ class UserProfile(models.Model):
 
     like_comments = models.ManyToManyField(Comment, blank=True, default=None)
     like_cocomments = models.ManyToManyField(Cocomment, blank=True, default=None)
+
+    solved_questions = models.ManyToManyField(Question, blank=True, default=None)
