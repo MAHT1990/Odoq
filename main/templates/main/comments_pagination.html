@@ -1,0 +1,10 @@
+{% for comment in comments %}
+<p>{{ comment }}</p>
+{% endfor %}
+{% if comments.has_previous %}
+    <a href="/proto/comments/{{comments.number|add:-1}}">Previous</a>
+{% endif %}
+      Page {{comments.number}} / {{comments.paginator.num_pages}}
+{% if comments.has_next %}
+      <a href="/proto/comments/{{comments.number|add:1}}">Next</a>
+{% endif %}
