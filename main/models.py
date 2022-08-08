@@ -32,6 +32,10 @@ class Question(models.Model):
     img = models.ImageField()
     aswr = models.CharField(max_length=255)
     upload_datetime = models.DateTimeField(null=True) #업로드 예정일시
+    
+    answer_count = models.PositiveIntegerField(default=0) # 답안 제출수 
+    solve_count = models.PositiveIntegerField(default=0) # 정답 수
+
     created_at = models.DateTimeField(auto_now_add=True, null=True)
     updated_at = models.DateTimeField(auto_now = True, null=True)
     
