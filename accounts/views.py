@@ -45,9 +45,9 @@ class OdoqLoginView(LoginView):
 
         #DEBUG #DEBUG #DEBUG #DEBUG #DEBUG #DEBUG #DEBUG #DEBUG #DEBUG 
 
-        debug_title = 'accounts.views.OdoqLoginView.get'
-        len_debug_title = len(debug_title)
-        print('=' * len_debug_title,'\n',debug_title,'\n','=' * len_debug_title)
+        # debug_title = 'accounts.views.OdoqLoginView.get'
+        # len_debug_title = len(debug_title)
+        # print('=' * len_debug_title,'\n',debug_title,'\n','=' * len_debug_title)
 
         #DEBUG #DEBUG #DEBUG #DEBUG #DEBUG #DEBUG #DEBUG #DEBUG #DEBUG 
 
@@ -64,9 +64,9 @@ class OdoqLoginView(LoginView):
 
         #DEBUG #DEBUG #DEBUG #DEBUG #DEBUG #DEBUG #DEBUG #DEBUG
         
-        debug_title = 'accounts.views.OdoqLoginView.form_invalid'
-        len_debug_title = len(debug_title)
-        print('=' * len_debug_title,'\n',debug_title,'\n','=' * len_debug_title)
+        # debug_title = 'accounts.views.OdoqLoginView.form_invalid'
+        # len_debug_title = len(debug_title)
+        # print('=' * len_debug_title,'\n',debug_title,'\n','=' * len_debug_title)
 
         #DEBUG #DEBUG #DEBUG #DEBUG #DEBUG #DEBUG #DEBUG #DEBUG
 
@@ -88,8 +88,9 @@ logout = login_required(LogoutView.as_view())
 
 class OdoqCreateView(CreateView):
     def form_valid(self, form):
-        nickname = form.cleaned_data['nickname']
-        self.object = form.save()
+        self.object = form.save() # user_instance 생성
+
+        nickname = form.cleaned_data['nickname'] 
         UserProfile.objects.create(user=self.object, nickname = nickname)
 
         return HttpResponseRedirect(self.get_success_url())
