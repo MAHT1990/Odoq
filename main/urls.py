@@ -1,5 +1,6 @@
 from django.urls import path, include
 from . import views
+from . import views_proto
 
 urlpatterns = [
     path('',views.index, name='index'),
@@ -12,4 +13,6 @@ urlpatterns = [
     path('cocomment/new/', views.cocomment_new, name = 'cocomment_new'),
     path('cocomment/delete/', views.cocomment_delete, name = 'cocomment_delete'),
     path('cocomment/like/<int:cocomment_id>/<int:zero_xor_one>/', views.like, name = 'cocomment_like'),
+    ] + [
+        path('proto/comments/<int:page>/', views_proto.all_comments, name = 'all_comments'),
     ]
