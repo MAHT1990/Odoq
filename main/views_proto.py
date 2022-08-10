@@ -12,8 +12,16 @@ from .forms import CommentModelForm, CocommentModelForm
 
 from accounts.forms import OdoqCreationForm, LoginForm
 
-def all_comments(request, page):
+def all_comments(request):
     comment_list = Comment.objects.all()
     paginator = Paginator(comment_list, 5)
-    comments = paginator.get_page(page)
-    return render(request, "main/comments_pagination.html", {"comments" : comments})
+
+    pages = list()
+    for page in paginator:
+        pages.append(page)
+
+    content = {
+        'pages' : pages,
+    }
+    
+    return render(request, "main/comments_pagination.html", content)
