@@ -1,4 +1,5 @@
 from ast import Try
+from django.core.paginator import Paginator
 from django.shortcuts import render
 from django.urls import reverse
 from django.shortcuts import redirect
@@ -184,9 +185,18 @@ class IndexView:
     def get_comments(self):
         # Comment를 다 받아온다.
         comments = Comment.objects.all()
+        paginator = Paginator(comments, 5)
+
+        pages = list()
+        for page in paginator:
+            pages.append(page)
+
         content = {
             'comments' : comments,
+            'paginator' : paginator,
+            'pages' : pages,
         }
+
         return content
 
     def get_comment_form(self):
@@ -234,12 +244,12 @@ class IndexView:
             content.update(self.get_cocomment_form())
         
         #Debug Log
-        debug_title = 'get_content'
-        len_debug_title = len(debug_title)
-        print('=' * len_debug_title,'\n',debug_title,'\n','=' * len_debug_title)
-        print("content is ",content)
-        for key, value in content.items():
-            print(key, '----', value ,'\n')
+        # debug_title = 'get_content'
+        # len_debug_title = len(debug_title)
+        # print('=' * len_debug_title,'\n',debug_title,'\n','=' * len_debug_title)
+        # print("content is ",content)
+        # for key, value in content.items():
+        #     print(key, '----', value ,'\n')
 
         return content
 
