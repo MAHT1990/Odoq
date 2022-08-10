@@ -14,5 +14,5 @@ urlpatterns = [
     path('cocomment/delete/', views.cocomment_delete, name = 'cocomment_delete'),
     path('cocomment/like/<int:cocomment_id>/<int:zero_xor_one>/', views.like, name = 'cocomment_like'),
     ] + [
-        path('proto/comments/<int:page>/', views_proto.all_comments, name = 'all_comments'),
+        path('proto/comments/', views_proto.all_comments, name = 'all_comments'),
     ]
