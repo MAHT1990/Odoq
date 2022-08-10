@@ -1,6 +1,12 @@
-{% for comment in comments %}
-<p>{{ comment }}</p>
+{% for page in pages %}
+      <div id="comment_page_{{page.number}}">
+            <p>comment_page_{{page.number}}</p>
+            {% for comment in page %}
+                  <p>{{ comment }}</p>
+            {% endfor %}
+      </div>
 {% endfor %}
+
 {% if comments.has_previous %}
     <a href="/proto/comments/{{comments.number|add:-1}}">Previous</a>
 {% endif %}
