@@ -55,21 +55,3 @@ function close_sms_popup(){
     popup.style.display = "none";
 }
 
-function open_cocomment(self, id){
-    let cocomment_container = document.getElementById("comment_id_"+id+"_cocomment");
-    
-    cocomment_container.style.display = "block";
-    
-    self.setAttribute("onclick", "close_cocomment(this, "+id+")");
-    console.log('BOOYAH');
-}
-
-
-function close_cocomment(self, id){
-    let cocomment_container = document.getElementById("comment_id_"+id+"_cocomment");
-
-    cocomment_container.style.display = "none";
-
-    self.setAttribute("onclick", "open_cocomment(this, "+id+")");
-    console.log('COOYAH');
-}
