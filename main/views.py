@@ -182,9 +182,10 @@ class IndexView:
         return content
 
     ####### Comment 관련 #######
-    def get_comments(self):
-        # Comment를 다 받아온다.
-        comments = Comment.objects.all()
+    def get_comments(self, **kwargs):
+
+        comments = self.comments_filtering_ordering(Comment.objects.all(), **kwargs)
+        
         paginator = Paginator(comments, 5)
 
         pages = list()
@@ -198,6 +199,24 @@ class IndexView:
         }
 
         return content
+
+    def comments_filtering_ordering(
+        self, comments_queryset, queryset_filter=None, queryset_order=None):
+        comments = comments_queryset
+        
+        if queryset_filter=="today":
+            now = datetime.now()
+            comments = comments_queryset.filter(
+                created_at__year = now.year,
+                created_at__month = now.month,
+                created_at__day = now.day,
+            )
+
+        if queryset_order=="like_count":
+            comments = comments.order_by('-like_count')
+
+        return comments
+
 
     def get_comment_form(self):
         # Comment 입력 form을 받아온다.
@@ -215,7 +234,7 @@ class IndexView:
         return content
 
     ###### content : Response에 넣어줄 <Dictionary : content> ######
-    def get_content(self):
+    def get_content(self, *args, **kwargs):
         
         #1. get_current_question()으로 <Dict : get_current_question()>을 받는다.
         #2. current_OnOff()으로 <Dict : current_OnOff()>을 추가한다.
@@ -235,7 +254,7 @@ class IndexView:
             content.update(self.get_login_form())
 
         if self.get_comments_bool:
-            content.update(self.get_comments())
+            content.update(self.get_comments(**kwargs))
 
         if self.get_comment_form_bool:
             content.update(self.get_comment_form())
@@ -260,7 +279,7 @@ class IndexView:
         def view(request, *args, **kwargs):
             self = cls(**initkwargs)
             self.request = request
-            return render(request, 'main/index.html', self.get_content())
+            return render(request, 'main/index.html', self.get_content(*args, **kwargs))
 
         return view
 
