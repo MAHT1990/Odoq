@@ -135,8 +135,8 @@
         </div>
         {% endif %}
         <div class="comment_list_filter">
-            <button>최신순</button>
-            <button>오늘의 댓글 추천순</button>
+            <button onclick="location.href='/'">최신순</button>
+            <button onclick="location.href='/comment/today/like_count/'">오늘의 댓글 추천순</button>
         </div>
         <div class="comment_list_box">
             {%for page in pages%}
@@ -262,6 +262,8 @@
     <script>
         // Window가 load되면 자동으로 실행된다.
         //template TAG 때문에 .js 파일로 옮기면 안됨.
+        // document.location.reload(true);
+
         window.onload = function(){
             let weekday = "{{weekday}}";
             let duration = "{{countdown}}";
