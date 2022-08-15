@@ -148,8 +148,7 @@
                             <div class = "comment_line_updated_at">{{comment.updated_at}}</div>
                         </div>
 
-                        <div class = "comment_line_content">{{comment.content}}</div>
-
+                        <div class = "comment_line_content" id="comment_content_{{comment.id}}">{{comment.content}}</div>
                         <div class = "comment_line_cocomment_and_like">
                             <button onclick="open_cocomment(this, '{{comment.id}}')">답글 {{comment.cocomment_set.all|length}}</button>
                             {% if comment in user.userprofile.like_comments.all %}
@@ -164,11 +163,11 @@
                         </div>
 
                         {%if comment.user == user or user.is_superuser%}
-                        <div class = "comment_line_edit_box">
-                            <button>
+                        <div class = "comment_line_tool_box">
+                            <button onclick="comment_edit_open(this, '{{comment.id}}')" class="comment_edit">
                                 수정
                             </button>
-                            <button onclick="comment_delete(this, '{{comment.id}}')", class="cocomment_delete">
+                            <button onclick="comment_delete(this, '{{comment.id}}')" class="comment_delete">
                                 삭제
                             </button>
                         </div>
@@ -197,7 +196,7 @@
                                 </div>
 
                                 {%if comment.user == user or user.is_superuser%}
-                                <div class = "cocomment_line_edit_box">
+                                <div class = "cocomment_line_tool_box">
                                     <button>
                                         수정
                                     </button>
