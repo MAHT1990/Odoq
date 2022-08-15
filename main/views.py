@@ -6,6 +6,7 @@ from django.shortcuts import redirect
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from datetime import *
 from django.views.decorators.csrf import csrf_exempt, ensure_csrf_cookie
+from django.contrib.auth.decorators import login_required
 
 from .models import *
 from .forms import CommentModelForm, CocommentModelForm
@@ -384,18 +385,19 @@ def sms_delete(request):
     return JsonResponse(response_data)
 
 #### comment 처리관련 VIEWS ####
-
+@login_required
 def comment_new(request):
     if request.method == 'POST':
         form = CommentModelForm(request.POST, request.FILES)
         if form.is_valid():
             comment = form.save(commit=False)
-            comment.user = User.objects.get(username = request.POST['user'])
+            comment.user = request.user
             comment.save()
             return redirect("main:index")
     else:
         return redirect("main:index")
 
+@login_required
 def comment_delete(request):
     if request.method == 'POST':
         comment_id = request.POST.get("comment_id")
@@ -413,9 +415,35 @@ def comment_delete(request):
     }
 
     return JsonResponse(response_data)
-    
+
+@login_required
+def comment_edit(request):
+    response_data = {
+    'status' : 200,
+    'debugging' : 'Success',
+    }
+
+    if request.method == "POST":
+        print(request.POST)
+        try:
+            comment = Comment.objects.get(id=request.POST['comment_id'])
+        except Comment.DoesNotExist:
+            comment = None
+
+        if comment:
+            form = CommentModelForm(request.POST, instance=comment)
+            
+            if form.is_valid():
+                comment_edit = form.save()
+                return JsonResponse(response_data)
+        else:
+            return redirect("main:index")
+
+    else:
+        return redirect("main:index")
 
 ## 대댓글 관련 view
+@login_required
 def cocomment_new(request):
     if request.method == 'POST':
         form = CocommentModelForm(request.POST, request.FILES)
@@ -444,6 +472,10 @@ def cocomment_delete(request):
     }
 
     return JsonResponse(response_data)
+
+@login_required
+def cocomment_edit(request):
+    pass
 
 
 ## 댓글 및 대댓글 좋아요
