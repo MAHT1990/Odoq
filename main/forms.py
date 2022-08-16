@@ -10,3 +10,4 @@ class CocommentModelForm(forms.ModelForm):
     class Meta:
         model = Cocomment
         fields = ['content']
+
