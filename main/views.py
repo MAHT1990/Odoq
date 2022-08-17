@@ -402,7 +402,11 @@ def comment_delete(request):
     if request.method == 'POST':
         comment_id = request.POST.get("comment_id")
         
-        trgt_comment = Comment.objects.get(id = comment_id)
+        try:
+            trgt_comment = Comment.objects.get(id = comment_id)
+        except:
+            trgt_comment = None
+            answer_response = '삭제되었거나 존재하지않는 댓글입니다.'
 
         if trgt_comment:
             trgt_comment.delete()
@@ -424,7 +428,6 @@ def comment_edit(request):
     }
 
     if request.method == "POST":
-        print(request.POST)
         try:
             comment = Comment.objects.get(id=request.POST['comment_id'])
         except Comment.DoesNotExist:
