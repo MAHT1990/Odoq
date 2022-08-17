@@ -124,7 +124,6 @@
         <div class="comment_input_box">
             <form action="{%url 'main:comment_new'%}" method="post" enctype = "multipart/form-data">
                 {%csrf_token%}
-                <input type="hidden" name="user" value={{user}}>
                 {{comment_form}}
                 <input type="submit" value="WRITE">
             </form>
@@ -139,7 +138,7 @@
             <button onclick="location.href='/comment/today/like_count/'">오늘의 댓글 추천순</button>
         </div>
         <div class="comment_list_box">
-            {%for page in pages%}
+            {%for page in paginator%}
             <div class="comment_list_page" id="comment_list_page_{{page.number}}">
                     {%for comment in page%}
                     <div class = "comment_line" id = "comment_id_{{comment.id}}">
