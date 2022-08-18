@@ -151,38 +151,57 @@ function comment_delete(self, id){
 
 // 댓글 수정 INTERFACE
 function comment_edit_open(self, id){
-    let trgt_comment_content = document.getElementById('comment_content_'+id);
+    
+    let prefix = '';
 
-    let comment_edit_input_box = document.createElement('div');
-    let comment_edit_input = document.createElement('input');
-    let comment_edit_button = document.createElement('button');
+    if(self.getAttribute("class").indexOf('coco')<0){
+        prefix = 'comment';
+    } else {
+        prefix = 'cocomment';
+    }
+
+    let trgt_content = document.getElementById(prefix+'_content_'+id);
+
+    let edit_input_box = document.createElement('div');
+    let edit_input = document.createElement('input');
+    let edit_button = document.createElement('button');
 
     // comment의 id에 맞추어 id 지어주기 & button 이름 지어주기
-    comment_edit_input_box.setAttribute("id", "comment_edit_input_box_"+id);
-    comment_edit_input.setAttribute("id", "comment_edit_input_"+id);
-    comment_edit_button.setAttribute("id", "comment_edit_button_"+id); 
-    comment_edit_button.innerHTML="수정";
+    edit_input_box.setAttribute("id", prefix+"_edit_input_box_"+id);
+    edit_input.setAttribute("id", prefix+"_edit_input_"+id);
+    edit_button.setAttribute("id", prefix+"_edit_button_"+id); 
+    edit_button.innerHTML="수정";
 
     // input 창의 값은 현재 댓글 내용을 있는 그대로 반영
-    comment_edit_input.value = trgt_comment_content.innerHTML;
+    edit_input.value = trgt_content.innerHTML;
 
     // input 의 onclick EVENT 넣어주기 - comment_edit(id) 실행되도록
-    comment_edit_button.setAttribute("onclick", "comment_edit("+id+")");
+    edit_button.setAttribute("onclick", "comment_edit("+"this, "+id+")");
 
     // 만든 child 요소 : input, button 를 comment_edit_input_box에 넣어주기
-    comment_edit_input_box.appendChild(comment_edit_input);
-    comment_edit_input_box.appendChild(comment_edit_button);
+    edit_input_box.appendChild(edit_input);
+    edit_input_box.appendChild(edit_button);
 
     // 기존의 댓글창을 comment_edit_input_box로 교체.
-    trgt_comment_content.parentNode.replaceChild(comment_edit_input_box, trgt_comment_content);
+    trgt_content.parentNode.replaceChild(edit_input_box, trgt_content);
 }
 
 // 실제 댓글 수정 AJAX
-function comment_edit(id){
-    let comment_edit_content = document.getElementById("comment_edit_input_"+id).value;
-    console.log(comment_edit_content);
+function comment_edit(self, id){
+    let url = '';
+    let prefix = '';
 
-    let url = '/comment/edit/';
+    if(self.getAttribute("id").indexOf('coco')<0){
+        prefix = 'comment';
+        url = '/comment/edit/';
+    } else {
+        prefix = 'cocomment';
+        url = '/cocomment/edit/';
+    }
+
+    let edit_content = document.getElementById(prefix+"_edit_input_"+id).value;
+    console.log(edit_content);
+
     let req = new XMLHttpRequest();
     req.open('POST', url, true);
     req.onreadystatechange = function(){
@@ -201,7 +220,7 @@ function comment_edit(id){
     // 보낼 data 양식 맞춰서, send로 보내기.
 
     let data = "";
-    data += 'comment_id='+ id + '&' + 'content=' + comment_edit_content;
+    data += (prefix+'_id=')+ id + '&' + 'content=' + edit_content;
     console.log(data);
     req.send(data);
 }
