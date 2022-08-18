@@ -427,17 +427,24 @@ def comment_edit(request):
     'debugging' : 'Success',
     }
 
+    comment, cocomment = None, None
+
     if request.method == "POST":
-        try:
+        if request.POST.get('comment_id'):
             comment = Comment.objects.get(id=request.POST['comment_id'])
-        except Comment.DoesNotExist:
-            comment = None
+        elif request.POST.get('cocomment_id'):
+            cocomment = Cocomment.objects.get(id=request.POST['cocomment_id'])
+        
+        print(comment, cocomment)
 
         if comment:
             form = CommentModelForm(request.POST, instance=comment)
-            
+
+        elif cocomment:
+            form = CocommentModelForm(request.POST, instance=cocomment)
+
             if form.is_valid():
-                comment_edit = form.save()
+                edit = form.save()
                 return JsonResponse(response_data)
         else:
             return redirect("main:index")
