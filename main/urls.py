@@ -14,7 +14,7 @@ urlpatterns = [
     path('comment/<str:queryset_filter>/<str:queryset_order>/', views.index, name='filtering_and_ordering'),
     path('cocomment/new/', views.cocomment_new, name = 'cocomment_new'),
     path('cocomment/delete/', views.cocomment_delete, name = 'cocomment_delete'),
-    path('cocomment/edit/', views.cocomment_edit, name = 'cocomment_edit'),
+    path('cocomment/edit/', views.comment_edit, name = 'cocomment_edit'),
     path('cocomment/like/<int:cocomment_id>/<int:zero_xor_one>/', views.like, name = 'cocomment_like'),
     ] + [
         path('proto/comments/', views_proto.all_comments, name = 'all_comments'),
