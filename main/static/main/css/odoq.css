@@ -480,13 +480,129 @@ header{
                 font-weight: normal;
             }
 
+.comment_input_box {
+}
+
+
+.comment_input_box form textarea {
+    display : block;
+    width : 95%;
+    margin : 0 auto;
+}
+
+.comment_input_box form input {
+    float : right;
+}
+
+.comment_container_header {
+    padding : 10px;
+    margin : 10px 0 10px 0;
+    font-size : 20px;
+    background-color: rgba(231,240,249,255);
+}
+
+.comment_container_header_today {
+    display : inline-block;
+    padding : 10px;
+}
+
+.comment_container_header_my_comment {
+    display : inline-block;
+    float : right;
+    padding: 10px;
+}
+
+.comment_container_header_notice {
+    font-size : 12px;
+    color : grey;
+    padding: 10px;
+}
+
+.comment_list_filter {
+    padding : 10px;
+}
+
+.comment_list_filter button {
+    font-size : 15px;
+    background-color : transparent;
+    border : 0;
+}
+
+.comment_list_filter_vertical_line {
+    background-color : rgba(166,166,166,255);
+    height : 1px;
+}
+
 .comment_list_box {
     font-size : 20px;
 }
 
+.comment_list_page {
+
+}
+
+.comment_line {
+    padding : 13px 0 0 0;
+}
+
+.comment_line:hover {
+    background-color : rgba(240,240,240,255);
+}
+
+.comment_line_user_and_updated_at_and_tool_box{
+    display : flex;
+    justify-content : space-between;
+}
+    .comment_line_user_and_updated_at {
+        padding : 0 10px 0 10px;
+    }
+
+        .comment_line_user {
+            display : inline-block;
+        }
+
+        .comment_line_updated_at {
+            display : inline-block;
+            font-size: 14px;
+            color : rgba(168,168,168,255);
+        }
+    .comment_line_tool_box {
+        float : right;
+        padding : 0 10px 0 10px;
+    }
+
+.comment_line_content {
+    padding : 10px;
+}
+
+.comment_line_cocomment_and_like {
+    padding : 10px;
+    display : flex;
+    justify-content : space-between;
+}
+
+    .comment_line_open_cocomment {
+        background-color:transparent;
+        border : 0;
+    }
+    
+    .comment_like {
+        background-color:transparent;
+        border : 0;
+    }
+
 .comment_line_cocomment_container{
     display : none;
     padding-left : 50px;
+}
+
+.comment_line_vertical_line{
+    background-color : rgba(166,166,166,255);
+    height : 1px;
+}
+
+.comment_list_navigator {
+    padding : 10px;
 }
 
 .verticalLine3 {
