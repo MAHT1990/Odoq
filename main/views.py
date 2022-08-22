@@ -187,14 +187,24 @@ class IndexView:
 
         comments = self.comments_filtering_ordering(Comment.objects.all(), **kwargs)
         
-        paginator = Paginator(comments, 5)
+        now = datetime.now()
+        
+        comments_today = comments.filter(
+            created_at__year = now.year,
+            created_at__month = now.month,
+            created_at__day = now.day,
+        )
+        
 
+        paginator = Paginator(comments, 5)
         pages = list()
+
         for page in paginator:
             pages.append(page)
 
         content = {
             'comments' : comments,
+            'comments_today' : comments_today,
             'paginator' : paginator,
             'pages' : pages,
         }
@@ -205,16 +215,10 @@ class IndexView:
         self, comments_queryset, queryset_filter=None, queryset_order=None):
         comments = comments_queryset
         
-        if queryset_filter=="today":
-            now = datetime.now()
-            comments = comments_queryset.filter(
-                created_at__year = now.year,
-                created_at__month = now.month,
-                created_at__day = now.day,
-            )
+        '''인자가 들어오면 그 조건에 맞춰서 filtering and ordering'''
 
-        if queryset_order=="like_count":
-            comments = comments.order_by('-like_count')
+        if queryset_filter=="today" and queryset_order=="like_count":
+            comments = comments.order_by('-created_at', '-like_count')
 
         return comments
 
