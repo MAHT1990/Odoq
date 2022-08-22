@@ -106,9 +106,6 @@
     {%else%}
         <div class="question_container">
             <div class="question_box">
-
-
-
                 {% if season_off_img %}
                 <img src="{{season_off_img.url}}" alt="load Error">
                 {% else %}
@@ -119,7 +116,11 @@
     {%endif%}
     {%if onoff_comment is True%}
     <div class="comment_container">
-        
+        <div class="comment_container_header">
+            <div class="comment_container_header_today">오늘의 댓글 &nbsp <span>{{comments_today|length}}</span> 개</div>
+            <div class="comment_container_header_my_comment">내 댓글</div>
+            <div class="comment_container_header_notice">관리자가 악성댓글을 감지하고 있습니다. 건강한 댓글 문화를 위해 노력하는 오도커가 됩시다.</div>
+        </div>
         {% if user.is_authenticated %}
         <div class="comment_input_box">
             <form action="{%url 'main:comment_new'%}" method="post" enctype = "multipart/form-data">
@@ -137,19 +138,37 @@
             <button onclick="location.href='/'">최신순</button>
             <button onclick="location.href='/comment/today/like_count/'">오늘의 댓글 추천순</button>
         </div>
+        <div class="comment_list_filter_vertical_line"></div>
         <div class="comment_list_box">
             {%for page in paginator%}
             <div class="comment_list_page" id="comment_list_page_{{page.number}}">
                     {%for comment in page%}
                     <div class = "comment_line" id = "comment_id_{{comment.id}}">
-                        <div class = "comment_line_user_and_updated_at">
-                            <div class = "comment_line_user">{{comment.user.userprofile.nickname}}</div>
-                            <div class = "comment_line_updated_at">{{comment.updated_at}}</div>
+                        <div class = "comment_line_user_and_updated_at_and_tool_box">
+                            <div class = "comment_line_user_and_updated_at">
+                                <div class = "comment_line_user">{{comment.user.userprofile.nickname}}</div>
+                                <div class = "comment_line_updated_at">{{comment.updated_at}}</div>
+                            </div>
+                            {%if comment.user == user or user.is_superuser%}
+                            <div class = "comment_line_tool_box">
+                                <button onclick="comment_edit_open(this, '{{comment.id}}')" class="comment_edit">
+                                    수정
+                                </button>
+                                <button onclick="comment_delete(this, '{{comment.id}}')" class="comment_delete">
+                                    삭제
+                                </button>
+                                {% if user.is_authenticated %}
+                                <button>
+                                    신고
+                                </button>
+                                {% endif %}
+                            </div>
+                            {%endif%}
                         </div>
 
                         <div class = "comment_line_content" id="comment_content_{{comment.id}}">{{comment.content}}</div>
                         <div class = "comment_line_cocomment_and_like">
-                            <button onclick="open_cocomment(this, '{{comment.id}}')">답글 {{comment.cocomment_set.all|length}}</button>
+                            <button onclick="open_cocomment(this, '{{comment.id}}')" class="comment_line_open_cocomment">답글 {{comment.cocomment_set.all|length}}</button>
                             {% if comment in user.userprofile.like_comments.all %}
                             <button onclick = "like(this, '{{comment.id}}', 1)" class="comment_like">
                                 좋아요 취소 {{comment.like_count}}
@@ -160,17 +179,8 @@
                             </button>
                             {% endif %}
                         </div>
+                        <div class="comment_line_vertical_line"></div>
 
-                        {%if comment.user == user or user.is_superuser%}
-                        <div class = "comment_line_tool_box">
-                            <button onclick="comment_edit_open(this, '{{comment.id}}')" class="comment_edit">
-                                수정
-                            </button>
-                            <button onclick="comment_delete(this, '{{comment.id}}')" class="comment_delete">
-                                삭제
-                            </button>
-                        </div>
-                        {%endif%}
 
                         <div class = "comment_line_cocomment_container" id = "comment_id_{{comment.id}}_cocomment">
                             {%for cocomment in comment.cocomment_set.all%}
