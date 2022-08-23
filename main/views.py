@@ -218,7 +218,17 @@ class IndexView:
         '''인자가 들어오면 그 조건에 맞춰서 filtering and ordering'''
 
         if queryset_filter=="today" and queryset_order=="like_count":
-            comments = comments.order_by('-created_at', '-like_count')
+            dates = comments.dates('created_at', 'day').reverse()
+            
+            result = []
+
+            for date in dates:
+                t_comments = comments.filter(created_at__date = date).order_by('-like_count', '-created_at')
+                result += list(t_comments)
+            
+            result_pk = [comment.pk for comment in result]
+                
+            comments = Comment.objects.filter(pk__in=result_pk)
 
         return comments
 
