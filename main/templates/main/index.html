@@ -171,11 +171,11 @@
                             <button onclick="open_cocomment(this, '{{comment.id}}')" class="comment_line_open_cocomment">답글 {{comment.cocomment_set.all|length}}</button>
                             {% if comment in user.userprofile.like_comments.all %}
                             <button onclick = "like(this, '{{comment.id}}', 1)" class="comment_like">
-                                좋아요 취소 {{comment.like_count}}
+                                <i class="fa-solid fa-thumbs-up"></i><span>&nbsp{{comment.like_count}}</span>
                             </button>
                             {% else %}
                             <button onclick = "like(this, '{{comment.id}}', 0)" class="comment_like">
-                                좋아요 {{comment.like_count}}
+                                <i class="fa-regular fa-thumbs-up"></i><span>&nbsp{{comment.like_count}}</span>
                             </button>
                             {% endif %}
                         </div>
