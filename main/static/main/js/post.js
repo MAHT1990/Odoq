@@ -246,16 +246,20 @@ function like(self, id, zero_xor_one){
                 like_count = jsonResponse['cocomment_like_count'];
             }
             console.log(like_count);
-            self.innerHTML = like_count;
+            self.children[1].innerHTML = '&nbsp' + like_count;
+
+            if(zero_xor_one == 0){
+                self.setAttribute("onclick", "like(this, "+id+", 1"+")");
+                self.children[0].setAttribute("class", "fa-solid fa-thumbs-up")
+                console.log('DOOYAH');
+            } else {
+                self.setAttribute("onclick", "like(this, "+id+", 0"+")");
+                self.children[0].setAttribute("class", "fa-regular fa-thumbs-up")
+                console.log('EOOYAH');
+            }
         }
     }
-    if(zero_xor_one == 0){
-        self.setAttribute("onclick", "like(this, "+id+", 1"+")");
-        console.log('DOOYAH');
-    } else {
-        self.setAttribute("onclick", "like(this, "+id+", 0"+")");
-        console.log('EOOYAH');
-    }
+    
 
     req.send();
 }
