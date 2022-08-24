@@ -17,6 +17,29 @@ function close_cocomment(self, id){
     console.log('COOYAH');
 }
 
+function open_tool_box(e, self, id){
+    console.log("mouse location:", e.pageX, e.pageY);
+    console.log("this is ", self);
+
+    let trgt_tool_box_popup = document.getElementById("comment_tool_box_popup_id_"+id);
+    let trgt_tool_box = document.getElementById("comment_tool_box_id_"+id);
+    console.log("tool box :", trgt_tool_box);
+    console.log("tool box popup :", trgt_tool_box_popup);
+    
+    trgt_tool_box.style.display='block';
+    trgt_tool_box.style.position='absolute';
+    trgt_tool_box.style.left=e.pageX+'px';
+    trgt_tool_box.style.top=e.pageY+'px';
+    
+    trgt_tool_box_popup.style.display='block';
+}
+
+function close_tool_box(self, id){
+    self.style.display='none';
+    let trgt_tool_box = document.getElementById("comment_tool_box_id_"+id);
+    trgt_tool_box.style.display='none';
+}
+
 // comment_page_navigation
 function comment_page_show(page_num, max_page){
                 

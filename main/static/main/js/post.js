@@ -231,9 +231,9 @@ function like(self, id, zero_xor_one){
     var url = '';
     
     if(self.getAttribute("class").indexOf('coco')<0){
-        url = '/comment/like/' + id + '/' + zero_xor_one + '/';
+        url = '/comment/like/' + id + '/';
     } else {
-        url = '/cocomment/like/' + id +'/' + zero_xor_one + '/';
+        url = '/cocomment/like/' + id +'/';
     }
 
     let req = new XMLHttpRequest();
@@ -245,18 +245,18 @@ function like(self, id, zero_xor_one){
             if (like_count == null){
                 like_count = jsonResponse['cocomment_like_count'];
             }
-            console.log(like_count);
-            self.children[1].innerHTML = '&nbsp' + like_count;
-
-            if(zero_xor_one == 0){
+            let bfr_like_count = self.children[1].innerHTML
+            console.log(bfr_like_count,like_count);
+            
+            if(bfr_like_count < like_count){
                 self.setAttribute("onclick", "like(this, "+id+", 1"+")");
                 self.children[0].setAttribute("class", "fa-solid fa-thumbs-up")
-                console.log('DOOYAH');
             } else {
                 self.setAttribute("onclick", "like(this, "+id+", 0"+")");
                 self.children[0].setAttribute("class", "fa-regular fa-thumbs-up")
-                console.log('EOOYAH');
             }
+
+            self.children[1].innerHTML = like_count;
         }
     }
     

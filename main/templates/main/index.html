@@ -135,8 +135,8 @@
         </div>
         {% endif %}
         <div class="comment_list_filter">
-            <button onclick="location.href='/'">최신순</button>
-            <button onclick="location.href='/comment/today/like_count/'">오늘의 댓글 추천순</button>
+            <button onclick="location.href='/'">최신순 <i class="fa-solid fa-angle-down"></i></button>
+            <button onclick="location.href='/comment/today/like_count/'">오늘의 댓글 추천순 <i class="fa-solid fa-angle-down"></i></button>
         </div>
         <div class="comment_list_filter_vertical_line"></div>
         <div class="comment_list_box">
@@ -149,21 +149,25 @@
                                 <div class = "comment_line_user">{{comment.user.userprofile.nickname}}</div>
                                 <div class = "comment_line_updated_at">{{comment.updated_at}}</div>
                             </div>
-                            {%if comment.user == user or user.is_superuser%}
-                            <div class = "comment_line_tool_box">
-                                <button onclick="comment_edit_open(this, '{{comment.id}}')" class="comment_edit">
-                                    수정
-                                </button>
-                                <button onclick="comment_delete(this, '{{comment.id}}')" class="comment_delete">
-                                    삭제
-                                </button>
-                                {% if user.is_authenticated %}
-                                <button>
-                                    신고
-                                </button>
-                                {% endif %}
+                            <div class = "comment_line_tool_box_btn_and_box" id="comment_line_tool_box_btn_and_box_id_{{comment.id}}">
+                                <button class = "comment_line_tool_box_btn" onclick="open_tool_box(event, this, '{{comment.id}}')"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+                                <div class="comment_line_tool_box_popup" id="comment_tool_box_popup_id_{{comment.id}}" onclick="close_tool_box(this, '{{comment.id}}')"></div>
+                                <div class = "comment_line_tool_box" id="comment_tool_box_id_{{comment.id}}">
+                                    {% if user.is_authenticated %}
+                                    {%if comment.user == user or user.is_superuser%}
+                                    <button onclick="comment_edit_open(this, '{{comment.id}}')" class="comment_edit">
+                                        수정
+                                    </button>
+                                    <button onclick="comment_delete(this, '{{comment.id}}')" class="comment_delete">
+                                        삭제
+                                    </button>
+                                    {% endif %}
+                                    <button>
+                                        신고
+                                    </button>
+                                    {%endif%}
+                                </div>
                             </div>
-                            {%endif%}
                         </div>
 
                         <div class = "comment_line_content" id="comment_content_{{comment.id}}">{{comment.content}}</div>
@@ -171,11 +175,11 @@
                             <button onclick="open_cocomment(this, '{{comment.id}}')" class="comment_line_open_cocomment">답글 {{comment.cocomment_set.all|length}}</button>
                             {% if comment in user.userprofile.like_comments.all %}
                             <button onclick = "like(this, '{{comment.id}}', 1)" class="comment_like">
-                                <i class="fa-solid fa-thumbs-up"></i><span>&nbsp{{comment.like_count}}</span>
+                                <i class="fa-solid fa-thumbs-up"></i>&nbsp<span>{{comment.like_count}}</span>
                             </button>
                             {% else %}
                             <button onclick = "like(this, '{{comment.id}}', 0)" class="comment_like">
-                                <i class="fa-regular fa-thumbs-up"></i><span>&nbsp{{comment.like_count}}</span>
+                                <i class="fa-regular fa-thumbs-up"></i>&nbsp<span>{{comment.like_count}}</span>
                             </button>
                             {% endif %}
                         </div>
