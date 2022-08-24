@@ -480,6 +480,7 @@ def cocomment_new(request):
     else:
         return redirect("main:index")
 
+@login_required
 def cocomment_delete(request):
     if request.method == 'POST':
         cocomment_id = request.POST.get("cocomment_id")
@@ -503,7 +504,8 @@ def cocomment_edit(request):
 
 
 ## 댓글 및 대댓글 좋아요
-def like(request, zero_xor_one, comment_id=None, cocomment_id=None):
+@login_required
+def like(request, comment_id=None, cocomment_id=None):
     userprofile = request.user.userprofile
 
     response_data = {
@@ -516,14 +518,13 @@ def like(request, zero_xor_one, comment_id=None, cocomment_id=None):
     if comment_id:
         liked_comment = Comment.objects.get(id=int(comment_id))
         
-        if zero_xor_one == 0:
+        if liked_comment not in userprofile.like_comments.all():
             liked_comment.like_count += 1
             liked_comment.save()
 
             userprofile.like_comments.add(liked_comment)
             userprofile.save()
-        
-        elif zero_xor_one == 1:
+        else:
             liked_comment.like_count -=1
             liked_comment.save()
 
@@ -535,14 +536,13 @@ def like(request, zero_xor_one, comment_id=None, cocomment_id=None):
     if cocomment_id:
         liked_cocomment = Cocomment.objects.get(id=int(cocomment_id))
 
-        if zero_xor_one == 0:
+        if liked_cocomment not in userprofile.like_cocomments.all():
             liked_cocomment.like_count +=1
             liked_cocomment.save()
 
             userprofile.like_cocomments.add(liked_cocomment)
             userprofile.save()
-
-        elif zero_xor_one == 1:
+        else:
             liked_cocomment.like_count -=1
             liked_cocomment.save()
 
