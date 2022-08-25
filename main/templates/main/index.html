@@ -122,11 +122,16 @@
             <div class="comment_container_header_notice">관리자가 악성댓글을 감지하고 있습니다. 건강한 댓글 문화를 위해 노력하는 오도커가 됩시다.</div>
         </div>
         {% if user.is_authenticated %}
-        <div class="comment_input_box">
+        <div class="comment_input_box" onclick="input_box_open()">
             <form action="{%url 'main:comment_new'%}" method="post" enctype = "multipart/form-data">
                 {%csrf_token%}
-                {{comment_form}}
-                <input type="submit" value="WRITE">
+                <div class="comment_input_box_textarea_and_charnumbs_and_button">
+                    {{comment_form}}
+                    <div class="comment_input_box_charnumbs_and_button">
+                        <div class="comment_input_box_charnumbs">글자수 여기옴</div>
+                        <input type="submit" value="WRITE">
+                    </div>
+                </div>
             </form>
         </div>
         {% else %}
@@ -149,6 +154,7 @@
                                 <div class = "comment_line_user">{{comment.user.userprofile.nickname}}</div>
                                 <div class = "comment_line_updated_at">{{comment.updated_at}}</div>
                             </div>
+                            {% if user.is_authenticated %}
                             <div class = "comment_line_tool_box_btn_and_box" id="comment_line_tool_box_btn_and_box_id_{{comment.id}}">
                                 <button class = "comment_line_tool_box_btn" onclick="open_tool_box(event, this, '{{comment.id}}')"><i class="fa-solid fa-ellipsis-vertical"></i></button>
                                 <div class="comment_line_tool_box_popup" id="comment_tool_box_popup_id_{{comment.id}}" onclick="close_tool_box(this, '{{comment.id}}')"></div>
@@ -156,23 +162,24 @@
                                     {% if user.is_authenticated %}
                                     {%if comment.user == user or user.is_superuser%}
                                     <button onclick="comment_edit_open(this, '{{comment.id}}')" class="comment_edit">
-                                        수정
+                                        <i class="fa-solid fa-pen"></i>
                                     </button>
                                     <button onclick="comment_delete(this, '{{comment.id}}')" class="comment_delete">
-                                        삭제
+                                        <i class="fa-solid fa-eraser"></i>
                                     </button>
                                     {% endif %}
                                     <button>
-                                        신고
+                                        <i class="fa-solid fa-triangle-exclamation"></i>
                                     </button>
                                     {%endif%}
                                 </div>
                             </div>
+                            {% endif %}
                         </div>
 
                         <div class = "comment_line_content" id="comment_content_{{comment.id}}">{{comment.content}}</div>
                         <div class = "comment_line_cocomment_and_like">
-                            <button onclick="open_cocomment(this, '{{comment.id}}')" class="comment_line_open_cocomment">답글 {{comment.cocomment_set.all|length}}</button>
+                            <button onclick="open_cocomment(this, '{{comment.id}}')" class="comment_line_open_cocomment">답글 {{comment.cocomment_set.all|length}}&nbsp&nbsp<i class="fa-solid fa-caret-down"></i></button>
                             {% if comment in user.userprofile.like_comments.all %}
                             <button onclick = "like(this, '{{comment.id}}', 1)" class="comment_like">
                                 <i class="fa-solid fa-thumbs-up"></i>&nbsp<span>{{comment.like_count}}</span>
