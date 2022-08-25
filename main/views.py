@@ -457,12 +457,12 @@ def comment_edit(request):
         elif cocomment:
             form = CocommentModelForm(request.POST, instance=cocomment)
 
-            if form.is_valid():
-                edit = form.save()
-                return JsonResponse(response_data)
         else:
             return redirect("main:index")
 
+        if form.is_valid():
+            edit = form.save()
+            return JsonResponse(response_data)
     else:
         return redirect("main:index")
 
