@@ -1,3 +1,7 @@
+function input_box_open(){
+    console.log('input box will open');
+}
+
 function open_cocomment(self, id){
     let cocomment_container = document.getElementById("comment_id_"+id+"_cocomment");
     

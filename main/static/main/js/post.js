@@ -165,12 +165,22 @@ function comment_edit_open(self, id){
     let edit_input_box = document.createElement('div');
     let edit_input = document.createElement('input');
     let edit_button = document.createElement('button');
+    let edit_cancel_button = document.createElement('button');
 
     // comment의 id에 맞추어 id 지어주기 & button 이름 지어주기
+    edit_input_box.setAttribute("class", prefix+"_edit_input_box");
     edit_input_box.setAttribute("id", prefix+"_edit_input_box_"+id);
+
+    edit_input.setAttribute("class", prefix+"_edit_input");
     edit_input.setAttribute("id", prefix+"_edit_input_"+id);
-    edit_button.setAttribute("id", prefix+"_edit_button_"+id); 
+
+    edit_button.setAttribute("class", prefix+"_edit_button");
+    edit_button.setAttribute("id", prefix+"_edit_button_"+id);
     edit_button.innerHTML="수정";
+
+    edit_cancel_button.setAttribute("class", prefix+"_edit_cancel_button");
+    edit_cancel_button.setAttribute("id", prefix+"_edit_cancel_button_"+id); 
+    edit_cancel_button.innerHTML="취소";
 
     // input 창의 값은 현재 댓글 내용을 있는 그대로 반영
     edit_input.value = trgt_content.innerHTML;
@@ -178,12 +188,24 @@ function comment_edit_open(self, id){
     // input 의 onclick EVENT 넣어주기 - comment_edit(id) 실행되도록
     edit_button.setAttribute("onclick", "comment_edit("+"this, "+id+")");
 
+    // cancle_button 의 onclick EVENT 넣어주기 - comment_edit_cancel
+    edit_cancel_button.setAttribute("onclick", "comment_edit_cancel()");
+
     // 만든 child 요소 : input, button 를 comment_edit_input_box에 넣어주기
     edit_input_box.appendChild(edit_input);
     edit_input_box.appendChild(edit_button);
+    edit_input_box.appendChild(edit_cancel_button);
+    
 
     // 기존의 댓글창을 comment_edit_input_box로 교체.
     trgt_content.parentNode.replaceChild(edit_input_box, trgt_content);
+    
+    // tool_box와 tool_box_popup을 닫아줘야한다.
+    let trgt_tool_box = document.getElementById(prefix+"_tool_box_id_"+id);
+    let trgt_tool_box_popup = document.getElementById(prefix+"_tool_box_popup_id_"+id);
+
+    trgt_tool_box.style.display="none";
+    trgt_tool_box_popup.style.display="none";
 }
 
 // 실제 댓글 수정 AJAX
@@ -223,6 +245,10 @@ function comment_edit(self, id){
     data += (prefix+'_id=')+ id + '&' + 'content=' + edit_content;
     console.log(data);
     req.send(data);
+}
+
+function comment_edit_cancel(){
+    location.reload();
 }
 
 // 댓글 및 대댓글 좋아요 관련 function
