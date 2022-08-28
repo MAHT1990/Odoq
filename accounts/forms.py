@@ -3,6 +3,8 @@ from django.contrib.auth.forms import UsernameField
 
 from django import forms
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+from django.core.validators import ValidationError
+
 from django.utils.translation import gettext, gettext_lazy as _
 
 from .models import UserProfile
@@ -46,6 +48,12 @@ class OdoqCreationForm(UserCreationForm):
 
     nickname = forms.CharField(label='닉네임', min_length=2, max_length=10)
 
+    def clean_nickname(self):
+        nickname=self.cleaned_data.get('nickname','').strip()
+        if UserProfile.objects.filter(nickname=nickname).first():
+            raise forms.ValidationError('동일한 닉네임이 존재합니다.')
+        return nickname
+
 ## Profile Form
 class UserProfileForm(forms.ModelForm):
 
@@ -58,3 +66,8 @@ class UserProfileForm(forms.ModelForm):
         fields = [
             'nickname'
         ]
+    def clean_nickname(self):
+        nickname=self.cleaned_data.get('nickname','').strip()
+        if UserProfile.objects.filter(nickname=nickname).first():
+            raise forms.ValidationError('동일한 닉네임이 존재합니다.')
+        return nickname
