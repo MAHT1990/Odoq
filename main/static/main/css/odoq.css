@@ -509,6 +509,12 @@ header{
     margin : 10px 0 10px 0;
     font-size : 20px;
     background-color: rgba(231,240,249,255);
+    border-radius: 5px;
+}
+
+.comment_container_header_today_and_my_comment {
+    display : flex;
+    justify-content : space-between;
 }
 
 .comment_container_header_today {
@@ -518,8 +524,12 @@ header{
 
 .comment_container_header_my_comment {
     display : inline-block;
-    float : right;
     padding: 10px;
+    cursor: pointer;
+}
+
+.comment_container_header_my_comment i {
+    /* padding-top : 10px; */
 }
 
 .comment_container_header_notice {
