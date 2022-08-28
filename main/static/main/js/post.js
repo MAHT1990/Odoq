@@ -112,6 +112,37 @@ function phone_number_delete(){
         console.log('empty value');
     }
 }
+function form_submit(){
+    let url = 'comment/new/';
+    let input_box_form = document.getElementsByClassName('comment_input_box_form')[0];
+    let form = new FormData(input_box_form);
+    let data = '';
+    
+    let req = new XMLHttpRequest();
+    req.open('POST', url);
+    req.onreadystatechange = function(){
+        if(this.readyState == 4 && this.status == 200) {
+            const jsonResponse = JSON.parse(req.responseText);
+            const debugging = jsonResponse['debugging'];
+            console.log(req.responseText);
+            location.reload();
+        }
+    }
+    
+    var csrftoken = getCookie('csrftoken');
+    
+    req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8")
+    req.setRequestHeader("X-CSRFToken", csrftoken)
+    
+    // 보낼 data 양식 맞춰서, send로 보내기.
+    for (const [key, value] of form) {
+        data+=(`${key}=${value}&`);
+    }
+    // input_box.submit();
+    // location.reload();
+    console.log(data);
+    req.send(data);
+}
 
 function comment_delete(self, id){
     var url = '';
