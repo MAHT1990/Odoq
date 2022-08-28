@@ -230,6 +230,9 @@ class IndexView:
             result_pk = [comment.pk for comment in result]
             preserved = Case(*[When(pk=pk, then=pos) for pos, pk in enumerate(result_pk)])
             comments = Comment.objects.filter(pk__in=result_pk).order_by(preserved)
+        
+        if queryset_filter=="my_comment":
+            comments = Comment.objects.filter(user=self.request.user).order_by('-created_at')
 
         return comments
 
@@ -403,12 +406,16 @@ def sms_delete(request):
 @login_required
 def comment_new(request):
     if request.method == 'POST':
+        response_data={
+            'status' : 200,
+            'debugging' : 'Success',
+        }
         form = CommentModelForm(request.POST, request.FILES)
         if form.is_valid():
             comment = form.save(commit=False)
             comment.user = request.user
             comment.save()
-            return redirect("main:index")
+            return JsonResponse(response_data)
     else:
         return redirect("main:index")
 
