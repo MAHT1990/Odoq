@@ -127,6 +127,10 @@ def userprofile(request):
                 return render(request, 'accounts/user_profile_form.html', {
                     'form':form,
                     'error_message':'비밀번호가 일치하지 않습니다.'
+                })
+        else:
+            return render(request, 'accounts/user_profile_form.html', {
+                    'form':form,
                 })          
 
     else:
