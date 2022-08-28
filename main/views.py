@@ -226,9 +226,7 @@ class IndexView:
                 t_comments = comments.filter(created_at__date = date).order_by('-like_count', '-created_at')
                 result += list(t_comments)
             
-            result_pk = [comment.pk for comment in result]
-                
-            comments = Comment.objects.filter(pk__in=result_pk)
+            comments = result
 
         return comments
 
@@ -448,15 +446,11 @@ def comment_edit(request):
             comment = Comment.objects.get(id=request.POST['comment_id'])
         elif request.POST.get('cocomment_id'):
             cocomment = Cocomment.objects.get(id=request.POST['cocomment_id'])
-        
-        print(comment, cocomment)
 
         if comment:
             form = CommentModelForm(request.POST, instance=comment)
-
         elif cocomment:
             form = CocommentModelForm(request.POST, instance=cocomment)
-
         else:
             return redirect("main:index")
 
