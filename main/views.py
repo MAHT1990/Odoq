@@ -1,5 +1,6 @@
 from ast import Try
 from django.core.paginator import Paginator
+from django.db.models import Case, When
 from django.shortcuts import render
 from django.urls import reverse
 from django.shortcuts import redirect
@@ -226,7 +227,9 @@ class IndexView:
                 t_comments = comments.filter(created_at__date = date).order_by('-like_count', '-created_at')
                 result += list(t_comments)
             
-            comments = result
+            result_pk = [comment.pk for comment in result]
+            preserved = Case(*[When(pk=pk, then=pos) for pos, pk in enumerate(result_pk)])
+            comments = Comment.objects.filter(pk__in=result_pk).order_by(preserved)
 
         return comments
 
