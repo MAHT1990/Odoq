@@ -117,19 +117,23 @@
     {%if onoff_comment is True%}
     <div class="comment_container">
         <div class="comment_container_header">
-            <div class="comment_container_header_today">오늘의 댓글 &nbsp <span>{{comments_today|length}}</span> 개</div>
-            <div class="comment_container_header_my_comment">내 댓글</div>
+            <div class="comment_container_header_today_and_my_comment">
+                <div class="comment_container_header_today">오늘의 댓글 &nbsp <span>{{comments_today|length}}</span> 개</div>
+                <div class="comment_container_header_my_comment" onclick="location.href='/comment/my_comment/created_at/'">내 댓글&nbsp<i class="fa-solid fa-chevron-right"></i></div>
+            </div>
             <div class="comment_container_header_notice">관리자가 악성댓글을 감지하고 있습니다. 건강한 댓글 문화를 위해 노력하는 오도커가 됩시다.</div>
         </div>
         {% if user.is_authenticated %}
         <div class="comment_input_box" onclick="input_box_open()">
-            <form action="{%url 'main:comment_new'%}" method="post" enctype = "multipart/form-data">
+            <form class="comment_input_box_form" method="POST">
+            <!-- <form class="comment_input_box_form" action="{%url 'main:comment_new'%}" method="post" enctype = "multipart/form-data"> -->
                 {%csrf_token%}
                 <div class="comment_input_box_textarea_and_charnumbs_and_button">
                     {{comment_form}}
                     <div class="comment_input_box_charnumbs_and_button">
                         <div class="comment_input_box_charnumbs">글자수 여기옴</div>
-                        <input type="submit" value="WRITE">
+                        <button type="button" onclick="form_submit()">WRITE</button>
+                        <!-- <input type="submit" value="WRITE"> -->
                     </div>
                 </div>
             </form>
@@ -148,11 +152,15 @@
             {%for page in paginator%}
             <div class="comment_list_page" id="comment_list_page_{{page.number}}">
                     {%for comment in page%}
+                    {% if comment.user == user %}
+                    <div class = "comment_line" style="background-color:rgba(231,240,249,255);" id = "comment_id_{{comment.id}}">
+                    {% else %}
                     <div class = "comment_line" id = "comment_id_{{comment.id}}">
+                    {% endif %}
                         <div class = "comment_line_user_and_updated_at_and_tool_box">
                             <div class = "comment_line_user_and_updated_at">
                                 <div class = "comment_line_user">{{comment.user.userprofile.nickname}}</div>
-                                <div class = "comment_line_updated_at">{{comment.updated_at}}</div>
+                                <div class = "comment_line_updated_at">{{comment.created_at}}</div>
                             </div>
                             {% if user.is_authenticated %}
                             <div class = "comment_line_tool_box_btn_and_box" id="comment_line_tool_box_btn_and_box_id_{{comment.id}}">
@@ -316,8 +324,8 @@
 
 
         // 정답입력란 onkeydown, Enter에 반응하도록.
-        function enter(event){
-            var x = event.key;
+        function enter(e){
+            var x = e.key;
             if(x == "Enter"){
                 answer_post();    
             }
@@ -338,7 +346,6 @@
                 self.style.backgroundImage = 'none';
             }
         }
-
         
         function debugging(){
             console.log('connected');
