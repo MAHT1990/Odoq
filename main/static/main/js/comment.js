@@ -2,6 +2,15 @@ function input_box_open(){
     console.log('input box will open');
 }
 
+
+
+// function counting_char(e){
+//     let output_charnumbs = document.getElementsByClassName("comment_input_box_charnumbs")[0];
+//     output_charnumbs.innerHTML = e.target.value.length;
+//     console.log('input');
+//     console.log(e.target.value);
+// }
+
 function open_cocomment(self, id){
     let cocomment_container = document.getElementById("comment_id_"+id+"_cocomment");
     
