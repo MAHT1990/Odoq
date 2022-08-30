@@ -131,7 +131,7 @@
                 <div class="comment_input_box_textarea_and_charnumbs_and_button">
                     {{comment_form}}
                     <div class="comment_input_box_charnumbs_and_button">
-                        <div class="comment_input_box_charnumbs">글자수 여기옴</div>
+                        <div class="comment_input_box_charnumbs"><span></span></div>
                         <button type="button" onclick="form_submit()">WRITE</button>
                         <!-- <input type="submit" value="WRITE"> -->
                     </div>
@@ -330,6 +330,18 @@
         window.onbeforeunload = function(e) {
             sessionStorage.setItem('scrollpos', window.scrollY);
         };
+
+        //댓글 글자수 counting
+        let trgt_charnumbs = document.getElementById('id_content');
+        trgt_charnumbs.setAttribute("placeholder", "댓글을 입력해주세요");
+        let output_charnumbs = document.getElementsByClassName("comment_input_box_charnumbs")[0];
+        let output_dom = output_charnumbs.children[0];
+        
+        trgt_charnumbs.addEventListener("input", function(e){
+            output_dom.innerHTML = e.target.value.length+" / 500";
+        });
+
+        trgt_charnumbs.addEventListener("keydown", enter_form_submit);
 
 
         // 정답입력란 onkeydown, Enter에 반응하도록.
