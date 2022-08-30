@@ -125,7 +125,7 @@ function form_submit(){
             const jsonResponse = JSON.parse(req.responseText);
             const debugging = jsonResponse['debugging'];
             console.log(req.responseText);
-            location.reload();
+            location.reload(true);
         }
     }
     
@@ -259,7 +259,7 @@ function comment_edit(self, id){
     req.open('POST', url, true);
     req.onreadystatechange = function(){
         if(this.readyState == 4 && this.status == 200) {
-            location.reload();
+            location.reload(true);
         }
     }
 
@@ -279,7 +279,7 @@ function comment_edit(self, id){
 }
 
 function comment_edit_cancel(){
-    location.reload();
+    location.reload(true);
 }
 
 // 댓글 및 대댓글 좋아요 관련 function
