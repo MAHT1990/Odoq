@@ -112,8 +112,16 @@ function phone_number_delete(){
         console.log('empty value');
     }
 }
+
+function enter_form_submit(e){
+    let x = e.key;
+    if(x == "Enter"){
+        form_submit();
+    }
+}
+
 function form_submit(){
-    let url = 'comment/new/';
+    let url = '/comment/new/';
     let input_box_form = document.getElementsByClassName('comment_input_box_form')[0];
     let form = new FormData(input_box_form);
     let data = '';
@@ -124,7 +132,7 @@ function form_submit(){
         if(this.readyState == 4 && this.status == 200) {
             const jsonResponse = JSON.parse(req.responseText);
             const debugging = jsonResponse['debugging'];
-            console.log(req.responseText);
+            
             location.reload(true);
         }
     }
@@ -140,7 +148,7 @@ function form_submit(){
     }
     // input_box.submit();
     // location.reload();
-    console.log(data);
+    
     req.send(data);
 }
 
