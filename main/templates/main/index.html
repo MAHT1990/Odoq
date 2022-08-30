@@ -322,6 +322,15 @@
             comment_page_show(1, '{{paginator.num_pages}}');
         }
 
+        document.addEventListener("DOMcontentLoaded", function(event) {
+            var scrollpost = sessionStorage.getItem('scrollpos');
+            if (scrollpos) window.scrollTo(0, scrollpos);
+        })
+
+        window.onbeforeunload = function(e) {
+            sessionStorage.setItem('scrollpos', window.scrollY);
+        }
+
 
         // 정답입력란 onkeydown, Enter에 반응하도록.
         function enter(e){
