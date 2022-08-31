@@ -3,41 +3,44 @@ function input_box_open(){
 }
 
 
-
-// function counting_char(e){
-//     let output_charnumbs = document.getElementsByClassName("comment_input_box_charnumbs")[0];
-//     output_charnumbs.innerHTML = e.target.value.length;
-//     console.log('input');
-//     console.log(e.target.value);
-// }
-
 function open_cocomment(self, id){
     let cocomment_container = document.getElementById("comment_id_"+id+"_cocomment");
     
-    cocomment_container.style.display = "block";
+    if (cocomment_container.style.display == "block"){
+        cocomment_container.style.display = "none";
+        if (localStorage.getItem('cocomment_open')){
+            localStorage.removeItem('cocomment_open');
+        }
+        console.log(localStorage);
+
+    } else {
+        cocomment_container.style.display = "block";
+        window.onbeforeunload = function(event) {
+            localStorage.setItem('cocomment_open', "comment_id_"+id+"_cocomment");
+            // cocomment_container.style.display = "block";
+        };
+        console.log(localStorage);
+    }
     
-    self.setAttribute("onclick", "close_cocomment(this, "+id+")");
     console.log('BOOYAH');
 }
 
-
-function close_cocomment(self, id){
-    let cocomment_container = document.getElementById("comment_id_"+id+"_cocomment");
-
-    cocomment_container.style.display = "none";
-
-    self.setAttribute("onclick", "open_cocomment(this, "+id+")");
-    console.log('COOYAH');
-}
 
 function open_tool_box(e, self, id){
     console.log("mouse location:", e.pageX, e.pageY);
     console.log("this is ", self);
 
-    let trgt_tool_box_popup = document.getElementById("comment_tool_box_popup_id_"+id);
-    let trgt_tool_box = document.getElementById("comment_tool_box_id_"+id);
-    console.log("tool box :", trgt_tool_box);
-    console.log("tool box popup :", trgt_tool_box_popup);
+    let prefix;
+    if(self.getAttribute("class").indexOf('cocomment')<0){
+        prefix = 'comment_' 
+    } else {
+        prefix = 'cocomment_'
+    }
+
+    let trgt_tool_box_popup = document.getElementById(prefix + "tool_box_popup_id_"+id);
+    let trgt_tool_box = document.getElementById(prefix + "tool_box_id_"+id);
+    console.log(prefix + "tool box :", trgt_tool_box);
+    console.log(prefix + "tool box popup :", trgt_tool_box_popup);
     
     trgt_tool_box.style.display='block';
     trgt_tool_box.style.position='absolute';
@@ -48,8 +51,16 @@ function open_tool_box(e, self, id){
 }
 
 function close_tool_box(self, id){
+
+    let prefix;
+    if(self.getAttribute("class").indexOf('cocomment')<0){
+        prefix = 'comment_' 
+    } else {
+        prefix = 'cocomment_'
+    }
+
     self.style.display='none';
-    let trgt_tool_box = document.getElementById("comment_tool_box_id_"+id);
+    let trgt_tool_box = document.getElementById(prefix + "tool_box_id_"+id);
     trgt_tool_box.style.display='none';
 }
 
