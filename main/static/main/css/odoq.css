@@ -589,8 +589,15 @@ header{
 .comment_line {
     padding : 13px 0 0 0;
 }
+.cocomment_line {
+    padding : 10px 0 0 0;
+}
 
 .comment_line:hover {
+    background-color : rgba(240,240,240,255);
+}
+
+.cocomment_line:hover {
     background-color : rgba(240,240,240,255);
 }
 
@@ -598,13 +605,24 @@ header{
     display : flex;
     justify-content : space-between;
 }
+.cocomment_line_user_and_updated_at_and_tool_box{
+    display : flex;
+    justify-content : space-between;
+}
     .comment_line_user_and_updated_at {
         padding : 0 10px 0 10px;
+    }
+    .cocomment_line_user_and_updated_at{
+        padding : 0;
     }
 
         .comment_line_user {
             display : inline-block;
             font-weight: bold;
+        }
+        .cocomment_line_user {
+            display : inline-block;
+            font-weight : bold;
         }
 
         .comment_line_updated_at {
@@ -612,7 +630,20 @@ header{
             font-size: 14px;
             color : rgba(168,168,168,255);
         }
+        .cocomment_line_updated_at {
+            display : inline-block;
+            font-size : 14px;
+            color : rgba(168,168,168,255);
+            
+        }
+
+
     .comment_line_tool_box_btn{
+        padding : 0 10px 0 10px;
+        border : 0;
+        background-color : transparent;
+    }
+    .cocomment_line_tool_box_btn{
         padding : 0 10px 0 10px;
         border : 0;
         background-color : transparent;
@@ -621,8 +652,22 @@ header{
     .comment_line_tool_box_btn:hover{
         color : rgba(0,41,100,255);
     }
+    .cocomment_line_tool_box_btn:hover{
+        color : rgba(0,41,100,255);
+    }
+
 
     .comment_line_tool_box_popup {
+        position : fixed;
+        z-index : 1;
+        left : 0px; top : 0px; width : 100%; height : 100%;
+        overflow : auto;
+        /* background-color : rgba(196, 196, 196, 0.5); */
+        padding-bottom : 20px;
+
+        display : none; /*얘를 함수로 값을 바꿔줄 것이다.*/
+    }
+    .cocomment_line_tool_box_popup {
         position : fixed;
         z-index : 1;
         left : 0px; top : 0px; width : 100%; height : 100%;
@@ -647,8 +692,28 @@ header{
         border-radius: 10px;
         display : none;
     }
+    .cocomment_line_tool_box {
+        font-size:20px;
+        z-index : 1;
+        
+        transform: translate(-100%, 0%);
+        background-color : white;
+        padding : 3px;
+        
+        flex-direction : column;
+        justify-content : center;
+        
+        border-radius: 10px;
+        display : none;
+    }
 
     .comment_line_tool_box button {
+        font-size : 20px;
+        background-color : transparent;
+        color : rgba(0,41,100,255);
+        border : 0;
+    }
+    .cocomment_line_tool_box button {
         font-size : 20px;
         background-color : transparent;
         color : rgba(0,41,100,255);
@@ -659,15 +724,27 @@ header{
     padding : 10px;
     word-break :break-all;
     white-space : pre-wrap;
-
+}
+.cocomment_line_content {
+    padding : 10px 0;
+    word-break :break-all;
+    white-space : pre-wrap;
 }
 
     .comment_edit_input_box{
 
     }
+    .cocomment_edit_input_box{
+
+    }
 
 .comment_line_cocomment_and_like {
     padding : 10px;
+    display : flex;
+    justify-content : space-between;
+}
+.cocomment_line_like {
+    padding : 0 10px;
     display : flex;
     justify-content : space-between;
 }
@@ -678,6 +755,11 @@ header{
     }
     
     .comment_like {
+        background-color:transparent;
+        border : 0;
+        color : rgba(0,41,100,255);
+    }
+    .cocomment_like {
         background-color:transparent;
         border : 0;
         color : rgba(0,41,100,255);
