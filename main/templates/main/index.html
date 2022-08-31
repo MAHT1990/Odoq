@@ -204,35 +204,48 @@
                         <div class = "comment_line_cocomment_container" id = "comment_id_{{comment.id}}_cocomment">
                             {%for cocomment in comment.cocomment_set.all%}
                             <div class = "cocomment_line" id = "cocomment_id_{{cocomment.id}}">
-                                <div class = "cocomment_line_user_and_updated_at">
-                                    <div class = "cocomment_line_user">{{cocomment.user.userprofile.nickname}}</div>
-                                    <div class = "comment_line_updated_at">{{cocomment.updated_at}}</div>
+                                <div class = "cocomment_line_user_and_updated_at_and_tool_box">
+                                    <div class = "cocomment_line_user_and_updated_at">
+                                        <div class = "cocomment_line_user">{{cocomment.user.userprofile.nickname}}</div>
+                                        <div class = "cocomment_line_updated_at">{{cocomment.updated_at}}</div>
+                                    </div>
+                                    {% if user.is_authenticated %}
+                                    <div class = "cocomment_line_tool_box_btn_and_box" id="cocomment_line_tool_box_btn_and_box_id_{{cocomment.id}}">
+                                        <button class = "cocomment_line_tool_box_btn" onclick="open_tool_box(event, this, '{{cocomment.id}}')"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+                                        <div class="cocomment_line_tool_box_popup" id="cocomment_tool_box_popup_id_{{cocomment.id}}" onclick="close_tool_box(this, '{{cocomment.id}}')"></div>
+                                        <div class = "cocomment_line_tool_box" id="cocomment_tool_box_id_{{cocomment.id}}">
+                                            {% if user.is_authenticated %}
+                                            {%if cocomment.user == user or user.is_superuser%}
+                                            <button onclick="comment_edit_open(this, '{{cocomment.id}}')" class="cocomment_edit">
+                                                <i class="fa-solid fa-pen"></i>
+                                            </button>
+                                            <button onclick="comment_delete(this, '{{cocomment.id}}')" class="cocomment_delete">
+                                                <i class="fa-solid fa-eraser"></i>
+                                            </button>
+                                            {% endif %}
+                                            <button>
+                                                <i class="fa-solid fa-triangle-exclamation"></i>
+                                            </button>
+                                            {%endif%}
+                                        </div>
+                                    </div>
+                                    {% endif %}
                                 </div>
 
                                 <div class = "cocomment_line_content" id="cocomment_content_{{cocomment.id}}">{{cocomment.content}}</div>
                                 
                                 <div class = "cocomment_line_like">
+                                    <div class = "cocomment_line_pseudo_box"></div>
                                     {%if cocomment in user.userprofile.like_cocomments.all%}
                                     <button onclick = "like(this, '{{cocomment.id}}', 1)", class="cocomment_like">
-                                        좋아요 취소 {{cocomment.like_count}}
+                                        <i class="fa-solid fa-thumbs-up"></i>&nbsp<span>{{cocomment.like_count}}</span>
                                     </button>
                                     {%else%}
                                     <button onclick = "like(this, '{{cocomment.id}}', 0)", class="cocomment_like">
-                                        좋아요 {{cocomment.like_count}}
+                                        <i class="fa-regular fa-thumbs-up"></i>&nbsp<span>{{cocomment.like_count}}</span>
                                     </button>
                                     {%endif%}
                                 </div>
-
-                                {%if comment.user == user or user.is_superuser%}
-                                <div class = "cocomment_line_tool_box">
-                                    <button onclick="comment_edit_open(this, '{{cocomment.id}}')" class="cocomment_edit">
-                                        수정
-                                    </button>
-                                    <button onclick="comment_delete(this, '{{cocomment.id}}')", class="cocomment_delete">
-                                        삭제
-                                    </button>
-                                </div>
-                                {%endif%}
                             </div>
                             {%endfor%}
 
@@ -325,11 +338,19 @@
         document.addEventListener("DOMContentLoaded", function(event) { 
             var scrollpos = sessionStorage.getItem('scrollpos');
             if (scrollpos) window.scrollTo(0, scrollpos);
+
+            let cocomment_open = localStorage.getItem('cocomment_open');
+            if (cocomment_open) {
+                trgt = document.getElementById(cocomment_open);
+                trgt.style.display = "block";
+                // console.log(trgt);
+            }
         });
 
         window.onbeforeunload = function(e) {
             sessionStorage.setItem('scrollpos', window.scrollY);
         };
+
 
         //댓글 글자수 counting
         let trgt_charnumbs = document.getElementById('id_content');
