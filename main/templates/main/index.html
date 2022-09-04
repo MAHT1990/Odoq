@@ -132,7 +132,7 @@
                     {{comment_form}}
                     <div class="comment_input_box_charnumbs_and_button">
                         <div class="comment_input_box_charnumbs"><span></span></div>
-                        <button type="button" onclick="form_submit()">WRITE</button>
+                        <button class="comment_input_box_button" type="button" onclick="form_submit(this)"><i class="fa-solid fa-pen"></i></button>
                         <!-- <input type="submit" value="WRITE"> -->
                     </div>
                 </div>
@@ -250,12 +250,17 @@
                             {%endfor%}
 
                             <div class="cocomment_input_box">
-                                <form action="{%url 'main:cocomment_new'%}" method="post" enctype = "multipart/form-data">
+                                <form class="cocomment_input_box_form" method="POST">
                                     {%csrf_token%}
-                                    <input type="hidden" name="user" value={{user}}>
                                     <input type="hidden" name="comment_id" value={{comment.id}}>
-                                    {{cocomment_form}}
-                                    <input type="submit" value="WRITE">
+                                    <div class="cocomment_input_box_textarea_and_charnumbs_and_button">
+                                        {{cocomment_form}}
+                                        <div class="cocomment_input_box_charnumbs_and_button">
+                                            <div class="cocomment_input_box_charnumbs"><span></span></div>
+                                            <button class="cocomment_input_box_button" type="button" onclick="form_submit(this)"><i class="fa-solid fa-pen"></i></button>
+                                            <!-- <input type="submit" value="WRITE"> -->
+                                        </div>
+                                    </div>
                                 </form>
                             </div>
 
@@ -353,25 +358,47 @@
 
 
         //댓글 글자수 counting
-        let trgt_charnumbs = document.getElementById('id_content');
-        trgt_charnumbs.setAttribute("placeholder", "댓글을 입력해주세요");
+        let trgt_comment_charnumbs = document.getElementById('id_content');
+        trgt_comment_charnumbs.setAttribute("placeholder", "댓글을 입력해주세요");
+        trgt_comment_charnumbs.setAttribute("rows", 1);
         let output_charnumbs = document.getElementsByClassName("comment_input_box_charnumbs")[0];
         let output_dom = output_charnumbs.children[0];
         
-        trgt_charnumbs.addEventListener("input", function(e){
+        trgt_comment_charnumbs.addEventListener("input", function(e){
             output_dom.innerHTML = e.target.value.length+" / 500";
         });
 
-        trgt_charnumbs.addEventListener("keydown", enter_form_submit);
-
-
-        // 정답입력란 onkeydown, Enter에 반응하도록.
-        function enter(e){
-            var x = e.key;
-            if(x == "Enter"){
-                answer_post();    
+        //Enter치면 제출하도록 할 것인가. 말 것인가.innerHTML
+        
+        trgt_comment_charnumbs.addEventListener("keydown", enter_form_submit);
+        trgt_comment_charnumbs.addEventListener("focus", (e) => {
+            e.target.setAttribute("rows", 10);
+        });
+        trgt_comment_charnumbs.addEventListener("blur", (e) => {
+            console.log(e.target.value.length);
+            if(e.target.value.length==0){
+                e.target.setAttribute("rows", 1);
             }
-        }   
+        });
+
+        let trgt_cocomment_charnumbs = document.getElementsByClassName('cocomment_input_box_textarea_and_charnumbs_and_button');
+        for (var i=0; i<trgt_cocomment_charnumbs.length; i++){
+            trgt_cocomment_charnumbs[i].children[0].setAttribute("placeholder", "댓글을 입력해주세요");
+            trgt_cocomment_charnumbs[i].children[0].setAttribute("rows", 1);
+            trgt_cocomment_charnumbs[i].children[0].addEventListener("keydown", enter_form_submit);
+            trgt_cocomment_charnumbs[i].children[0].addEventListener("focus", (e) => {
+                e.target.setAttribute("rows", 3);
+            });
+            trgt_cocomment_charnumbs[i].children[0].addEventListener("blur", (e) => {
+                if(e.target.value.length==0){
+                    e.target.setAttribute("rows",1);
+                }
+            });
+        }
+
+
+
+
         // 정답입력란 oninput, 아이콘이 없어지거나, 다시 생성되거나.
         function hideIcon(self){
             var id = self.getAttribute("id");
