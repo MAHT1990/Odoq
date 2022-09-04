@@ -49,6 +49,15 @@ function answer_post(){
     }
 }
 
+
+// 정답입력란 onkeydown, Enter에 반응하도록.
+function enter(e){
+    var x = e.key;
+    if(x == "Enter"){
+        answer_post();    
+    }
+}   
+
 function phone_number_post(){
     var phone_number_input_box_element = document.getElementById("phone_number_input");
 
@@ -115,14 +124,32 @@ function phone_number_delete(){
 
 function enter_form_submit(e){
     let x = e.key;
-    if(x == "Enter"){
-        form_submit();
+    if(x == "Enter" && !e.shiftKey){
+        console.log(e.shiftKey);
+        form_submit(e.target);
+    } else {
+        console.log(e.shiftKey);
     }
 }
 
-function form_submit(){
-    let url = '/comment/new/';
-    let input_box_form = document.getElementsByClassName('comment_input_box_form')[0];
+function form_submit(dom){
+    
+    let prefix = '';
+    let input_box_form;
+
+    if(dom.parentNode.getAttribute("class").indexOf('coco')<0){
+        prefix = 'comment';
+    } else {
+        prefix = 'cocomment';
+    }
+
+    let url = '/'+prefix+'/new/';
+    if (dom.tagName == 'BUTTON'){
+        input_box_form = dom.parentNode.parentNode.parentNode;
+    } else {
+        input_box_form = dom.parentNode.parentNode;
+    }
+
     let form = new FormData(input_box_form);
     let data = '';
     
@@ -149,6 +176,7 @@ function form_submit(){
     // input_box.submit();
     // location.reload();
     
+    console.log(data);
     req.send(data);
 }
 
@@ -202,7 +230,12 @@ function comment_edit_open(self, id){
     let trgt_content = document.getElementById(prefix+'_content_'+id);
 
     let edit_input_box = document.createElement('div');
-    let edit_input = document.createElement('input');
+    let edit_input = document.createElement('textarea');
+
+    let edit_charnumbs_and_button_and_cancel_button_box = document.createElement('div');
+    let edit_charnumbs = document.createElement('div');
+
+    let edit_button_and_cancel_button_box = document.createElement('div');
     let edit_button = document.createElement('button');
     let edit_cancel_button = document.createElement('button');
 
@@ -212,6 +245,15 @@ function comment_edit_open(self, id){
 
     edit_input.setAttribute("class", prefix+"_edit_input");
     edit_input.setAttribute("id", prefix+"_edit_input_"+id);
+
+    edit_charnumbs_and_button_and_cancel_button_box.setAttribute("class", prefix+"_edit_charnumbs_and_button_and_cancel_button_box");
+    edit_charnumbs_and_button_and_cancel_button_box.setAttribute("id", prefix+"_edit_charnumbs_and_button_and_cancel_button_box_" + id);
+
+    edit_charnumbs.setAttribute("class", prefix + "_edit_charnumbs");
+    edit_charnumbs.setAttribute("id", prefix + "_edit_charnumbs_"+id);
+
+    edit_button_and_cancel_button_box.setAttribute("class", prefix+"_edit_button_and_cancel_button_box");
+    edit_button_and_cancel_button_box.setAttribute("id", prefix+"_edit_button_and_cancel_button_box_"+id);
 
     edit_button.setAttribute("class", prefix+"_edit_button");
     edit_button.setAttribute("id", prefix+"_edit_button_"+id);
@@ -232,8 +274,14 @@ function comment_edit_open(self, id){
 
     // 만든 child 요소 : input, button 를 comment_edit_input_box에 넣어주기
     edit_input_box.appendChild(edit_input);
-    edit_input_box.appendChild(edit_button);
-    edit_input_box.appendChild(edit_cancel_button);
+
+    edit_charnumbs_and_button_and_cancel_button_box.appendChild(edit_charnumbs);
+    edit_charnumbs_and_button_and_cancel_button_box.appendChild(edit_button_and_cancel_button_box);
+
+    edit_button_and_cancel_button_box.appendChild(edit_button);
+    edit_button_and_cancel_button_box.appendChild(edit_cancel_button);
+
+    edit_input_box.appendChild(edit_charnumbs_and_button_and_cancel_button_box);
     
 
     // 기존의 댓글창을 comment_edit_input_box로 교체.
