@@ -246,7 +246,7 @@ class IndexView:
         return content
     
     def get_cocomment_form(self):
-        form = CocommentModelForm()
+        form = CocommentModelForm(auto_id=False)
         content = {
             'cocomment_form' : form
         }
@@ -474,13 +474,23 @@ def comment_edit(request):
 @login_required
 def cocomment_new(request):
     if request.method == 'POST':
+        response_data={
+            'status' : 200,
+            'debugging' : 'Success',
+        }
         form = CocommentModelForm(request.POST, request.FILES)
         if form.is_valid():
             cocomment = form.save(commit=False)
-            cocomment.user = User.objects.get(username = request.POST['user'])
+            cocomment.user = request.user
             cocomment.comment = Comment.objects.get(id = request.POST['comment_id'])
             cocomment.save()
-            return redirect("main:index")
+            return JsonResponse(response_data)
+        else:
+            response_data['debugging'] = 'False'
+            return render(request, 'accounts/user_profile_form.html', {
+                    'form':form,
+                })  
+            # return JsonResponse(response_data)
     else:
         return redirect("main:index")
 
