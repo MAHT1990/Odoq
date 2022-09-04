@@ -481,7 +481,7 @@ header{
             }
 
 .comment_input_box {
-    border : 2px solid black;
+    border : 0.5px solid grey;
     border-radius : 3px;
     padding : 10px;
 }
@@ -500,6 +500,7 @@ header{
         padding : 10px;
         font-size : 15px;
         border:0;
+        resize : none;
 
         outline-color : rgba(0,41,100,255);
     }
@@ -525,6 +526,9 @@ header{
     .comment_input_box_charnumbs_and_button button {
         border : 0;
         background-color: transparent;
+        font-size: 15px;
+        color : rgba(0,41,100,255);
+        cursor : pointer;
     }
 
 .comment_container_header {
@@ -720,6 +724,27 @@ header{
         border : 0;
     }
 
+    .comment_edit_input_box {
+        padding : 10px;
+        /* background-color: white; */
+    }
+
+    .comment_edit_input {
+        flex : 5;
+        box-sizing : border-box;
+        padding : 10px;
+        width : 100%;
+        
+        resize : none;
+        border : 0;
+        outline-color : rgba(0,41,100,255);
+    }
+
+    .comment_edit_charnumbs_and_button_and_cancel_button_box {
+        display : flex;
+        justify-content : space-between;
+    }
+
 .comment_line_content {
     padding : 10px;
     word-break :break-all;
@@ -769,6 +794,60 @@ header{
     display : none;
     padding-left : 50px;
 }
+
+    .cocomment_input_box{
+        font-size: 0;
+        padding : 10px 10px 10px 0;
+    }
+
+    .cocomment_input_box:focus {
+    }
+
+        .cocomment_input_box_textarea_and_charnumbs_and_button {
+            border-radius: 3px;
+            border : 0.5px solid grey;
+            background-color:white;
+            padding : 5px;
+        }
+    
+    
+        .cocomment_input_box form textarea {
+            display : block;
+            box-sizing : border-box;
+            width : 100%;
+            padding : 10px;
+            font-size : 15px;
+            
+            resize : none;
+            border : 0;
+            outline-color : transparent;
+        }
+        
+        .cocomment_input_box form textarea:focus {
+            /* height : 6em; */
+        }
+        
+        .cocomment_input_box_charnumbs_and_button {
+            font-size : 15px;
+            display : flex;
+            justify-content : space-between;
+            height : 35px;
+        }
+    
+        .cocomment_input_box_charnumbs {
+        }
+    
+        .cocomment_input_box_charnumbs span{
+            line-height : 35px;
+        }
+    
+        .cocomment_input_box_charnumbs_and_button button {
+            border : 0;
+            background-color: transparent;
+            font-size: 15px;
+            color : rgba(0,41,100,255);
+            cursor : pointer;
+        }
 
 .comment_line_vertical_line{
     background-color : rgba(166,166,166,255);
