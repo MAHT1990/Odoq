@@ -125,10 +125,9 @@ function phone_number_delete(){
 function enter_form_submit(e){
     let x = e.key;
     if(x == "Enter" && !e.shiftKey){
-        console.log(e.shiftKey);
+        e.preventDefault();
         form_submit(e.target);
     } else {
-        console.log(e.shiftKey);
     }
 }
 
