@@ -257,11 +257,11 @@ function comment_edit_open(self, id){
 
     edit_button.setAttribute("class", prefix+"_edit_button");
     edit_button.setAttribute("id", prefix+"_edit_button_"+id);
-    edit_button.innerHTML="수정";
+    edit_button.innerHTML='<i class="fa-solid fa-pen"></i>';
 
     edit_cancel_button.setAttribute("class", prefix+"_edit_cancel_button");
     edit_cancel_button.setAttribute("id", prefix+"_edit_cancel_button_"+id); 
-    edit_cancel_button.innerHTML="취소";
+    edit_cancel_button.innerHTML='<i class="fa-solid fa-x"></i>';
 
     // input 창의 값은 현재 댓글 내용을 있는 그대로 반영
     edit_input.value = trgt_content.innerHTML;
