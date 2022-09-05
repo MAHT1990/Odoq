@@ -937,6 +937,9 @@ header{
     padding : 0 10px;
     cursor: pointer;
 }
+.comment_list_navigator button:hover {
+    color : rgba(0,41,100,255);
+}
 
 .comment_list_navigator div {
     width : 100px;
