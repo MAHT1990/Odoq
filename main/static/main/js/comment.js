@@ -66,11 +66,13 @@ function close_tool_box(self, id){
 
 // comment_page_navigation
 function comment_page_show(page_num, max_page){
+    let page_numbering = document.getElementById("comment_list_navigator_page_numbering");
                 
     for (var i=1; i<=max_page; i++){
         if(i==page_num){
             trgt_page = document.getElementById("comment_list_page_"+page_num);
             trgt_page.style.display = "block";
+            page_numbering.textContent = i +'/'+max_page;
 
             prev_button = document.getElementById("comment_list_navigator_prev")
             if(page_num == 1){
