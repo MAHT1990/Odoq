@@ -927,6 +927,21 @@ header{
 
 .comment_list_navigator {
     padding : 10px;
+    display : flex;
+    justify-content: center;
+}
+
+.comment_list_navigator button {
+    border : 0;
+    background-color : transparent;
+    padding : 0 10px;
+    cursor: pointer;
+}
+
+.comment_list_navigator div {
+    width : 100px;
+    text-align : center;
+    font-size : 15px;
 }
 
 .verticalLine3 {
