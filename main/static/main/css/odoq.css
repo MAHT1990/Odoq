@@ -530,6 +530,14 @@ header{
         color : rgba(0,41,100,255);
         cursor : pointer;
     }
+    
+    .cocomment_input_box_charnumbs_and_button button {
+        border : 0;
+        background-color: transparent;
+        font-size: 15px;
+        color : rgba(0,41,100,255);
+        cursor : pointer;
+    }
 
 .comment_container_header {
     padding : 10px;
@@ -594,7 +602,8 @@ header{
     padding : 13px 0 0 0;
 }
 .cocomment_line {
-    padding : 10px 0 0 0;
+    padding : 10px 0 10px 10px;
+    border-left : 6px solid grey;
 }
 
 .comment_line:hover {
@@ -602,7 +611,7 @@ header{
 }
 
 .cocomment_line:hover {
-    background-color : rgba(240,240,240,255);
+    border-color: rgba(0,41,100,255);
 }
 
 .comment_line_user_and_updated_at_and_tool_box{
@@ -646,11 +655,15 @@ header{
         padding : 0 10px 0 10px;
         border : 0;
         background-color : transparent;
+        cursor: pointer;
+        font-size : 17px;
     }
     .cocomment_line_tool_box_btn{
         padding : 0 10px 0 10px;
         border : 0;
         background-color : transparent;
+        cursor: pointer;
+        font-size : 17px;
     }
 
     .comment_line_tool_box_btn:hover{
@@ -716,15 +729,22 @@ header{
         background-color : transparent;
         color : rgba(0,41,100,255);
         border : 0;
+        cursor : pointer;
     }
     .cocomment_line_tool_box button {
         font-size : 20px;
         background-color : transparent;
         color : rgba(0,41,100,255);
         border : 0;
+        cursor : pointer;
     }
 
     .comment_edit_input_box {
+        padding : 10px;
+        /* background-color: white; */
+    }
+    
+    .cocomment_edit_input_box {
         padding : 10px;
         /* background-color: white; */
     }
@@ -739,10 +759,55 @@ header{
         border : 0;
         outline-color : rgba(0,41,100,255);
     }
+    
+    .cocomment_edit_input {
+        flex : 5;
+        box-sizing : border-box;
+        padding : 10px;
+        width : 100%;
+        
+        resize : none;
+        border : 0;
+        outline-color : rgba(0,41,100,255);
+    }
 
     .comment_edit_charnumbs_and_button_and_cancel_button_box {
         display : flex;
         justify-content : space-between;
+    }
+    .cocomment_edit_charnumbs_and_button_and_cancel_button_box {
+        display : flex;
+        justify-content : space-between;
+    }
+
+    .comment_edit_button {
+        padding : 5px 5px 5px 15px;
+        border : 0;
+        background-color : transparent;
+        font-size : 15px;
+        cursor : pointer;
+    }
+    .cocomment_edit_button {
+        padding : 5px 5px 5px 15px;
+        border : 0;
+        background-color : transparent;
+        font-size : 15px;
+        cursor : pointer;
+    }
+    
+    .comment_edit_cancel_button {
+        padding : 5px 5px 5px 15px;
+        border : 0;
+        background-color : transparent;
+        font-size : 15px;
+        cursor : pointer;
+    }
+    .cocomment_edit_cancel_button {
+        padding : 5px 5px 5px 15px;
+        border : 0;
+        background-color : transparent;
+        font-size : 15px;
+        cursor : pointer;
     }
 
 .comment_line_content {
@@ -777,22 +842,25 @@ header{
     .comment_line_open_cocomment {
         background-color:transparent;
         border : 0;
+        cursor : pointer;
     }
     
     .comment_like {
         background-color:transparent;
         border : 0;
         color : rgba(0,41,100,255);
+        cursor : pointer;
     }
     .cocomment_like {
         background-color:transparent;
         border : 0;
         color : rgba(0,41,100,255);
+        cursor : pointer;
     }
 
 .comment_line_cocomment_container{
     display : none;
-    padding-left : 50px;
+    padding-left : 40px;
 }
 
     .cocomment_input_box{
@@ -852,6 +920,9 @@ header{
 .comment_line_vertical_line{
     background-color : rgba(166,166,166,255);
     height : 1px;
+}
+.cocomment_line_vertical_line{
+    height : 5px;
 }
 
 .comment_list_navigator {
