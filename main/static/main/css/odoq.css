@@ -163,20 +163,50 @@ header{
 .header_box {
     font-size: 70px;
     font-family: 'Abril Fatface', cursive;
-    margin-bottom : -10px;
+    margin-bottom : 20px;
+    padding-right : 45px;
+    display : flex;
+    justify-content : space-between;
 }
 
     .header_box img{
-        width : 50%;
+        width : 65%;
+        object-fit : contain;
     }
+
+.login_box {
+    width : 27%;
+    padding : 10px 10px 0 10px;
+}
+
+    .login_box form {
+        
+    }
+    .login_box form input {
+        display : block;
+        width : 100%;
+        border : 0;
+        padding : 5px 0;
+        margin : 10px 0;
+    }
+
+.login_box_buttons {
+    display : flex;
+    justify-content : space-between;
+}
+
+.login_box_buttons button {
+    border : 0;
+    background-color : transparent;
+}
 
 .sms_box{
     box-sizing : border-box;
-    padding : 10px 0 0 10px;
+    padding : 10px 0  10px;
     width : 50px;
     height : 70px;
     float : right;
-    margin-top : -70px;
+    margin-top : -80px;
     cursor : pointer;
     color : rgba(0,81,200,255);
 }
