@@ -362,7 +362,7 @@ function like(self, id, zero_xor_one){
                 like_count = jsonResponse['cocomment_like_count'];
             }
             let bfr_like_count = self.children[1].innerHTML
-            console.log(bfr_like_count,like_count);
+            // console.log(bfr_like_count,like_count);
             
             if(bfr_like_count < like_count){
                 self.setAttribute("onclick", "like(this, "+id+", 1"+")");
