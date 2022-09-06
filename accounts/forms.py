@@ -12,6 +12,15 @@ from .models import UserProfile
 User = get_user_model()
 
 class LoginForm(AuthenticationForm):
+    username = UsernameField(
+        label=(''),
+        widget=forms.TextInput(attrs={'autofocus': True}),
+    )
+    password = forms.CharField(
+        label=(''),
+        strip=False,
+        widget=forms.PasswordInput(attrs={'autocomplete': 'current-password'}),
+    )
     error_messages = {
         'invalid_login': _(
             "ID와 비밀번호를 확인해주십시오."
