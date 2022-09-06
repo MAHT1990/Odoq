@@ -9,25 +9,25 @@
             <div class="header_box">
                 <!-- Odoq2.com -->
                 <img src="{%static 'main/images/ODOQ_LOGO.png'%}" alt="Odoq2.com">
-            </div>
-            <div class="sms_pseudo_container">
                 <div class="login_box">
                     {% if not user.is_authenticated %}
-                    <form action="{%url 'accounts:login' %}" method="post">
+                    <form action="{%url 'accounts:login' %}" method="post" id="login_box_form">
                         {% csrf_token %}
                         {{login_form}}
                         {{form}}
-                        <input type="submit" value="Log in">
                     </form>
-                    <form action="{% url 'accounts:signin' %}">
-                        <input type="submit" value="Sign in">
-                    </form>
+                    <div class="login_box_buttons">
+                        <button onclick="login()">Log in</button>
+                        <button onclick=location.href="{% url 'accounts:signin' %}">Sign in</button>
+                    </div>
                     {% else %}
                         {{user.userprofile.nickname}}님 반갑습니다.
                         <a href="{% url 'accounts:logout' %}?next={{request.get_full_path}}">Log out</a>
                         <a href="{% url 'accounts:userprofile' %}?next={{request.get_full_path}}">Mypage</a>
                     {% endif %}
                 </div>
+            </div>
+            <div class="sms_pseudo_container">
                 <div class="sms_box" onclick="sms_popup()">
                     <img src="{%static 'main/images/sms.png'%}" alt="sms알림">
                     <p>SMS</p>
