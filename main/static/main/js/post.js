@@ -14,6 +14,13 @@ function getCookie(name) {
     return cookieValue;
 }
 
+// Login
+function login(){
+    let login_form = document.getElementById("login_box_form");
+    login_form.submit();
+}
+
+
 // 답안제출 POST AJAX//
 
 function answer_post(){
