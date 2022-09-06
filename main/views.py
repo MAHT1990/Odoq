@@ -178,7 +178,7 @@ class IndexView:
 
     def get_login_form(self):
         content = {
-            'login_form' : LoginForm()
+            'login_form' : LoginForm(auto_id = False,)
         }
 
         return content
