@@ -124,10 +124,14 @@ function phone_number_delete(){
 
 function enter_form_submit(e){
     let x = e.key;
-    if(x == "Enter" && !e.shiftKey){
-        e.preventDefault();
-        form_submit(e.target);
+    if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+        console.log('It is Mobile');
     } else {
+        if(x == "Enter" && !e.shiftKey){
+            e.preventDefault();
+            form_submit(e.target);
+        } else {
+        }
     }
 }
 
