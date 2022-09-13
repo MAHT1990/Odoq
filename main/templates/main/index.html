@@ -21,9 +21,12 @@
                         <button onclick=location.href="{% url 'accounts:signin' %}">Sign in</button>
                     </div>
                     {% else %}
-                        {{user.userprofile.nickname}}님 반갑습니다.
-                        <a href="{% url 'accounts:logout' %}?next={{request.get_full_path}}">Log out</a>
-                        <a href="{% url 'accounts:userprofile' %}?next={{request.get_full_path}}">Mypage</a>
+                        <p><span>{{user.userprofile.nickname}}</span>님</p>
+                        <p>반갑습니다.</p>
+                    <div class="login_box_buttons">
+                        <button onclick=location.href="{% url 'accounts:logout' %}?next={{request.get_full_path}}">Log out</button>
+                        <button onclick=location.href="{% url 'accounts:userprofile' %}?next={{request.get_full_path}}">MyPage</button>
+                    </div>
                     {% endif %}
                 </div>
             </div>
@@ -310,6 +313,70 @@
             </div>
         </footer>
     </div>
+    {% if profile_form or creation_form %}
+    <div class="profile_creation_popup" >
+        <div class="profile_creation_popup_background" onclick="location.href='/'"></div>
+        {% if profile_form %}
+        <div class="user_profile_form_container">
+            <form action="" method="post" class = "user_creation_form">
+                {% csrf_token %}
+                <input type="hidden" name="username" value="{{user.username}}">
+                <p id = "id_username">{{user.username}}</p>
+                <div>
+                <p>닉 네 임</p>
+                {{profile_form.nickname}}
+                </div>
+                {{profile_form.nickname.errors}}
+                <div>
+                <p>비밀번호</p>
+                <input type="password" name="password" required id ="id_password">
+                </div>
+                {% if pw_error_message %}
+                <ul class="errorlist">
+                    <li>{{pw_error_message}}</li>
+                </ul>
+                {% endif %}
+                <button type="submit">수정</button>
+            </form>
+        </div>
+        {%endif%}
+
+        {% if creation_form %}
+        <div class="user_creation_form_container">
+            <form action="" method="post" class = "user_creation_form">
+                {% csrf_token %}
+                <div class="user_creation_form_header">
+                    <div class="user_creation_form_header_signin">SignIn</div>
+                </div>
+                <div>
+                    <p>ID</p>
+                    {{creation_form.username}}
+                </div>
+                <ul>
+                    {{creation_form.username.help_text}}
+                </ul>
+                {{creation_form.username.errors}}
+                <div>
+                    <p>닉 네 임</p>
+                    {{creation_form.nickname}}
+                </div>
+                {{creation_form.nickname.errors}}
+                <div>
+                    <p>비밀번호</p>
+                    {{creation_form.password1}}
+                </div>
+                {{creation_form.password1.errors}}
+                <div>
+                    <p>비밀번호 확인</p>
+                    {{creation_form.password2}}
+                </div>
+                {{creation_form.password2.errors}}
+                <button type="submit">회원가입</button>
+            </form>
+        </div>
+        {% endif %}
+    </div>
+    {% endif %}
     <script>
         // Window가 load되면 자동으로 실행된다.
         //template TAG 때문에 .js 파일로 옮기면 안됨.
