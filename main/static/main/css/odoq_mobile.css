@@ -58,6 +58,15 @@
         margin-bottom : 10px;
     }
 
+    .login_box {
+        padding : 8px 10px 0 10px;
+    }
+
+    .login_box form input {
+        font-size : 11px;
+        margin : 3px 0;
+    }
+
     .login_box p{
         font-size : 10px;
         text-align : center;
