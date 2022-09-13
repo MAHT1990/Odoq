@@ -14,12 +14,12 @@ User = get_user_model()
 class LoginForm(AuthenticationForm):
     username = UsernameField(
         label=(''),
-        widget=forms.TextInput(attrs={'autofocus': True}),
+        widget=forms.TextInput(attrs={'autofocus': True, 'placeholder':'ODOQ ID'}),
     )
     password = forms.CharField(
         label=(''),
         strip=False,
-        widget=forms.PasswordInput(attrs={'autocomplete': 'current-password'}),
+        widget=forms.PasswordInput(attrs={'autocomplete': 'current-password', 'placeholder' : "PASSWORD"}),
     )
     error_messages = {
         'invalid_login': _(
