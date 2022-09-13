@@ -45,12 +45,36 @@
         max-width : 550px;
     }
 
+    .header_pseudo_box {
+        height : 55px;
+    }
+
     .header_container {
         padding : 0 10px 0 20px;
     }
 
     .header_box {
         font-size: 50px;
+        margin-bottom : 10px;
+    }
+
+    .login_box p{
+        font-size : 10px;
+        text-align : center;
+    }
+
+    .login_box_buttons {
+        flex-direction : column;
+    }
+
+    .login_box_buttons button{
+        font-size : 10px;
+        margin : 2.5px 0;
+    }
+
+    .sms_box {
+        padding : 25px 0 0 0;
+        height : 70px;
     }
 
     .verticalLine1 {
