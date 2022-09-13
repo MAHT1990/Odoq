@@ -175,9 +175,14 @@ header{
     }
 
 .login_box {
-    width : 27%;
+    width : 25%;
+    height : 107.5px;
     padding : 10px 10px 0 10px;
+    font-family: initial;
 }
+    .login_box ul {
+        display : none;
+    }
 
     .login_box form {
         
@@ -187,18 +192,45 @@ header{
         width : 100%;
         border : 0;
         padding : 5px 0;
+        margin : 8px 0;
+        background-color : rgba(242,248,252,255);
+        border : 1px solid rgba(0,81,200,255);
+        border-radius: 3px;
+        text-indent: 5px;
+    }
+
+    .login_box p {
+        font-size:15px;
         margin : 10px 0;
+        padding : 0;
+    }
+
+    .login_box span {
+        color :rgba(0,81,200,255);
     }
 
 .login_box_buttons {
     display : flex;
-    justify-content : space-between;
+    justify-content : flex-start;
 }
 
-.login_box_buttons button {
-    border : 0;
-    background-color : transparent;
-}
+    .login_box_buttons button {
+        border : 0;
+        /* background-color : transparent; */
+        cursor : pointer;
+        padding : 5px;
+        margin : 0 5px 0 0;
+        background-color : rgba(0,81,200,255);
+
+        font-size : 15px;
+        font-family: 'Fjalla One', sans-serif;
+        /* line-height: 35.46px; 부모 .answer_button_box의 height */
+        color : white;
+        font-weight: normal;
+    }
+    .login_box_buttons button:hover {
+        background-color : rgba(0,41,100,255);
+    }
 
 .sms_box{
     box-sizing : border-box;
@@ -1044,8 +1076,144 @@ footer {
 
 
 /* user_creation_form.html */
+.profile_creation_popup_background{
+    width : 100%;
+    height : 100%;
+}
+
+.user_profile_form_container{
+    font-size : 15px;
+
+    position : absolute;
+    left : 50%; top : 50%;
+    transform: translate(-50%, -50%);
+    max-width:420px;
+    width : 50%;
+    /* height:40%; */
+    background-color : white;
+    padding : 35px;
+
+    display : flex;
+    flex-direction : column;
+    justify-content : center;
+    
+    border-radius: 10px;
+}
+
+    .user_profile_form_container #id_username {
+        color : rgba(0,81,200,255);
+        font-size : 50px;
+        font-family: 'Fjalla One', sans-serif;
+        line-height: 35.46px;
+    }
+    .user_profile_form_container form,
+    .user_creation_form_container form {
+        display : flex;
+        flex-direction : column;
+        justify-content : center;
+    }
+
+    .user_profile_form_container form div,
+    .user_creation_form_container form div {
+        display : flex;
+        justify-content : space-between;
+        margin : 8px 0;
+    }
+
+    .user_profile_form_container form p,
+    .user_creation_form_container form p {
+        /* line-height: 24px; */
+        display : inline-block;
+    }
+    .user_profile_form_container form input,
+    .user_creation_form_container form input {
+        display : block;
+        text-indent: 5px;
+        background-color : rgba(242,248,252,255);
+        
+        box-sizing: border-box;
+        font-size : 12px;
+        border : 0;
+        border-bottom : 1px solid rgba(0,81,200,255);
+        padding : 0;
+        /* height : 2em; */
+        width : 55%;
+    }
+
+    .user_profile_form_container form ul,
+    .user_creation_form_container form ul {
+        font-size : 10px;
+        color : red;
+        text-align: right;
+        list-style: none;
+    }
+
+    .user_profile_form_container form button,
+    .user_creation_form_container form button {
+        width : 100%;
+        height : 100%; 
+        margin : 10px 0 ;
+        border : 0;
+        padding : 0;
+        background-color : rgba(0,81,200,255);
+
+        font-size : 20px;
+        font-family: 'Fjalla One', sans-serif;
+        line-height: 30px;
+        color : white;
+        font-weight: normal;
+    }
+
+    .user_profile_form_container form button:hover,
+    .user_creation_form_container form button:hover {
+        background-color : rgba(0,41,100,255);
+    }
+
 
 .user_creation_form_container{
     padding-top : 100px;
-    font-size: 20px;
+    font-size: 15px;
+
+    position : absolute;
+    left : 50%; top : 50%;
+    transform: translate(-50%, -50%);
+    max-width:420px;
+    width : 80%;
+    /* height:80%; */
+    background-color : white;
+    padding : 35px;
+
+    display : flex;
+    flex-direction : column;
+    justify-content : center;
+    
+    border-radius: 10px;
+}
+
+.user_creation_form_header{
+    display : flex;
+    justify-content : space-between;
+}
+
+.user_creation_form_header_signin{
+    color : rgba(0,81,200,255);
+    font-size : 50px;
+    font-family: 'Fjalla One', sans-serif;
+    line-height: 35.46px;
+}
+
+.user_creation_form_container form{
+    display : flex;
+    flex-direction: column;
+    justify-content: content;
+}
+
+
+.profile_creation_popup {
+    position : fixed;
+    z-index: 1;
+    left:0px; top : 0px; 
+    width:100%; height:100%;
+    background-color : rgba(196, 196, 196, 0.5);
+    /* display : none; */
 }
