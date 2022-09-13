@@ -1,3 +1,5 @@
+from django import forms
+
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 
@@ -94,12 +96,25 @@ class OdoqCreateView(CreateView):
         UserProfile.objects.create(user=self.object, nickname = nickname)
 
         return HttpResponseRedirect(self.get_success_url())
+    
+    def get_context_data(self, **kwargs):
+        index = IndexView()
+        kwargs = super().get_context_data()
+        kwargs.update(index.get_content())
+        if "form" in kwargs:
+            kwargs.pop("form")
+        
+        if "creation_form" not in kwargs:
+            kwargs["creation_form"] = self.get_form()
+        print(kwargs)
+        return kwargs
         
 
 signin = OdoqCreateView.as_view(
     model = User,
     form_class = OdoqCreationForm,
-    template_name = 'accounts/user_creation_form.html',
+    # template_name = 'accounts/user_creation_form.html',
+    template_name = 'main/index.html',
     success_url = settings.LOGIN_REDIRECT_URL,
 )
 
@@ -114,6 +129,8 @@ def userprofile(request):
 
     if request.method == "POST":
         form = UserProfileForm(request.POST, request.FILES, instance=userprofile)
+        index = IndexView()
+        context = {}
         if form.is_valid():
             userprofile = form.save(commit = False)
             userprofile.user = request.user
@@ -124,17 +141,25 @@ def userprofile(request):
                 return redirect('main:index')
             else:
                 form = UserProfileForm(instance = userprofile)
-                return render(request, 'accounts/user_profile_form.html', {
-                    'form':form,
-                    'error_message':'비밀번호가 일치하지 않습니다.'
-                })
+                context['profile_form'] = form
+                context['pw_error_message'] = '비밀번호가 일치하지 않습니다.'
+                context.update(index.get_content())
+                print(context)
+                return render(request, 'main/index.html', context)
         else:
-            return render(request, 'accounts/user_profile_form.html', {
-                    'form':form,
-                })          
+            context['profile_form'] = form
+            context.update(index.get_content())
+            return render(request, 'main/index.html', context)          
 
     else:
         form = UserProfileForm(instance = userprofile)
-        return render(request, 'accounts/user_profile_form.html', {
-            'form':form,
-        })
+        index = IndexView()
+        context = {
+            'profile_form' : form
+        }
+
+        context.update(index.get_content())
+        return render(request, 'main/index.html', context)
+        # return render(request, 'accounts/user_profile_form.html', {
+        #     'form':form,
+        # })
