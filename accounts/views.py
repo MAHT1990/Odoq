@@ -106,7 +106,6 @@ class OdoqCreateView(CreateView):
         
         if "creation_form" not in kwargs:
             kwargs["creation_form"] = self.get_form()
-        print(kwargs)
         return kwargs
         
 
