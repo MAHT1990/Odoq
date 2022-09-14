@@ -75,6 +75,7 @@ class UserProfileForm(forms.ModelForm):
         fields = [
             'nickname'
         ]
+        
     def clean_nickname(self):
         nickname=self.cleaned_data.get('nickname','').strip()
         if UserProfile.objects.filter(nickname=nickname).first():
