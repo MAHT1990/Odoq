@@ -70,7 +70,7 @@ class Cocomment(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now = True)
     blind = models.BooleanField(default=False)
-    blind_text = models.models.CharField(
+    blind_text = models.CharField(
         max_length=100,
         default="작성자에 의하여 블라인드 처리되었습니다.",
     )
