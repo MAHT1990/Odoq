@@ -699,6 +699,7 @@ header{
         .cocomment_line_user {
             display : inline-block;
             font-size : 13px;
+            color : rgba(49, 49, 49, 0.8);
         }
 
         .comment_line_updated_at {
@@ -708,7 +709,7 @@ header{
         }
         .cocomment_line_updated_at {
             display : inline-block;
-            font-size : 11px;
+            font-size : 10px;
             color : rgba(168,168,168,255);
             
         }
