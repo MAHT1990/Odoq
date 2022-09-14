@@ -693,12 +693,12 @@ header{
 
         .comment_line_user {
             display : inline-block;
-            font-size : 13px;
+            font-size : 12px;
             color : rgba(49, 49, 49, 0.8);
         }
         .cocomment_line_user {
             display : inline-block;
-            font-size : 13px;
+            font-size : 12px;
             color : rgba(49, 49, 49, 0.8);
         }
 
