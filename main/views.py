@@ -420,6 +420,44 @@ def comment_new(request):
         return redirect("main:index")
 
 @login_required
+def comment_blind(request):
+    if request.method == "POST":
+        comment_id = request.POST.get("comment_id")
+        cocomment_id = request.POST.get("cocomment_id")
+
+        if comment_id and not cocomment_id:
+            try:
+                trgt_comment = Comment.objects.get(id = comment_id)
+            except:
+                trgt_comment = None
+                answer_response = "삭제되었거나 존재하지 않는 댓글입니다."
+
+            if trgt_comment:
+                trgt_comment.blind = True
+                answer_response = "블라인드 처리되었습니다."
+        
+        elif not comment_id and cocomment_id:
+            try:
+                trgt_cocomment = Cocomment.objects.get(id = cocomment_id)
+            except:
+                trgt_cocomment = None
+                answer_response = "삭제되었거나 존재하지 않는 댓글입니다."
+            
+            if trgt_cocomment:
+                trgt_cocomment.blind = True
+                answer_response = "블라인드 처리되었습니다."
+    
+        response_data = {
+        'status' : 200,
+        'debugging' : 'Success',
+        'answer_response' : answer_response
+        }
+
+        return JsonResponse(response_data)
+    else:
+        return redirect("main : index")
+
+@login_required
 def comment_delete(request):
     if request.method == 'POST':
         comment_id = request.POST.get("comment_id")
@@ -493,6 +531,10 @@ def cocomment_new(request):
             # return JsonResponse(response_data)
     else:
         return redirect("main:index")
+
+@login_required
+def cocomment_blind(request):
+    pass
 
 @login_required
 def cocomment_delete(request):
