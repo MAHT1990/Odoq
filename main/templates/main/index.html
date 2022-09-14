@@ -238,8 +238,13 @@
                             <div class = "cocomment_line" id = "cocomment_id_{{cocomment.id}}">
                                 <div class = "cocomment_line_user_and_updated_at_and_tool_box">
                                     <div class = "cocomment_line_user_and_updated_at">
+                                        {% if cocomment.user.is_superuser %}
+                                        <div class = "cocomment_line_user">{{cocomment.user.userprofile.nickname}}<i class="fa-solid fa-crown" style="color:rgba(255, 171, 0, 0.8);"></i></div>
+                                        <div class = "cocomment_line_updated_at">{{cocomment.updated_at}}</div>
+                                        {% else %}
                                         <div class = "cocomment_line_user">{{cocomment.user.userprofile.nickname}}</div>
                                         <div class = "cocomment_line_updated_at">{{cocomment.updated_at}}</div>
+                                        {% endif %}
                                     </div>
                                     {% if user.is_authenticated %}
                                     <div class = "cocomment_line_tool_box_btn_and_box" id="cocomment_line_tool_box_btn_and_box_id_{{cocomment.id}}">
