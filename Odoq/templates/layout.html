@@ -25,6 +25,11 @@
                 <img src="{% static 'main/images/info_asset.png' %}" alt="Plan">
                 <p>공지</p>
             </div>
+            {% if user.is_superuser %}
+            <div class="admin_box">
+                <a href="/admin/"><i class="fa-solid fa-screwdriver-wrench"></i></a>
+            </div>
+            {% endif %}
             <div class="logo_box">
                 <a href="http://odoq2.com" rel="noopener noreferrer"><img src="{%static 'main/images/ODOQ_NAV_LOGO.png'%}" alt=""></a>
             </div>
