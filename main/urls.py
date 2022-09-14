@@ -10,10 +10,12 @@ urlpatterns = [
     path('comment/new/', views.comment_new, name = 'comment_new'),
     path('comment/edit/', views.comment_edit, name = 'comment_edit'),
     path('comment/delete/', views.comment_delete, name = 'comment_delete'),
+    path('comment/blind/', views.comment_blind, name = 'comment_blind'),
     path('comment/like/<int:comment_id>/', views.like, name = 'comment_like'),
     path('comment/<str:queryset_filter>/<str:queryset_order>/', views.index, name='filtering_and_ordering'),
     path('cocomment/new/', views.cocomment_new, name = 'cocomment_new'),
     path('cocomment/delete/', views.cocomment_delete, name = 'cocomment_delete'),
+    path('cocomment/blind/', views.comment_blind, name = 'comment_blind'),
     path('cocomment/edit/', views.comment_edit, name = 'cocomment_edit'),
     path('cocomment/like/<int:cocomment_id>/', views.like, name = 'cocomment_like'),
     ] + [
