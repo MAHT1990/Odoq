@@ -693,21 +693,22 @@ header{
 
         .comment_line_user {
             display : inline-block;
-            font-weight: bold;
+            font-size : 13px;
+            color : rgba(49, 49, 49, 0.8);
         }
         .cocomment_line_user {
             display : inline-block;
-            font-weight : bold;
+            font-size : 13px;
         }
 
         .comment_line_updated_at {
             display : inline-block;
-            font-size: 14px;
+            font-size: 10px;
             color : rgba(168,168,168,255);
         }
         .cocomment_line_updated_at {
             display : inline-block;
-            font-size : 14px;
+            font-size : 11px;
             color : rgba(168,168,168,255);
             
         }
@@ -904,6 +905,8 @@ header{
     .comment_line_open_cocomment {
         background-color:transparent;
         border : 0;
+        padding-left : 0; /*<button> default 초기화*/
+        color : rgba(0,41,100,255);
         cursor : pointer;
     }
     
