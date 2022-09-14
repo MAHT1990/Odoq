@@ -69,6 +69,23 @@ nav {
                 margin : 3px 0;
                 text-align: center;
             }
+        
+        .admin_box {
+            width : 50px;
+            height : 50px;
+            font-size : 30px;
+            color : white;
+            text-align : center;
+            cursor : pointer;
+            float : right;
+            box-sizing: border-box;
+            padding : 10px 0px 10px 10px;
+        }
+
+        .admin_box a:visited, .admin_box a:link, .admin_box a:hover, .admin_box a:active {
+            text-decoration: none;
+            color : white;
+        }
 
         .logo_box {
             height : 50px;
