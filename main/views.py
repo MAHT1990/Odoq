@@ -23,6 +23,7 @@ class IndexView:
     get_comments_bool = True
     get_cocomment_form_bool = True
     request = None
+    order = None #현재 filtering 및 ordering : 'like' , 'my'
 
     ####### CONSTRUCTOR #######
     def __init__(self, **initkwargs):
@@ -188,6 +189,9 @@ class IndexView:
 
         comments = self.comments_filtering_ordering(Comment.objects.all(), **kwargs)
         
+        if self.order != 'my' and self.order != 'like':
+            self.order = 'latest'
+
         now = datetime.now()
         
         comments_today = comments.filter(
@@ -208,6 +212,7 @@ class IndexView:
             'comments_today' : comments_today,
             'paginator' : paginator,
             'pages' : pages,
+            'order' : self.order,
         }
 
         return content
@@ -230,9 +235,11 @@ class IndexView:
             result_pk = [comment.pk for comment in result]
             preserved = Case(*[When(pk=pk, then=pos) for pos, pk in enumerate(result_pk)])
             comments = Comment.objects.filter(pk__in=result_pk).order_by(preserved)
+            self.order = 'like'
         
         if queryset_filter=="my_comment":
             comments = Comment.objects.filter(user=self.request.user).order_by('-created_at')
+            self.order = 'my'
 
         return comments
 
@@ -298,6 +305,7 @@ class IndexView:
         def view(request, *args, **kwargs):
             self = cls(**initkwargs)
             self.request = request
+            # print(self.get_content(*args, **kwargs))
             return render(request, 'main/index.html', self.get_content(*args, **kwargs))
 
         return view
@@ -433,8 +441,16 @@ def comment_blind(request):
                 answer_response = "삭제되었거나 존재하지 않는 댓글입니다."
 
             if trgt_comment:
-                trgt_comment.blind = True
-                answer_response = "블라인드 처리되었습니다."
+                if trgt_comment.blind == True:
+                    trgt_comment.blind = False
+                    answer_response = "블라인드 처리가 해제되었습니다."
+                else:
+                    trgt_comment.blind = True
+                    answer_response = "블라인드 처리되었습니다."
+                    if request.user.is_superuser:
+                        trgt_comment.blind_text = "관리자에 의해 블라인드 처리되었습니다."
+                
+                trgt_comment.save()
         
         elif not comment_id and cocomment_id:
             try:
@@ -444,8 +460,15 @@ def comment_blind(request):
                 answer_response = "삭제되었거나 존재하지 않는 댓글입니다."
             
             if trgt_cocomment:
-                trgt_cocomment.blind = True
-                answer_response = "블라인드 처리되었습니다."
+                if trgt_cocomment.blind == True:
+                    trgt_cocomment.blind = False
+                    answer_response = "블라인드 처리가 해제되었습니다."
+                else:
+                    trgt_cocomment.blind = True
+                    answer_response = "블라인드 처리되었습니다."
+                    if request.user.is_superuser:
+                        trgt_cocomment.blind_text = "관리자에 의해 블라인드 처리되었습니다."
+                trgt_cocomment.save()
     
         response_data = {
         'status' : 200,
