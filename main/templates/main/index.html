@@ -61,7 +61,8 @@
     <div class="verticalLine1"></div>
     <div class="main_container">
     {%if onoff_season is True%}
-        {% if weekday == 5 and weekday == 6 %}
+        {# if weekday == 5 or weekday == 6 #}
+        {% if weekday > 7 %}
         <div class="weekend_timer_container">
     
             <div class="weekend_timer_container_header">
@@ -425,7 +426,8 @@
             let duration = "{{countdown}}";
             
             // 토요일이나 일요일의 경우, 
-            if(weekday == 5 || weekday == 6){
+            // if(weekday == 5 || weekday == 6){
+            if(weekday > 7){
                 element = document.getElementsByClassName("weekend_timer_box")[0];
             } else {
                 element = document.getElementsByClassName("countdown_box")[0];
