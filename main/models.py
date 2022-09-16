@@ -8,7 +8,7 @@ User = get_user_model()
 
 class OnOff(models.Model):
     title = models.CharField(max_length=255)
-    on_off = models.BooleanField()
+    on_off = models.BooleanField(default = True)
     off_img = models.ImageField(upload_to='season_off_img', blank=True)
 
 
