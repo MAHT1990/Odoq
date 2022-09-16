@@ -36,12 +36,15 @@ class IndexView:
             'onoff_season' : None,
             'season_off_img' : None,
             'onoff_comment' : None,
+            'onoff_weekend_question' : None,
         }
 
         #실제로 Query를 날리기 때문에 예외처리를 해준다.
         try:
-            current_onoff_season = OnOff.objects.all().get(title__icontains="Season")
-            current_onoff_comment = OnOff.objects.all().get(title__icontains="comment")
+            current_onoff_season = self.get_or_create_onoff_season()
+            current_onoff_comment = self.get_or_create_onoff_comment()
+            current_onoff_weekend_question = self.get_or_create_onoff_weekend_question()
+            
         except:
             return content
 
@@ -52,12 +55,47 @@ class IndexView:
         
         if current_onoff_comment:
             content['onoff_comment'] = current_onoff_comment.on_off
+
+        if current_onoff_weekend_question:
+            content['onoff_weekend_question'] = current_onoff_weekend_question.on_off
         
         return content
+    
+    def get_or_create_onoff_season(self):
+        try:
+            current_onoff_season = OnOff.objects.all().get(title__icontains="Season")
+            if current_onoff_season:
+                return current_onoff_season
+        
+        except:
+            t_onoff_season = OnOff.objects.create(title="Season")
+            return t_onoff_season
+    
+    def get_or_create_onoff_comment(self):
+        try:
+            current_onoff_comment = OnOff.objects.all().get(title__icontains="comment")
+            if current_onoff_comment:
+                return current_onoff_comment
+        
+        except:
+            t_onoff_comment = OnOff.objects.create(title="comment")
+            return t_onoff_comment
+    
+    def get_or_create_onoff_weekend_question(self):
+        try:
+            current_onoff_weekend_question = OnOff.objects.all().get(title__icontains="weekend")
+            if current_onoff_weekend_question:
+                return current_onoff_weekend_question
+        
+        except:
+            t_onoff_weekend_question = OnOff.objects.create(title="weekend_question")
+            return t_onoff_weekend_question
+
+
 
     ######## QUESTION MODEL FILTERING METHODS ########
     @classmethod
-    def get_current_question(self):
+    def get_current_question(cls):
         #요일 처리
         seoul_timezone = timezone(timedelta(hours=9))
         rightnow_kor = datetime.now(tz=seoul_timezone)
@@ -109,30 +147,32 @@ class IndexView:
         if question_next == None:
             question_next_countdown = 0
 
+        #get_or_create_weekend_question().on_off가 True이면,
         #금요일, 토요일, 일요일 일 때의 countdown값을 달리준다.
         #금요일일 때는 하루 in 초 - 현재 시각 in 초 till 토
         #토요일일 때는 이틀 in 초 - 현재 시각 in 초 till 월
         #일요일일 때는 하루 in 초 - 현재 시각 in 초 till 월
 
-        if rightnow_weekday_kor == 4 or rightnow_weekday_kor == 5 or rightnow_weekday_kor == 6: #금,토,일요일일 때,
-            t_hour = rightnow_kor.hour
-            t_min = rightnow_kor.minute
-            t_sec = rightnow_kor.second
+        if not cls.get_or_create_onoff_weekend_question(cls).on_off:
+            if rightnow_weekday_kor == 4 or rightnow_weekday_kor == 5 or rightnow_weekday_kor == 6: #금,토,일요일일 때,
+                t_hour = rightnow_kor.hour
+                t_min = rightnow_kor.minute
+                t_sec = rightnow_kor.second
 
-            t_day_in_seconds = 86400
-            t_now_in_seconds = 3600 * t_hour + 60 * t_min + t_sec
+                t_day_in_seconds = 86400
+                t_now_in_seconds = 3600 * t_hour + 60 * t_min + t_sec
 
-            if rightnow_weekday_kor == 4: #금요일
-                #24시간을 초로 환산해서 현재시각을 초로 환산한 값을 빼준다.
-                delta_datetime = t_day_in_seconds - t_now_in_seconds 
-        
-            elif rightnow_weekday_kor == 5: #토요일
-                delta_datetime = t_day_in_seconds * 2 - t_now_in_seconds
+                if rightnow_weekday_kor == 4: #금요일
+                    #24시간을 초로 환산해서 현재시각을 초로 환산한 값을 빼준다.
+                    delta_datetime = t_day_in_seconds - t_now_in_seconds 
             
-            elif rightnow_weekday_kor == 6: #일요일
-                delta_datetime = t_day_in_seconds - t_now_in_seconds 
+                elif rightnow_weekday_kor == 5: #토요일
+                    delta_datetime = t_day_in_seconds * 2 - t_now_in_seconds
+                
+                elif rightnow_weekday_kor == 6: #일요일
+                    delta_datetime = t_day_in_seconds - t_now_in_seconds 
 
-            question_next_countdown = delta_datetime
+                question_next_countdown = delta_datetime
 
         
         #Debugging            
