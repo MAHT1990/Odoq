@@ -8,7 +8,7 @@ User = get_user_model()
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    nickname = models.CharField(null=False, max_length=20)
+    nickname = models.CharField(null=False, max_length=6)
 
     like_comments = models.ManyToManyField(Comment, blank=True, default=None)
     like_cocomments = models.ManyToManyField(Cocomment, blank=True, default=None)

@@ -226,6 +226,42 @@ function comment_delete(self, id){
         req.send(data);
 }
 
+function comment_blind(self, id){
+    var url = '';
+    var tgrt_comment_line = null;
+    var data = '';
+    
+    if(self.getAttribute("class").indexOf('coco')<0){
+        url = '/comment/blind/';
+        tgrt_comment_line = document.getElementById('comment_id_'+id);
+        data = "comment_id="+id;
+    } else {
+        url = '/cocomment/blind/';
+        tgrt_comment_line = document.getElementById('cocomment_id_'+id);
+        data = "cocomment_id="+id;
+    }
+
+    let req = new XMLHttpRequest();
+    req.open('POST', url);
+    req.onreadystatechange = function(){
+        if(this.readyState == 4 && this.status == 200) {
+            const jsonResponse = JSON.parse(req.responseText);
+            const answer_response = jsonResponse['answer_response'];
+            console.log(answer_response);
+            location.reload(true);
+        }
+    }
+
+    var csrftoken = getCookie('csrftoken');
+
+        req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8")
+        req.setRequestHeader("X-CSRFToken", csrftoken)
+
+        // 보낼 data 양식 맞춰서, send로 보내기.
+
+        req.send(data);
+}
+
 // 댓글 수정 INTERFACE
 function comment_edit_open(self, id){
     

@@ -69,6 +69,23 @@ nav {
                 margin : 3px 0;
                 text-align: center;
             }
+        
+        .admin_box {
+            width : 50px;
+            height : 50px;
+            font-size : 30px;
+            color : white;
+            text-align : center;
+            cursor : pointer;
+            float : right;
+            box-sizing: border-box;
+            padding : 10px 0px 10px 10px;
+        }
+
+        .admin_box a:visited, .admin_box a:link, .admin_box a:hover, .admin_box a:active {
+            text-decoration: none;
+            color : white;
+        }
 
         .logo_box {
             height : 50px;
@@ -76,7 +93,9 @@ nav {
         }
 
         .logo_box a {
-            display : block;
+            /* display : block; */
+            display : flex;
+            justify-content: center;
             height : 100%;
             text-align : center;
             
@@ -90,6 +109,7 @@ nav {
         }
 
         .logo_box img {
+            display:block;
             height : 100%;
         }
 
@@ -693,21 +713,23 @@ header{
 
         .comment_line_user {
             display : inline-block;
-            font-weight: bold;
+            font-size : 12px;
+            color : rgba(49, 49, 49, 0.8);
         }
         .cocomment_line_user {
             display : inline-block;
-            font-weight : bold;
+            font-size : 12px;
+            color : rgba(49, 49, 49, 0.8);
         }
 
         .comment_line_updated_at {
             display : inline-block;
-            font-size: 14px;
+            font-size: 10px;
             color : rgba(168,168,168,255);
         }
         .cocomment_line_updated_at {
             display : inline-block;
-            font-size : 14px;
+            font-size : 10px;
             color : rgba(168,168,168,255);
             
         }
@@ -904,6 +926,8 @@ header{
     .comment_line_open_cocomment {
         background-color:transparent;
         border : 0;
+        padding-left : 0; /*<button> default 초기화*/
+        color : rgba(0,41,100,255);
         cursor : pointer;
     }
     

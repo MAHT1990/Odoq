@@ -24,7 +24,7 @@
                         <p><span>{{user.userprofile.nickname}}</span>님</p>
                         <p>반갑습니다.</p>
                     <div class="login_box_buttons">
-                        <button onclick=location.href="{% url 'accounts:logout' %}?next={{request.get_full_path}}">Log out</button>
+                        <button onclick=location.href="{% url 'accounts:logout' %}?next={% url 'main:index' %}">Log out</button>
                         <button onclick=location.href="{% url 'accounts:userprofile' %}?next={{request.get_full_path}}">MyPage</button>
                     </div>
                     {% endif %}
@@ -123,7 +123,11 @@
             <div class="comment_container_header_today_and_my_comment">
                 <div class="comment_container_header_today">오늘의 댓글 &nbsp <span>{{comments_today|length}}</span> 개</div>
                 {% if user.is_authenticated %}
-                <div class="comment_container_header_my_comment" onclick="location.href='/comment/my_comment/created_at/'">내 댓글&nbsp<i class="fa-solid fa-chevron-right"></i></div>
+                    {% if 'my' in order %}
+                    <div class="comment_container_header_my_comment" onclick="location.href='/'">전체댓글&nbsp<i class="fa-solid fa-chevron-right"></i></div>
+                    {% else %}
+                    <div class="comment_container_header_my_comment" onclick="location.href='/comment/my_comment/created_at/'">내 댓글&nbsp<i class="fa-solid fa-chevron-right"></i></div>
+                    {% endif %}
                 {% else %}
                 <div></div>
                 {%endif%}
@@ -151,8 +155,17 @@
         </div> -->
         {% endif %}
         <div class="comment_list_filter">
+            {% if 'latest' in order %}
+            <button onclick="location.href='/'" style="color:rgba(0,81,200,255);">최신순 <i class="fa-solid fa-angle-down"></i></button>
+            {% else %}
             <button onclick="location.href='/'">최신순 <i class="fa-solid fa-angle-down"></i></button>
+            {% endif %}
+
+            {% if 'like' in order %}
+            <button onclick="location.href='/comment/today/like_count/'" style="color:rgba(0,81,200,255);">오늘의 댓글 추천순 <i class="fa-solid fa-angle-down"></i></button>
+            {% else %}
             <button onclick="location.href='/comment/today/like_count/'">오늘의 댓글 추천순 <i class="fa-solid fa-angle-down"></i></button>
+            {% endif %}
         </div>
         <div class="comment_list_filter_vertical_line"></div>
         <div class="comment_list_box">
@@ -166,8 +179,13 @@
                     {% endif %}
                         <div class = "comment_line_user_and_updated_at_and_tool_box">
                             <div class = "comment_line_user_and_updated_at">
+                                {% if comment.user.is_superuser %}
+                                <div class = "comment_line_user">{{comment.user.userprofile.nickname}}<i class="fa-solid fa-crown" style="color:rgba(255, 171, 0, 0.8);"></i></div>
+                                <div class = "comment_line_updated_at">&nbsp{{comment.created_at}}</div>
+                                {% else %}
                                 <div class = "comment_line_user">{{comment.user.userprofile.nickname}}</div>
-                                <div class = "comment_line_updated_at">{{comment.created_at}}</div>
+                                <div class = "comment_line_updated_at">&nbsp{{comment.created_at}}</div>
+                                {% endif %}
                             </div>
                             {% if user.is_authenticated %}
                             <div class = "comment_line_tool_box_btn_and_box" id="comment_line_tool_box_btn_and_box_id_{{comment.id}}">
@@ -179,7 +197,7 @@
                                     <button onclick="comment_edit_open(this, '{{comment.id}}')" class="comment_edit">
                                         <i class="fa-solid fa-pen"></i>
                                     </button>
-                                    <button onclick="comment_delete(this, '{{comment.id}}')" class="comment_delete">
+                                    <button onclick="comment_blind(this, '{{comment.id}}')" class="comment_blind">
                                         <i class="fa-solid fa-eraser"></i>
                                     </button>
                                     {% endif %}
@@ -191,8 +209,15 @@
                             </div>
                             {% endif %}
                         </div>
-
+                        {% if comment.blind %}
+                            {% if "관리자" in comment.blind_text %}
+                            <div class = "comment_line_content" id="comment_content_{{comment.id}}" style="text-decoration-line: line-through; color:rgba(0,41,100,255);">{{comment.blind_text}}</div>
+                            {% else %}
+                            <div class = "comment_line_content" id="comment_content_{{comment.id}}" style="text-decoration-line: line-through;">{{comment.blind_text}}</div>
+                            {% endif %}
+                        {% else %}
                         <div class = "comment_line_content" id="comment_content_{{comment.id}}">{{comment.content}}</div>
+                        {% endif %}
                         <div class = "comment_line_cocomment_and_like">
                             <button onclick="open_cocomment(this, '{{comment.id}}')" class="comment_line_open_cocomment">답글 {{comment.cocomment_set.all|length}}&nbsp&nbsp<i class="fa-solid fa-caret-down"></i></button>
                             {% if comment in user.userprofile.like_comments.all %}
@@ -213,8 +238,13 @@
                             <div class = "cocomment_line" id = "cocomment_id_{{cocomment.id}}">
                                 <div class = "cocomment_line_user_and_updated_at_and_tool_box">
                                     <div class = "cocomment_line_user_and_updated_at">
+                                        {% if cocomment.user.is_superuser %}
+                                        <div class = "cocomment_line_user">{{cocomment.user.userprofile.nickname}}<i class="fa-solid fa-crown" style="color:rgba(255, 171, 0, 0.8);"></i></div>
+                                        <div class = "cocomment_line_updated_at">{{cocomment.updated_at}}</div>
+                                        {% else %}
                                         <div class = "cocomment_line_user">{{cocomment.user.userprofile.nickname}}</div>
                                         <div class = "cocomment_line_updated_at">{{cocomment.updated_at}}</div>
+                                        {% endif %}
                                     </div>
                                     {% if user.is_authenticated %}
                                     <div class = "cocomment_line_tool_box_btn_and_box" id="cocomment_line_tool_box_btn_and_box_id_{{cocomment.id}}">
@@ -226,7 +256,7 @@
                                             <button onclick="comment_edit_open(this, '{{cocomment.id}}')" class="cocomment_edit">
                                                 <i class="fa-solid fa-pen"></i>
                                             </button>
-                                            <button onclick="comment_delete(this, '{{cocomment.id}}')" class="cocomment_delete">
+                                            <button onclick="comment_blind(this, '{{cocomment.id}}')" class="cocomment_blind">
                                                 <i class="fa-solid fa-eraser"></i>
                                             </button>
                                             {% endif %}
@@ -239,7 +269,15 @@
                                     {% endif %}
                                 </div>
 
+                                {% if cocomment.blind %}
+                                    {% if "관리자" in cocomment.blind_text %}
+                                    <div class = "cocomment_line_content" id="cocomment_content_{{cocomment.id}}" style="text-decoration-line: line-through; color:rgba(0,41,100,255);">{{cocomment.blind_text}}</div>
+                                    {% else %}
+                                    <div class = "cocomment_line_content" id="cocomment_content_{{cocomment.id}}" style="text-decoration-line: line-through;">{{cocomment.blind_text}}</div>
+                                    {% endif %}
+                                {% else %}
                                 <div class = "cocomment_line_content" id="cocomment_content_{{cocomment.id}}">{{cocomment.content}}</div>
+                                {% endif %}
                                 
                                 <div class = "cocomment_line_like">
                                     <div class = "cocomment_line_pseudo_box"></div>
@@ -413,6 +451,7 @@
             comment_page_show(1, '{{paginator.num_pages}}');
         }
 
+        //Scroll Position 관련 Code
         document.addEventListener("DOMContentLoaded", function(event) { 
             var scrollpos = sessionStorage.getItem('scrollpos');
             if (scrollpos) window.scrollTo(0, scrollpos);
@@ -430,15 +469,25 @@
         };
 
 
-        //댓글 글자수 counting
+        //댓글 입력창 및 댓글 글자수 counting
         let trgt_comment_charnumbs = document.getElementById('id_content');
-        trgt_comment_charnumbs.setAttribute("placeholder", "댓글을 입력해주세요");
-        trgt_comment_charnumbs.setAttribute("rows", 1);
+        if (trgt_comment_charnumbs){
+            trgt_comment_charnumbs.setAttribute("placeholder", "댓글을 입력해주세요");
+            trgt_comment_charnumbs.setAttribute("rows", 1);
+        }
         let output_charnumbs = document.getElementsByClassName("comment_input_box_charnumbs")[0];
-        let output_dom = output_charnumbs.children[0];
+        let output_dom
+        if (output_charnumbs){
+            output_dom = output_charnumbs.children[0];
+        }
         
         trgt_comment_charnumbs.addEventListener("input", function(e){
             output_dom.innerHTML = e.target.value.length+" / 500";
+            if(e.target.value.length >= 500){
+                trgt_comment_charnumbs.style.outlineColor = "red";
+            } else {
+                trgt_comment_charnumbs.style.outlineColor = "rgba(0,41,100,255)";
+            }
         });
 
         //Enter치면 제출하도록 할 것인가. 말 것인가.innerHTML
@@ -448,7 +497,6 @@
             e.target.setAttribute("rows", 10);
         });
         trgt_comment_charnumbs.addEventListener("blur", (e) => {
-            console.log(e.target.value.length);
             if(e.target.value.length==0){
                 e.target.setAttribute("rows", 1);
             }
