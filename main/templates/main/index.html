@@ -456,10 +456,12 @@
         window.onload = function(){
             let weekday = "{{weekday}}";
             let duration = "{{countdown}}";
+            let onoff_weekend_question = "{{onoff_weekend_question}}"
             
             // 토요일이나 일요일의 경우, 
-            if(weekday == 5 || weekday == 6){
+            if((weekday == 5 || weekday == 6)&& onoff_weekend_question=="False"){
                 element = document.getElementsByClassName("weekend_timer_box")[0];
+                console.log("BOOYAT")
             } else {
                 element = document.getElementsByClassName("countdown_box")[0];
             }
