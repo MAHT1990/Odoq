@@ -60,9 +60,9 @@
     
     <div class="verticalLine1"></div>
     <div class="main_container">
-    {%if onoff_season is True%}
-        {# if weekday == 5 or weekday == 6 #}
-        {% if weekday > 7 %}
+    {%if onoff_season %}
+        {% if not onoff_weekend_question %}
+        {% if weekday == 5 or weekday == 6 %}
         <div class="weekend_timer_container">
     
             <div class="weekend_timer_container_header">
@@ -87,25 +87,57 @@
                 {% endif %}
             </div>
         </div>
-
+        
         <div class="verticalLine2"></div>
-    
+        
         <div class="answer_container">
             <div class="answer_header">
                 Answer.
             </div>
             <div class="answer_input_button_box">
-                    <div class="answer_button_box">
-                        <button id="answer_button" onClick="answer_post()">
-                            enter.
-                        </button>
-                    </div>
-                    <div class="answer_box">
-                        <input id="answer_input" type="search" onkeydown="enter(event)" oninput="hideIcon(this)">
-                    </div>
+                <div class="answer_button_box">
+                    <button id="answer_button" onClick="answer_post()">
+                        enter.
+                    </button>
+                </div>
+                <div class="answer_box">
+                    <input id="answer_input" type="search" onkeydown="enter(event)" oninput="hideIcon(this)">
+                </div>
+            </div>
+        </div>
+        {% endif %}
+        {% else %}
+        <div class="question_container">
+            <div class="question_container_header">
+                <p class="season_box">Season {{season}} #{{code}}</p>
+                <p class="countdown_box"></p>
+            </div>
+            <div class="question_box">
+                {% if img %}
+                <img src="{{img.url}}" alt="load Error">
+                {% else %}
+                <img src="{% static 'BAM.png' %}" alt="load Error">
+                {% endif %}
             </div>
         </div>
         
+        <div class="verticalLine2"></div>
+        
+        <div class="answer_container">
+            <div class="answer_header">
+                Answer.
+            </div>
+            <div class="answer_input_button_box">
+                <div class="answer_button_box">
+                    <button id="answer_button" onClick="answer_post()">
+                        enter.
+                    </button>
+                </div>
+                <div class="answer_box">
+                    <input id="answer_input" type="search" onkeydown="enter(event)" oninput="hideIcon(this)">
+                </div>
+            </div>
+        </div>
         {% endif %}
     {%else%}
         <div class="question_container">
@@ -426,8 +458,7 @@
             let duration = "{{countdown}}";
             
             // 토요일이나 일요일의 경우, 
-            // if(weekday == 5 || weekday == 6){
-            if(weekday > 7){
+            if(weekday == 5 || weekday == 6){
                 element = document.getElementsByClassName("weekend_timer_box")[0];
             } else {
                 element = document.getElementsByClassName("countdown_box")[0];
@@ -446,7 +477,12 @@
             
             // 넘어온 duration 값이 0보다 작거나 같으면, 
             else{
-                element.textContent = "THIS IS LAST";
+                if(element){
+                    element.textContent = "THIS IS LAST";
+                }
+                else {
+                    null;
+                }
             }
 
             // 댓글 첫 페이지만 보이도록.
