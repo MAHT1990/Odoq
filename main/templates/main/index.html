@@ -62,17 +62,50 @@
     <div class="main_container">
     {%if onoff_season %}
         {% if not onoff_weekend_question %}
-        {% if weekday == 5 or weekday == 6 %}
-        <div class="weekend_timer_container">
-    
-            <div class="weekend_timer_container_header">
-            </div>
+            {% if weekday == 5 or weekday == 6 %}
+            <div class="weekend_timer_container">
         
-            <div class="weekend_timer_box">
-                
+                <div class="weekend_timer_container_header">
+                </div>
+            
+                <div class="weekend_timer_box">
+                    
+                </div>
             </div>
-        </div>
 
+            {% else %}
+            <div class="question_container">
+                <div class="question_container_header">
+                    <p class="season_box">Season {{season}} #{{code}}</p>
+                    <p class="countdown_box"></p>
+                </div>
+                <div class="question_box">
+                    {% if img %}
+                    <img src="{{img.url}}" alt="load Error">
+                    {% else %}
+                    <img src="{% static 'BAM.png' %}" alt="load Error">
+                    {% endif %}
+                </div>
+            </div>
+            
+            <div class="verticalLine2"></div>
+            
+            <div class="answer_container">
+                <div class="answer_header">
+                    Answer.
+                </div>
+                <div class="answer_input_button_box">
+                    <div class="answer_button_box">
+                        <button id="answer_button" onClick="answer_post()">
+                            enter.
+                        </button>
+                    </div>
+                    <div class="answer_box">
+                        <input id="answer_input" type="search" onkeydown="enter(event)" oninput="hideIcon(this)">
+                    </div>
+                </div>
+            </div>
+            {% endif %}
         {% else %}
         <div class="question_container">
             <div class="question_container_header">
@@ -105,40 +138,7 @@
                 </div>
             </div>
         </div>
-        {% endif %}
-        {% else %}
-        <div class="question_container">
-            <div class="question_container_header">
-                <p class="season_box">Season {{season}} #{{code}}</p>
-                <p class="countdown_box"></p>
-            </div>
-            <div class="question_box">
-                {% if img %}
-                <img src="{{img.url}}" alt="load Error">
-                {% else %}
-                <img src="{% static 'BAM.png' %}" alt="load Error">
-                {% endif %}
-            </div>
-        </div>
-        
-        <div class="verticalLine2"></div>
-        
-        <div class="answer_container">
-            <div class="answer_header">
-                Answer.
-            </div>
-            <div class="answer_input_button_box">
-                <div class="answer_button_box">
-                    <button id="answer_button" onClick="answer_post()">
-                        enter.
-                    </button>
-                </div>
-                <div class="answer_box">
-                    <input id="answer_input" type="search" onkeydown="enter(event)" oninput="hideIcon(this)">
-                </div>
-            </div>
-        </div>
-        {% endif %}
+        {% endif %} <!--if weekend_question-->
     {%else%}
         <div class="question_container">
             <div class="question_box">
@@ -149,8 +149,8 @@
                 {% endif %}
             </div>
         </div>
-    {%endif%}
-    {%if onoff_comment is True%}
+    {%endif%} <!--if onoff_season-->
+    {% if onoff_comment %}
     <div class="comment_container">
         <div class="comment_container_header">
             <div class="comment_container_header_today_and_my_comment">
