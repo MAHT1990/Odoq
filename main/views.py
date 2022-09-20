@@ -489,6 +489,8 @@ def comment_blind(request):
                     answer_response = "블라인드 처리되었습니다."
                     if request.user.is_superuser:
                         trgt_comment.blind_text = "관리자에 의해 블라인드 처리되었습니다."
+                    else:
+                        trgt_comment.blind_text = "작성자에 의해 블라인드 처리되었습니다."
                 
                 trgt_comment.save()
         
@@ -508,6 +510,8 @@ def comment_blind(request):
                     answer_response = "블라인드 처리되었습니다."
                     if request.user.is_superuser:
                         trgt_cocomment.blind_text = "관리자에 의해 블라인드 처리되었습니다."
+                    else:
+                        trgt_cocomment.blind_text = "작성자에 의해 블라인드 처리되었습니다."
                 trgt_cocomment.save()
     
         response_data = {
