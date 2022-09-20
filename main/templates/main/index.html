@@ -188,37 +188,19 @@
         </div> -->
         {% endif %}
         <div class="comment_list_filter">
-            {% if 'latest' in order %}
-            <button onclick="location.href='/'" style="color:rgba(0,81,200,255);">최신순 <i class="fa-solid fa-angle-down"></i></button>
-            {% else %}
-            <button onclick="location.href='/'">최신순 <i class="fa-solid fa-angle-down"></i></button>
-            {% endif %}
-
-            {% if 'like' in order %}
-            <button onclick="location.href='/comment/today/like_count/'" style="color:rgba(0,81,200,255);">오늘의 댓글 추천순 <i class="fa-solid fa-angle-down"></i></button>
-            {% else %}
-            <button onclick="location.href='/comment/today/like_count/'">오늘의 댓글 추천순 <i class="fa-solid fa-angle-down"></i></button>
-            {% endif %}
+            <button onclick="location.href='/'" {% if 'latest' in order %}style="color:rgba(0,81,200,255);"{% endif %}>최신순 <i class="fa-solid fa-angle-down"></i></button>            
+            <button onclick="location.href='/comment/today/like_count/'" {% if 'like' in order %}style="color:rgba(0,81,200,255);"{% endif %}>오늘의 댓글 추천순 <i class="fa-solid fa-angle-down"></i></button>            
         </div>
         <div class="comment_list_filter_vertical_line"></div>
         <div class="comment_list_box">
             {%for page in paginator%}
             <div class="comment_list_page" id="comment_list_page_{{page.number}}">
                     {%for comment in page%}
-                    {% if comment.user == user %}
-                    <div class = "comment_line" style="background-color:rgba(231,240,249,255);" id = "comment_id_{{comment.id}}">
-                    {% else %}
-                    <div class = "comment_line" id = "comment_id_{{comment.id}}">
-                    {% endif %}
+                    <div class = "comment_line" {% if comment.user == user %} style="background-color:rgba(231,240,249,255);" {% endif %} id = "comment_id_{{comment.id}}">                    
                         <div class = "comment_line_user_and_updated_at_and_tool_box">
                             <div class = "comment_line_user_and_updated_at">
-                                {% if comment.user.is_superuser %}
-                                <div class = "comment_line_user">{{comment.user.userprofile.nickname}}<i class="fa-solid fa-crown" style="color:rgba(255, 171, 0, 0.8);"></i></div>
+                                <div class = "comment_line_user">{{comment.user.userprofile.nickname}}{% if comment.user.is_superuser %}<i class="fa-solid fa-crown" style="color:rgba(255, 171, 0, 0.8);"></i>{% endif %}</div>
                                 <div class = "comment_line_updated_at">&nbsp{{comment.created_at}}</div>
-                                {% else %}
-                                <div class = "comment_line_user">{{comment.user.userprofile.nickname}}</div>
-                                <div class = "comment_line_updated_at">&nbsp{{comment.created_at}}</div>
-                                {% endif %}
                             </div>
                             {% if user.is_authenticated %}
                             <div class = "comment_line_tool_box_btn_and_box" id="comment_line_tool_box_btn_and_box_id_{{comment.id}}">
@@ -243,11 +225,7 @@
                             {% endif %}
                         </div>
                         {% if comment.blind %}
-                            {% if "관리자" in comment.blind_text %}
-                            <div class = "comment_line_content" id="comment_content_{{comment.id}}" style="text-decoration-line: line-through; color:rgba(0,41,100,255);">{{comment.blind_text}}</div>
-                            {% else %}
-                            <div class = "comment_line_content" id="comment_content_{{comment.id}}" style="text-decoration-line: line-through;">{{comment.blind_text}}</div>
-                            {% endif %}
+                        <div class = "comment_line_content" id="comment_content_{{comment.id}}" style="text-decoration-line: line-through; {% if '관리자' in comment.blind_text %}color:rgba(0,41,100,255);{% endif %}">{{comment.blind_text}}</div>
                         {% else %}
                         <div class = "comment_line_content" id="comment_content_{{comment.id}}">{{comment.content}}</div>
                         {% endif %}
@@ -271,13 +249,10 @@
                             <div class = "cocomment_line" id = "cocomment_id_{{cocomment.id}}">
                                 <div class = "cocomment_line_user_and_updated_at_and_tool_box">
                                     <div class = "cocomment_line_user_and_updated_at">
-                                        {% if cocomment.user.is_superuser %}
-                                        <div class = "cocomment_line_user">{{cocomment.user.userprofile.nickname}}<i class="fa-solid fa-crown" style="color:rgba(255, 171, 0, 0.8);"></i></div>
+                                        
+                                        <div class = "cocomment_line_user">{{cocomment.user.userprofile.nickname}}{% if cocomment.user.is_superuser %}<i class="fa-solid fa-crown" style="color:rgba(255, 171, 0, 0.8);"></i>{% endif %}</div>
                                         <div class = "cocomment_line_updated_at">{{cocomment.updated_at}}</div>
-                                        {% else %}
-                                        <div class = "cocomment_line_user">{{cocomment.user.userprofile.nickname}}</div>
-                                        <div class = "cocomment_line_updated_at">{{cocomment.updated_at}}</div>
-                                        {% endif %}
+                                       
                                     </div>
                                     {% if user.is_authenticated %}
                                     <div class = "cocomment_line_tool_box_btn_and_box" id="cocomment_line_tool_box_btn_and_box_id_{{cocomment.id}}">
@@ -303,11 +278,7 @@
                                 </div>
 
                                 {% if cocomment.blind %}
-                                    {% if "관리자" in cocomment.blind_text %}
-                                    <div class = "cocomment_line_content" id="cocomment_content_{{cocomment.id}}" style="text-decoration-line: line-through; color:rgba(0,41,100,255);">{{cocomment.blind_text}}</div>
-                                    {% else %}
-                                    <div class = "cocomment_line_content" id="cocomment_content_{{cocomment.id}}" style="text-decoration-line: line-through;">{{cocomment.blind_text}}</div>
-                                    {% endif %}
+                                <div class = "cocomment_line_content" id="cocomment_content_{{cocomment.id}}" style="text-decoration-line: line-through; {% if '관리자' in cocomment.blind_text %}color:rgba(0,41,100,255);{% endif %}">{{cocomment.blind_text}}</div>
                                 {% else %}
                                 <div class = "cocomment_line_content" id="cocomment_content_{{cocomment.id}}">{{cocomment.content}}</div>
                                 {% endif %}
