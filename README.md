@@ -1,2 +1,4 @@
 # Odoq
-One Day One Question
+## One Day One Question
+### 고등학생을 대상으로한 고난도 문제 제공 서비스.
+학생들의 고사기간에 맞추어 문제를 제공합니다.
